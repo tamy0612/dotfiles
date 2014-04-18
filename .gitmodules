@@ -1,0 +1,3 @@
+[submodule ".vim"]
+	path = .vim
+	url = https://github.com/tamy0612/.vim
