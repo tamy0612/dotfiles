@@ -49,4 +49,6 @@ alias R='R --no-save'
 alias diff='colordiff'
 
 # load settings
-[[ `uname` = Darwin ]]; source $ZDOTDIR/env/mac.zsh
+sysname=`uname`
+[[ $sysname = 'Darwin' ]] && source $ZDOTDIR/env/mac.zsh
+[[ $sysname = 'Linux' ]] && source $ZDOTDIR/env/linux.zsh

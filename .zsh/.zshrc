@@ -52,4 +52,4 @@ else
 fi
 
 # load local settings
-[[ -s "$HOME~/.zshrc.mine" ]]; source "$HOME/.zshrc.mine"
+[[ -s "$HOME~/.zshrc.mine" ]] && source "$HOME/.zshrc.mine"
