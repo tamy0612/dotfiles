@@ -9,6 +9,7 @@ fi
 typeset -U PATH path
 path=(
   /sbin
+  /usr/local/bin
   ${path}
 )
 
@@ -31,7 +32,7 @@ if [ -d $HOME/.anyenv ] ; then
 fi
 
 # Alias
-alias ls='ls -F --color=auto'
+alias ls='ls -F'
 alias ll='ls -lh'
 alias la='ls -A'
 alias lla='ls -lhA'
