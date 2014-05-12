@@ -8,3 +8,6 @@ alias vi=$EDITOR
 
 # D lang
 export D_IMPORT_DIR=/usr/include/dmd
+
+# R home
+export R_HOME=/usr/lib/R
