@@ -1,3 +1,6 @@
+# set ls color
+alias ls='ls -F --color=auto'
+
 # set editor to vim
 export EDITOR="/usr/local/bin/vim"
 alias vim=$EDITOR
