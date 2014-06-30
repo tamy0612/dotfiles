@@ -1,4 +1,4 @@
-export ZDOTDIR=$HOME/dotfiles/.zsh
+export ZDOTDIR=$HOME/dotfiles/zsh
 
 # load .profile
 if [ -f $HOME/.profile ] ; then
