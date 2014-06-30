@@ -1,14 +1,8 @@
 PWD = $(shell pwd)
 
 all:
-	#===========================
-	@echo move to home dir
-	@cd ~
-	#===========================
-	@echo create symlinks
-	ln -s $(PWD)/.vim
-	ln -s $(PWD)/.zsh/.zshenv
-	ln -s ~/.vim/script/vimrc
-	#===========================
-	@echo back to $(PWD)
+	@cd $(HOME)
+	@[ -d $(HOME)/.vim ] || ln -s $(PWD)/vim $(HOME)/.vim
+	@[ -e $(HOME)/.zshenv ] || ln -s $(PWD)/zsh/zshenv $(HOME)/.zshenv
 	@cd $(PWD)
+
