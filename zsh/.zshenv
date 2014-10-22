@@ -4,6 +4,7 @@ export ZDOTDIR=$HOME/dotfiles/zsh
 if [ -f $HOME/.profile ] ; then
   source $HOME/.profile
 fi
+stty -ixon -ixoff
 
 # path
 typeset -U PATH path
