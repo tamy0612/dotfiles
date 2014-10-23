@@ -3,6 +3,7 @@ export BREW_HOME=/usr/local/Cellar
 
 # D lang
 export D_HOME=$BREW_HOME/dmd/`ls $BREW_HOME/dmd | awk 'END{print $NF}'`
+export D_IMPORT_DIR=/usr/local/include/d2
 
 # php
 path=(/Applications/MAMP/bin/php/php5.4.10/bin ${path})
