@@ -44,3 +44,4 @@ alias vimdiff='/Applications/MacVim.app/Contents/MacOS/vimdiff'
 
 # rm
 alias rm='rmtrash'
+alias sysrm='/bin/rm'
