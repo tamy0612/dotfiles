@@ -1,0 +1,63 @@
+## exports
+# dir
+export ZDIR=$HOME/dotfiles/zsh
+
+# env
+export EDITOR='vim'
+
+
+# path
+typeset -U PATH path
+path=(
+  /sbin(N-/)
+  /usr/local/bin(N-/)
+  $HOME/bin(N-/)
+  ${path}
+)
+
+# sudo path
+typeset -xT SUDO_PATH sudo_path
+typeset -U sudo_path
+sudo_path=(
+  /usr/local/bin(N-/)
+  /usr/bin(N-/)
+  /sbin(N-/)
+)
+
+# D lang
+typeset -Tx D_IMPORT_DIR d_import_dir
+typeset -U d_import_dir
+d_import_dir=(
+  /usr/local/include/d2(N-/)
+  /usr/include/dmd/druntime/import(N-/)
+  /usr/include/dmd/phobos(N-/)
+)
+
+# anybenv
+if [ -d $HOME/.anyenv ] ; then
+  typeset -Tx ANYENV_ROOT anyenv_root
+  typeset -U anyenv_root
+  anyenv_root=($HOME/.anyenv)
+  path=(
+    ${anyenv_root}/bin(N-/)
+    ${path}
+  )
+  eval "$(anyenv init -)"
+fi
+
+
+## load settings depend on OSTYPE
+case ${OSTYPE} in
+  darwin*)
+    source $ZDIR/env/mac.zsh
+    ;;
+  linux*)
+    source $ZDIR/env/linux.zsh
+    ;;
+esac
+
+
+## auto compile
+if [ ! -f $HOME/.zshenv.zwc -o $HOME/.zshenv -nt $HOME/.zshenv.zwc ]; then
+  zcompile $HOME/.zshenv
+fi
