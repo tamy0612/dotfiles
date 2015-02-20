@@ -45,10 +45,10 @@ case "${TERM}" in
     if is-at-least 4.3.10; then
       zstyle ':vcs_info:*' check-for-changes true
     fi
-    zstyle ':vcs_info:*' stagedstr '%F{yellow}!'
-    zstyle ':vcs_info:*' unstagedstr '%F{red}+'
-    zstyle ':vcs_info:*' formats '%c%u%F{green}(%s)-[%r/%S:%b]'
-    zstyle ':vcs_info:*' actionformats '%F{red}(%s)-[%r/%S:%b|%a]'
+    zstyle ':vcs_info:*' stagedstr '%{${fg[yellow]}%}!%{${reset_color}%}'
+    zstyle ':vcs_info:*' unstagedstr '%{${fg[red]}%}+%{${reset_color}%}'
+    zstyle ':vcs_info:*' formats '%{${fg[green]}%}(%s)-[%c%u%{${fg[green]}%}%r:%b/%S]'
+    zstyle ':vcs_info:*' actionformats '%{${fg[red]}%}(%s)-[%r:%b/%S|%a]'
     autoload -Uz colors && colors
     prompt_main_color="%{${fg[green]}%}"
     prompt_sub_color="%{${fg[yellow]}%}"
@@ -61,7 +61,7 @@ case "${TERM}" in
       if [ -z ${vcs_info_msg_0_} ]; then
         RPROMPT="${prompt_main_color}[%~]%{${reset_color}%}"
       else
-        RPROMPT="${prompt_main_color}${vcs_info_msg_0_}%{${reset_color}%}"
+        RPROMPT="${vcs_info_msg_0_}%{${reset_color}%}"
       fi
     }
     add-zsh-hook precmd init_vcs_info
