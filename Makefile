@@ -1,9 +1,9 @@
 PWD = $(shell pwd)
 
 all:
-	make init-zsh
-	make init-vim
-	make init-gnuplot
+	$(MAKE) init-zsh
+	$(MAKE) init-vim
+	$(MAKE) init-gnuplot
 
 init-zsh:
 	@cd $(HOME)
