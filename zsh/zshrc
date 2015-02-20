@@ -55,6 +55,9 @@ case "${TERM}" in
     prompt_fail_color="%{${fg[red]}%}"
     PROMPT="%(?.${prompt_main_color}.${prompt_fail_color})%n@%m ${prompt_sub_color}%c ${prompt_main_color}%(!.#.$) %{${reset_color}%}"
     PROMPT2="${prompt_main_color}%_ > %{${reset_color}%}"
+    if [ -n "${SSH_CLIENT}${SSH_CONNECTION}" ]; then
+      PROMPT="%{${fg[cyan]}%}[ssh] "$PROMPT
+    fi
     SPROMPT="${prompt_sub_color}correct: %R -> %F{cyan}%r ${prompt_sub_color}[nyae]? %{${reset_color}%}"
     init_vcs_info(){
       LANG=en_US.UTF-8 vcs_info
