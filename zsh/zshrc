@@ -21,6 +21,14 @@ case "${TERM}" in
 esac
 
 # colors
+local DEFAULT='%{[m%}'
+local RED='%{[1;31m%}'
+local GREEN='%{[1;32m%}'
+local YELLOW='%{[1;33m%}'
+local BLUE='%{[1;34m%}'
+local MAGENTA='%{[1;35m%}'
+local CYAN='%{[1;36m%}'
+local WHITE='%{[1;37m%}'
 case "${OSTYPE}" in
   darwin*)
     export CLICOLOR=1
@@ -50,15 +58,13 @@ case "${TERM}" in
     zstyle ':vcs_info:*' formats '%{${fg[green]}%}(%s)-[%c%u%{${fg[green]}%}%r:%b/%S]'
     zstyle ':vcs_info:*' actionformats '%{${fg[red]}%}(%s)-[%r:%b/%S|%a]'
     autoload -Uz colors && colors
-    prompt_main_color="%{${fg[green]}%}"
-    prompt_sub_color="%{${fg[yellow]}%}"
-    prompt_fail_color="%{${fg[red]}%}"
+    local prompt_main_color='%{${fg[green]}%}'
+    local prompt_sub_color='%{${fg[yellow]}%}'
+    local prompt_fail_color='%{${fg[red]}%}'
+    local prompt_ssh_color='%{${fg[cyan]}%}'
     PROMPT="%(?.${prompt_main_color}.${prompt_fail_color})%n@%m ${prompt_sub_color}%c ${prompt_main_color}%(!.#.$) %{${reset_color}%}"
     PROMPT2="${prompt_main_color}%_ > %{${reset_color}%}"
-    if [ -n "${SSH_CLIENT}${SSH_CONNECTION}" ]; then
-      PROMPT="%{${fg[cyan]}%}[ssh] "$PROMPT
-    fi
-    SPROMPT="${prompt_sub_color}correct: %R -> %F{cyan}%r ${prompt_sub_color}[nyae]? %{${reset_color}%}"
+    SPROMPT="${prompt_fail_color}correct: ${prompt_sub_color}%R ${prompt_fail_color}-> ${prompt_main_color}%r ${prompt_fail_color}[nyae]? %{${reset_color}%}"
     init_vcs_info(){
       LANG=en_US.UTF-8 vcs_info
       if [ -z ${vcs_info_msg_0_} ]; then
@@ -70,6 +76,9 @@ case "${TERM}" in
     add-zsh-hook precmd init_vcs_info
     ;;
 esac
+if [ -n "${SSH_CLIENT}${SSH_CONNECTION}" ]; then
+  PROMPT=$CYAN"[ssh] "$PROMPT$DEFAULT
+fi
 
 
 ## options
@@ -83,12 +92,23 @@ zstyle :compinstall filename '~/.zshrc'
 autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*:default' menu select=1
+zstyle ':completion:*' verbose true
+zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' use-cache true
+zstyle ':completion:*' list-separator '--->'
+zstyle ':completion:*:default' menu select=2
+zstyle ':completion:*:options' description 'yes'
+zstyle ':completion:*:messages' format $YELLOW'%d'$DEFAULT
+zstyle ':completion:*:warnings' format $RED'No matches for:'$YELLOW' %d'$DEFAULT
+zstyle ':completion:*:descriptions' format $YELLOW'----- completing %B%d%b'$DEFAULT
+zstyle ':completion:*:corrections' format $YELLOW'%B%d '$RED'(errors: %e)%b'$DEFAULT
 zstyle ':completion:*:sudo:*' command-path ${sudo_path}
+zstyle ':completion:*:manuals' separate-sections true
+zstyle ':completion:*:cd:*' ignore-parents parent pwd
 setopt correct
 setopt auto_list
 setopt auto_menu
-setopt equals
 setopt complete_aliases
 setopt list_packed
 setopt auto_param_keys
@@ -96,18 +116,28 @@ setopt auto_param_slash
 setopt auto_remove_slash
 setopt mark_dirs
 setopt brace_ccl
+setopt equals
+setopt magic_equal_subst
+setopt complete_in_word
+setopt extended_glob
+setopt nolistbeep
 bindkey "[Z" reverse-menu-complete
 
 # Histry
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
+setopt share_history
 setopt extended_history
-setopt hist_ignore_all_dups
 setopt hist_save_no_dups
-setopt hist_ignore_space
+setopt hist_ignore_all_dups
+#setopt hist_ignore_space
 setopt hist_reduce_blanks
 setopt hist_no_store
+if [ $UID -eq 0 ]; then
+  unset HISTFILE
+  SAVEHIST=0
+fi
 
 # move
 setopt auto_cd
