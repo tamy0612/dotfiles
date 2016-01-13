@@ -35,6 +35,10 @@ NeoBundleLazy 'Shougo/echodoc.vim', {
       \ 'insert' : 1
       \ }
 
+NeoBundleLazy 'koron/codic-vim', {
+      \ 'insert' : 1
+      \ }
+
 
 " ctags & cscope
 NeoBundleLazy 'taglist.vim', {
@@ -93,6 +97,11 @@ NeoBundleLazy 'pasela/unite-webcolorname', {
 NeoBundleLazy 'ujihisa/unite-colorscheme', {
       \ 'depends' : 'Shougo/unite.vim',
       \ 'unite_sources' : ['colorscheme'],
+      \ }
+
+NeoBundleLazy 'rhysd/unite-codic.vim', {
+      \ 'depends' : ['Shougo/unite.vim', 'koron/codic-vim'],
+      \ 'unite_sources' : ['codic']
       \ }
 
 
