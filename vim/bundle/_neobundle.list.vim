@@ -12,7 +12,7 @@ NeoBundle 'Shougo/vimproc', {
 
 " completion
 if has('nvim') && has('python3')
-  let g:python3_host_prog = expand('$PYENV_ROOT') . '/shims/python'
+  let g:python3_host_prog = $PYENV_ROOT.'/shims/python3'
   NeoBundleLazy 'Shougo/deoplete.nvim', {
         \ 'insert' : 1,
         \ }
