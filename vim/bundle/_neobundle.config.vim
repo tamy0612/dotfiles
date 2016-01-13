@@ -42,9 +42,9 @@ endif
 
 " completion "{{{
 if has('nvim') && has('python3')
-  let g:compl_plug = 'neocomplete.vim'
-else
   let g:compl_plug = 'deoplete.nvim'
+else
+  let g:compl_plug = 'neocomplete.vim'
 endif
 if neobundle#tap(g:compl_plug)
   let neobundle#hooks.on_source = s:hook_path('on_source/'.g:compl_plug)
