@@ -1,0 +1,3 @@
+source $VIMDIR."/rc/gui.vim"
+colorscheme coding
+set background=dark

@@ -1,0 +1,30 @@
+snippet object
+  object ${1:Object name}{
+
+    ${2:code}
+
+  }
+
+snippet class
+  class ${1:class name}{
+
+    ${2:code}
+
+  }
+
+snippet main
+  object ${1:Object name}{
+
+    def main( args: Array[String] ) : Unit = {
+      ${2:code}
+    }
+
+  }
+
+snippet match
+  match {
+    case ${1:case} => ${2:code}
+  }
+
+snippet case
+  case ${1:case} => ${2:code}

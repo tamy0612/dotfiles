@@ -1,0 +1,20 @@
+# ls family
+alias ll='ls -lh'
+alias la='ls -A'
+alias lla='ls -lhA'
+alias lr='ls -R'
+alias llr='ll -R'
+alias lar='la -R'
+alias llar='lla -R'
+alias ..='cd ..'
+
+
+# clear
+alias cl='clear'
+alias cls='clear; ls'
+
+
+# shortcuts
+alias hist='history'
+alias datef='date "+%Y%m%d_%H%M%S"'
+alias q='exit'

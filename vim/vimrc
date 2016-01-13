@@ -1,0 +1,199 @@
+"================================================
+" tamy's .vimrc
+"================================================
+" finish loading if vim <= small
+if !1 | finish | end
+
+
+"================================================
+" Initialize
+"================================================
+let g:is_windows  = has('win16') || has('win32') || has('win64')
+let g:is_cygwin   = has('win32unix')
+let g:is_osx      = !g:is_windows && !g:is_cygwin
+      \ && ( has('mac') || has('macunix') || has('gui_macvim')
+      \       || ( !executable('xdg-open') && system('uname') =~? '^darwin' ) )
+let g:is_linux    = !g:is_windows && !g:is_cygwin && !g:is_osx && has('unix')
+
+let g:is_gui = has('gui_running')
+
+if g:is_windows
+  language message en
+  set shellslash
+else
+  language message C
+endif
+
+let $VIMDIR   = $HOME . '/.vim'
+let $MYVIMRC  = $HOME . '/.vimrc'
+if filereadable( $HOME . '/.vimrc.mine' )
+  let $SECRETVIMRC = $HOME . '/.vimrc.mine'
+  source $SECRETVIMRC
+  let g:secret_vimrc_loaded = 1
+endif
+if g:is_gui
+  let $MYGVIMRC = $HOME . '/.gvimrc'
+endif
+
+function s:load_setting(path)
+  execute 'source' fnameescape(expand($VIMDIR.'/rc/'.a:path))
+endfunction
+
+
+"================================================
+" Set runtimepath for windows
+"================================================
+if g:is_windows
+  set runtimepath^=$VIMDIR
+  set runtimepath+=$VIMDIR/after
+endif
+
+
+"================================================
+" neobundle
+"================================================
+if has('vim_starting') && isdirectory($VIMDIR.'/bundle/neobundle.vim')
+  set runtimepath+=$VIMDIR/bundle/neobundle.vim
+  let g:enable_neobundle = 1
+endif
+
+if exists('g:enable_neobundle')
+
+  let g:neobundle#enable_tail_path = 1
+  let g:neobundle#default_options = {}
+
+  call neobundle#begin( expand($VIMDIR.'/bundle/') )
+
+  " Default plugins
+  call s:load_setting('neobundle.list.vim')
+  " local plugins
+  if filereadable( $HOME . '/.neobundle.local' )
+    let $LOCALBUNDLES = $HOME . '/.neobundle.local'
+    source $LOCALBUNDLES
+  endif
+
+  call neobundle#end()
+  NeoBundleCheck
+
+  let g:neobundle_loaded = 1
+
+endif
+
+filetype plugin indent on
+syntax enable
+
+
+"================================================
+" environment
+"================================================
+" Set backupdir $HOME/.vim/back
+set backupdir=$VIMDIR/back
+" Don't make the swapfile
+set noswapfile
+"let &directory = &backupdir
+" Make undofile
+set undofile
+let &undodir = &backupdir
+" use login shell
+set shell=zsh
+
+
+"================================================
+" encode
+"================================================
+call s:load_setting('encode.vim')
+
+
+"================================================
+" view
+"================================================
+" Set title the file path
+let &titleold = ""
+let &titlestring = "%f"
+" Show row number
+set number
+augroup numberwidth
+  autocmd!
+  autocmd BufEnter,WinEnter,BufWinEnter * let &l:numberwidth = len(line("$")) + 2
+augroup END
+" Don't show escape chars
+set nolist
+" Show status line
+set laststatus=2
+" cmd height = 1
+set cmdheight=1
+" Show commandsd
+set showcmd
+" colors
+set t_Co=256
+set background=dark
+colorscheme moonshade
+syntax on
+" Show matches
+set showmatch
+
+"================================================
+" edit
+"================================================
+call s:load_setting('edit.vim')
+
+
+"================================================
+" plugin configurations
+"================================================
+augroup AutoCmd "{{{
+  autocmd!
+  " mkdir when the target directory does not exist
+  autocmd BufWritePre * call hook#write#auto_mkdir( expand('<afile>:p:h'), v:cmdbang )
+  " remove extra spaces
+  autocmd BufWritePre * call hook#write#space_clean()
+  " reload ~/.vimrc when it was updated
+  autocmd BufWritePost $MYVIMRC source $MYVIMRC
+  " reload ~/.vimrc.mine when it was updated  => only when .vimrc.mine exists
+  if exists('g:secret_vimrc_loaded')
+    autocmd BufWritePost $SECRETVIMRC source $SECRETVIMRC
+  endif
+  " reload ~/.gvimrc when it was updated  => only used in gVim
+  if g:is_gui
+    autocmd BufWritePost $MYGVIMRC source $MYGVIMRC
+  endif
+  " autocmd for each filetype
+  autocmd FileType gitcommit execute "normal! gg"
+  " omnifunc
+  "autocmd FileType ada setlocal omnifunc=adacomplete#Complete
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
+  autocmd FileType c setlocal omnifunc=ccomplete#Complete
+  autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+  autocmd FileType java setlocal omnifunc=javacomplete#Complete
+  autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+  if has('python3')
+    autocmd FileType python setlocal omnifunc=python3complete#Complete
+  else
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  endif
+augroup END "}}}
+
+" NeoBundle Config
+if exists('g:neobundle_loaded')
+  call s:load_setting('plugins.config.vim')
+  call neobundle#call_hook('on_source')
+endif
+
+
+"================================================
+" key mappings
+"================================================
+call s:load_setting('keymap.vim')
+
+
+"================================================
+" GUI setting
+"================================================
+if g:is_gui
+  call s:load_setting('gui.vim')
+endif
+
+" vim:ft=vim:ts=2:sw=2
