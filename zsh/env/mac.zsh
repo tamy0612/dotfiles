@@ -36,11 +36,18 @@ fi
 
 ## Alias
 # vim
-export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim'
+case ${EDITOR} in
+  vim)
+    export EDITOR='/Applications/MacVim.app/Contents/MacOS/Vim'
+    alias vim="env LANG=ja_JP.UTF-8 ${EDITOR}"
+    alias gvim='/Applications/MacVim.app/Contents/MacOS/MacVim'
+    alias vimdiff='/Applications/MacVim.app/Contents/MacOS/vimdiff'
+    ;;
+  *)
+    alias vim=$EDITOR
+    ;;
+esac
 alias vi='vim'
-alias gvim='/Applications/MacVim.app/Contents/MacOS/MacVim'
-alias vimdiff='/Applications/MacVim.app/Contents/MacOS/vimdiff'
 
 # rm
 alias rm='rmtrash'

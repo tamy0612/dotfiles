@@ -1,5 +1,5 @@
 function! s:hook_path(path)
-  return fnameescape(expand($VIMDIR.'/rc/plugins.config/'.a:path))
+  return fnameescape(expand($VIMDIR.'/bundle/_config/'.a:path))
 endfunction
 
 
@@ -40,10 +40,16 @@ endif
 "}}}
 
 
-" neocomplete "{{{
-if neobundle#tap('neocomplete.vim')
-  let neobundle#hooks.on_source = s:hook_path('on_source/neocomplete.vim')
+" completion "{{{
+if has('nvim') && has('python3')
+  let g:compl_plug = 'neocomplete.vim'
+else
+  let g:compl_plug = 'deoplete.nvim'
 endif
+if neobundle#tap(g:compl_plug)
+  let neobundle#hooks.on_source = s:hook_path('on_source/'.g:compl_plug)
+endif
+unlet g:compl_plug
 "}}}
 
 

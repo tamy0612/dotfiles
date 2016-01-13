@@ -11,10 +11,17 @@ NeoBundle 'Shougo/vimproc', {
 
 
 " completion
-NeoBundleLazy 'Shougo/neocomplete.vim', {
-      \ 'depends' : 'Shougo/context_filetype.vim',
-      \ 'insert' : 1,
-      \ }
+if has('nvim') && has('python3')
+  let g:python3_host_prog = expand('$PYENV_ROOT') . '/shims/python'
+  NeoBundleLazy 'Shougo/deoplete.nvim', {
+        \ 'insert' : 1,
+        \ }
+else
+  NeoBundleLazy 'Shougo/neocomplete.vim', {
+        \ 'depends' : 'Shougo/context_filetype.vim',
+        \ 'insert' : 1,
+        \ }
+endif
 
 NeoBundleLazy 'Shougo/neosnippet.vim', {
       \ 'depends' : ['Shougo/neosnippet-snippets', 'Shougo/context_filetype.vim'],

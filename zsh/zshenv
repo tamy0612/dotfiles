@@ -1,10 +1,6 @@
-## exports
 # dir
 export ZDIR=$HOME/dotfiles/zsh
-
-# env
-export EDITOR='vim'
-
+export XDG_CONFIG_DIR=$HOME/.config
 
 # path
 typeset -U PATH path
@@ -23,6 +19,15 @@ sudo_path=(
   /usr/bin(N-/)
   /sbin(N-/)
 )
+
+# env
+if [ -x "`which nvim`" ] ; then
+  export EDITOR='nvim'
+elif [ -x "`which vim`" ] ; then
+  export EDITOR='vim'
+else
+  export EDITOR='vi'
+fi
 
 # D lang
 typeset -Tx D_IMPORT_DIR d_import_dir

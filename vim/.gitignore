@@ -1,0 +1,4 @@
+back/
+bundle/
+ftplugin/gitcommit.vim
+tmp/

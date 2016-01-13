@@ -1,6 +1,4 @@
 tmp/
-vim/bundle/*
 vim/back/
+vim/bundle/
 zsh/.zcompdump
-
-!vim/bundle/.gitkeep

@@ -20,7 +20,7 @@ let g:syntastic_always_populate_loc_list = 2
 
 " C/C++ config
 let g:syntastic_ignore_files = ['\m^/usr\(/local\)\-/\(include\|lib\)']
-let g:syntastic_cpp_compiler_options = "-std=c++11"
+let g:syntastic_cpp_compiler_options = "-std=c++1y"
 let include_list = [
       \ '/usr/include',
       \ '/usr/local/include',

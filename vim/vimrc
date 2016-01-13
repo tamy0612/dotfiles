@@ -1,6 +1,3 @@
-"================================================
-" tamy's .vimrc
-"================================================
 " finish loading if vim <= small
 if !1 | finish | end
 
@@ -24,20 +21,19 @@ else
   language message C
 endif
 
-let $VIMDIR   = $HOME . '/.vim'
-let $MYVIMRC  = $HOME . '/.vimrc'
+if has('nvim')
+  let $VIMDIR   = $HOME . '/.vim'
+else
+  let $VIMDIR   = $XDG_CONFIG_DIR . '/nvim'
+endif
 if filereadable( $HOME . '/.vimrc.mine' )
   let $SECRETVIMRC = $HOME . '/.vimrc.mine'
   source $SECRETVIMRC
   let g:secret_vimrc_loaded = 1
 endif
 if g:is_gui
-  let $MYGVIMRC = $HOME . '/.gvimrc'
+  let $MYGVIMRC = $VIMDIR . '/.gvimrc'
 endif
-
-function s:load_setting(path)
-  execute 'source' fnameescape(expand($VIMDIR.'/rc/'.a:path))
-endfunction
 
 
 "================================================
@@ -47,40 +43,6 @@ if g:is_windows
   set runtimepath^=$VIMDIR
   set runtimepath+=$VIMDIR/after
 endif
-
-
-"================================================
-" neobundle
-"================================================
-if has('vim_starting') && isdirectory($VIMDIR.'/bundle/neobundle.vim')
-  set runtimepath+=$VIMDIR/bundle/neobundle.vim
-  let g:enable_neobundle = 1
-endif
-
-if exists('g:enable_neobundle')
-
-  let g:neobundle#enable_tail_path = 1
-  let g:neobundle#default_options = {}
-
-  call neobundle#begin( expand($VIMDIR.'/bundle/') )
-
-  " Default plugins
-  call s:load_setting('neobundle.list.vim')
-  " local plugins
-  if filereadable( $HOME . '/.neobundle.local' )
-    let $LOCALBUNDLES = $HOME . '/.neobundle.local'
-    source $LOCALBUNDLES
-  endif
-
-  call neobundle#end()
-  NeoBundleCheck
-
-  let g:neobundle_loaded = 1
-
-endif
-
-filetype plugin indent on
-syntax enable
 
 
 "================================================
@@ -101,7 +63,48 @@ set shell=zsh
 "================================================
 " encode
 "================================================
-call s:load_setting('encode.vim')
+set enc=utf-8
+set fenc=utf-8
+set fencs=iso-2022-jp,utf-8,euc-jp,cp932
+set formatoptions&
+set formatoptions+=mM
+set formatexpr=autofmt#japanese#formatexpr()
+set fileformat=unix
+set fileformats=unix,mac,dos
+
+
+"================================================
+" neobundle
+"================================================
+if has('vim_starting') && isdirectory($VIMDIR.'/bundle/neobundle.vim')
+  set runtimepath+=$VIMDIR/bundle/neobundle.vim
+  let g:enable_neobundle = 1
+endif
+
+if exists('g:enable_neobundle')
+
+  let g:neobundle#enable_tail_path = 1
+  let g:neobundle#default_options = {}
+
+  call neobundle#begin( expand($VIMDIR.'/bundle/') )
+
+  " Default plugins
+  source $VIMDIR/bundle/_neobundle.list.vim
+  " local plugins
+  if filereadable( $HOME . '/.neobundle.local' )
+    let $LOCALBUNDLES = $HOME . '/.neobundle.local'
+    source $LOCALBUNDLES
+  endif
+
+  call neobundle#end()
+  NeoBundleCheck
+
+  let g:neobundle_loaded = 1
+
+endif
+
+filetype plugin indent on
+syntax enable
 
 
 "================================================
@@ -135,7 +138,44 @@ set showmatch
 "================================================
 " edit
 "================================================
-call s:load_setting('edit.vim')
+" Indent
+set autoindent
+set smartindent
+set cindent
+set cinoptions&
+"set cinoptions+=:0,g4,N0,h0,f0
+set cinoptions+=h0,(4,Us,p0
+" Tab
+set tabstop=8
+set softtabstop=2
+set shiftwidth=2
+set smarttab
+set expandtab
+" Folding
+set foldmethod=marker
+set foldlevelstart=0
+" wrapping
+set whichwrap=b,s,h,l,<,>,[,]
+set backspace=indent,eol,start
+set wildmenu
+" Hiden buffer
+set hidden
+" Deny auto CR
+set textwidth=0
+" window
+set splitright
+set splitbelow
+set scrolloff=10
+set lazyredraw
+set modeline
+
+" search
+set hlsearch
+set nowrapscan
+set ignorecase
+set smartcase
+set incsearch
+set wildignore=*.o,*.class,*.beam,*.dvi,*.pdf
 
 
 "================================================
@@ -178,7 +218,7 @@ augroup END "}}}
 
 " NeoBundle Config
 if exists('g:neobundle_loaded')
-  call s:load_setting('plugins.config.vim')
+  source $VIMDIR/bundle/_neobundle.config.vim
   call neobundle#call_hook('on_source')
 endif
 
@@ -186,14 +226,68 @@ endif
 "================================================
 " key mappings
 "================================================
-call s:load_setting('keymap.vim')
+" cursor
+imap OA <UP>
+imap OB <Down>
+imap OC <Right>
+imap OD <Left>
+nnoremap j gj
+onoremap j gj
+xnoremap j gj
+nnoremap k gk
+onoremap k gk
+xnoremap k gk
+nnoremap <Down> gj
+nnoremap <Up> gk
+
+" mode change
+imap <C-@> <C-[>
+
+" window
+nnoremap <Tab> <C-w>w
+nnoremap <C-S-h> <C-w>h
+nnoremap <C-S-Left> <C-w><Left>
+nnoremap <C-S-j> <C-w>j
+nnoremap <C-S-Down> <C-w><Down>
+nnoremap <C-S-k> <C-w>k
+nnoremap <C-S-Up> <C-w><Up>
+nnoremap <C-S-l> <C-w>l
+nnoremap <C-S-Right> <C-w><Right>
+
+" indent
+xnoremap <TAB>  >
+xnoremap <S-TAB>  <
+nnoremap > >>
+nnoremap < <<
+xnoremap > >gv
+xnoremap < <gv
+nnoremap <silent> <Leader>= :<C-u>execute "normal!gg=G"<CR>
+
+" edit
+nnoremap <Leader>e :<C-u>e
+nnoremap <Leader>en :<C-u>enew<CR>
+nnoremap <Leader>es :<C-u>Scratch<CR>
+nmap <Esc><Esc> :<C-u>nohlsearch<CR><Esc>
+
+" quick help
+nnoremap <C-h> :<C-u>help<Space><C-r><C-w><CR>
 
 
 "================================================
 " GUI setting
 "================================================
 if g:is_gui
-  call s:load_setting('gui.vim')
+  set showtabline=2
+  set imdisable
+  set antialias
+  set guifont=Ricty\ 12
+  set guioptions&
+  set guioptions-=T
+  set guicursor=a:blinkon0
+  set lines=52 columns=120
+  if g:is_windows
+    set transparency=10
+  endif
 endif
 
 " vim:ft=vim:ts=2:sw=2

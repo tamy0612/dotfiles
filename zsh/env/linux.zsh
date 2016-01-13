@@ -2,9 +2,12 @@
 alias ls='ls -F --color=auto'
 
 # set editor to vim
-export EDITOR="/usr/bin/vi"
-[[ -x "/usr/bin/vim" ]] && export EDITOR="/usr/bin/vim"
-[[ -x "/usr/local/bin/vim" ]] && export EDITOR="/usr/local/bin/vim"
+case $EDITOR in
+  vim)
+    [[ -x "/usr/bin/vim" ]] && export EDITOR="/usr/bin/vim"
+    [[ -x "/usr/local/bin/vim" ]] && export EDITOR="/usr/local/bin/vim"
+    ;;
+esac
 alias vim=$EDITOR
 alias vi=$EDITOR
 
