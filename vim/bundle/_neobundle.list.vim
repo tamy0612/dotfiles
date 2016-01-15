@@ -288,7 +288,11 @@ NeoBundleLazy 'tamy0612/d.vim', {
       \ }
 
 NeoBundleLazy 'rhysd/vim-crystal', {
-      \ 'filetype' : 'crystal',
+      \ 'filetypes' : 'crystal',
+      \ }
+
+NeoBundleLazy 'zah/nim.vim', {
+      \ 'filetypes' : 'nim',
       \ }
 
 NeoBundleLazy 'jiangmiao/simple-javascript-indenter', {
