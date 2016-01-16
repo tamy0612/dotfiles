@@ -22,9 +22,9 @@ else
 endif
 
 if has('nvim')
-  let $VIMDIR   = $HOME . '/.vim'
-else
   let $VIMDIR   = $XDG_CONFIG_DIR . '/nvim'
+else
+  let $VIMDIR   = $HOME . '/.vim'
 endif
 if filereadable( $HOME . '/.vimrc.mine' )
   let $SECRETVIMRC = $HOME . '/.vimrc.mine'
