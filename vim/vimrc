@@ -273,6 +273,11 @@ nmap <Esc><Esc> :<C-u>nohlsearch<CR><Esc>
 nnoremap <C-h> :<C-u>help<Space><C-r><C-w><CR>
 
 
+if has('nvim')
+  tnoremap <Esc> <C-\><C-n>
+endif
+
+
 "================================================
 " GUI setting
 "================================================

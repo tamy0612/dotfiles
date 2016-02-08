@@ -141,6 +141,12 @@ if neobundle#tap('syntastic')
 endif
 "}}}
 
+" easymotion "{{{
+if neobundle#tap('vim-easymotion')
+  let neobundle#hooks.on_source = s:hook_path('on_source/easymotion.vim')
+  call neobundle#untap()
+endif
+"}}}
 
 " operator-replace "{{{
 if neobundle#tap('vim-operator-replace')

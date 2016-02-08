@@ -218,6 +218,8 @@ NeoBundleLazy 'scrooloose/syntastic', {
       \ 'insert' : 1
       \ }
 
+NeoBundle 'easymotion/vim-easymotion'
+
 
 " operator
 NeoBundleLazy 'kana/vim-operator-user', {

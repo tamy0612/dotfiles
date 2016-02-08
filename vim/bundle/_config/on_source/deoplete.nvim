@@ -9,6 +9,7 @@ let g:deoplete#min_keyword_length           = 3
 let g:deoplete#lock_buffer_name_pattern     = '\*ku\*'
 let g:deoplete#auto_completion_start_length = 2
 let g:deoplete#enable_auto_select           = 0
+let g:deoplete#disable_auto_complete        = 1
 
 " dict
 let g:deoplete#dictionary_filetype_lists = {
