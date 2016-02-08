@@ -47,7 +47,7 @@ if [ -d $HOME/.anyenv ] ; then
     ${anyenv_root}/bin(N-/)
     ${path}
   )
-  eval "$(anyenv init -)"
+  eval "$(anyenv init - --no-rehash)"
 fi
 
 
