@@ -69,6 +69,10 @@ endif
 
 
 " ctags "{{{
+set tags+=.tags
+if has('path_extra')
+  set tags+=tags;,.tags;
+endif
 if neobundle#tap('ctags.vim')
   let neobundle#hooks.on_source = s:hook_path('on_source/ctags.vim')
   call neobundle#untap()
