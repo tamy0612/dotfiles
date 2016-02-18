@@ -134,7 +134,7 @@ let s:plugin_manager.dir = expand(s:plugin_dir . '/' . s:plugin_manager['name'])
 if !isdirectory(s:plugin_manager['dir'])
   if executable('git')
     echo "Downloading plugin manager..."
-    execute '!git clone https://github.com/Shougo/neobundle.vim' s:plugin_manager['dir']
+    execute '!git clone https://github.com/Shougo/'.s:plugin_manager['name'] s:plugin_manager['dir']
   endif
 endif
 if !isdirectory(s:plugin_manager.dir)
@@ -144,24 +144,46 @@ endif
 
 if exists('s:plugin_manager')
 
-  if &runtimepath !~ '/neobundle.vim'
+  if &runtimepath !~ '/'.s:plugin_manager['name']
     execute 'set runtimepath^=' . fnamemodify(s:plugin_manager['dir'], ':p')
   endif
 
-  let g:neobundle#enable_tail_path = 1
-  let g:neobundle#default_options = {}
+  if s:plugin_manager.name == 'neobundle.vim'
 
-  call neobundle#begin( expand(s:plugin_dir) )
+    let g:neobundle#enable_tail_path = 1
+    let g:neobundle#default_options = {}
 
-  " Default plugins
-  call s:source_config("plugins.list.vim")
-  " local plugins
-  if filereadable( $HOME . '/.neobundle.local' )
-    execute 'source' expand('$HOME/.neobundle.local')
+    call neobundle#begin( expand(s:plugin_dir) )
+
+    " Default plugins
+    call s:source_config("plugins.list.vim")
+    " local plugins
+    if filereadable( $HOME . '/.neobundle.local' )
+      execute 'source' expand('$HOME/.neobundle.local')
+    endif
+
+    call neobundle#end()
+    NeoBundleCheck
+
+  else
+
+    call dein#begin(expand(s:plugin_dir.'/dein'))
+
+    let s:toml_path = expand('$VIMDIR/config/plugins.default.toml')
+    let s:toml_lazy_path = expand('$VIMDIR/config/plugins.lazy.toml')
+
+    if dein#load_cache([expand('<sfile>'), s:toml_path, s:toml_lazy_path])
+      call dein#add('Shougo/dein.vim', {'rtp': ''})
+      call dein#load_toml(s:toml_path)
+      call dein#load_toml(s:toml_lazy_path, {'lazy' : 1})
+      call dein#save_cache()
+    endif
+
+    "call s:source_config('plugins.config.vim')
+
+    call dein#end()
+
   endif
-
-  call neobundle#end()
-  NeoBundleCheck
 
   let s:plugin_loaded = 1
 
