@@ -1,0 +1,306 @@
+"================================================
+" System
+"================================================
+if &compatible
+  set nocompatible
+endif
+
+let s:is_windows = has('win16') || has('win32') || has('win64')
+let s:is_cygwin  = has('win32unix')
+let s:is_sudo    = $SUDO_USER !=# '' && $USER !=# $SUDO_USER
+                   \ && $HOME !=# expand('~'.$USER)
+                   \ && $HOME ==# expand('~'.$SUDO_USER)
+let s:is_gui     = has('gui_running')
+let s:is_nvim    = has('nvim')
+
+function! IsWindows() abort
+  return s:is_windows || s:is_cygwin
+endfunction
+
+function! IsMac() abort
+  return !IsWindows()
+          \ && ( has('mac') || has('macunix') || has('gui_macvim')
+          \      || ( !executable('xdg-open') && system('uname') =~? '^darwin' ) )
+endfunction
+
+function! IsLinux()
+  return !IsWindows() && !IsMac() && has('unix')
+endfunction
+
+function! IsSUDO()
+  return s:is_sudo
+endfunction
+
+function! IsGUI() abort
+  return s:is_gui
+endfunction
+
+function! IsNVim()
+  return s:is_nvim
+endfunction
+
+
+"================================================
+" Initialize
+"================================================
+function! s:source_config( path ) abort
+  execute 'source' fnameescape( $VIMDIR . '/config/' . a:path )
+endfunction
+
+"" My augroup
+augroup MyCmdGroup
+  autocmd!
+augroup END
+
+"" message lang
+if IsWindows()
+  language message en
+else
+  language message C
+endif
+
+"" Private vimrc
+if filereadable( $HOME . '/.vimrc.mine' )
+  let g:private_vimrc = $HOME . '/.vimrc.mine'
+  execute 'source' g:private_vimrc
+endif
+
+"" Runtime path
+if IsWindows()
+  set runtimepath^=$VIMDIR
+  set runtimepath+=$VIMDIR/after
+endif
+
+"" Shell
+set shell=zsh
+if IsWindows()
+  set shellslash
+endif
+
+"" Cache
+if !exists('$CACHE_DIR')
+  let $CACHE_DIR = expand('~/.cache')
+endif
+if !isdirectory(expand($CACHE_DIR))
+  echo "Creating cache dir..."
+  call mkdir(expand($CACHE_DIR), 'p')
+endif
+
+"" Backup
+set backupdir=$CACHE_DIR/vim/back
+if !isdirectory(expand(&backupdir))
+  echo "Creating backup dir..."
+  call mkdir(expand(&backupdir), 'p')
+endif
+set noswapfile
+set undofile
+let &undodir = &backupdir
+
+
+"================================================
+" encoding
+"================================================
+if has('vim_starting')
+  set enc=utf-8
+  set fencs=ucs-bom,iso-2022-jp,euc-jp,utf-8,cp932,cp20932
+endif
+
+set fileformat=unix
+set fileformats=unix,mac,dos
+
+set formatoptions&
+set formatoptions+=mM
+set formatexpr=autofmt#japanese#formatexpr()
+
+if has('multi_byte_ime')
+  set iminsert=0 imsearch=0
+endif
+
+
+"================================================
+" Plugins
+"================================================
+"" Plugin dir
+let s:plugin_dir = expand('$CACHE_DIR/vim/plugins')
+if !isdirectory(s:plugin_dir)
+  echo "Creating plugin dir..."
+  call mkdir(s:plugin_dir, 'p')
+endif
+
+"" Load plugin manager
+let s:plugin_manager = expand(s:plugin_dir.'/neobundle.vim')
+if !isdirectory(s:plugin_manager)
+  if executable('git')
+    echo "Downloading plugin manager..."
+    execute '!git clone https://github.com/Shougo/neobundle.vim' s:plugin_manager
+  endif
+endif
+if !isdirectory(s:plugin_manager)
+  unlet s:plugin_manager
+  echo "Plugin manager is not installed"
+endif
+
+if exists('s:plugin_manager')
+
+  if &runtimepath !~ '/neobundle.vim'
+    execute 'set runtimepath^=' . fnamemodify(s:plugin_manager, ':p')
+  endif
+
+  let g:neobundle#enable_tail_path = 1
+  let g:neobundle#default_options = {}
+
+  call neobundle#begin( expand(s:plugin_dir) )
+
+  " Default plugins
+  call s:source_config("plugins.list.vim")
+  " local plugins
+  if filereadable( $HOME . '/.neobundle.local' )
+    execute 'source' expand('$HOME/.neobundle.local')
+  endif
+
+  call neobundle#end()
+  NeoBundleCheck
+
+  let s:plugin_loaded = 1
+
+endif
+
+filetype plugin indent on
+syntax enable
+
+augroup MyCmdGroup
+  " mkdir when the target directory does not exist
+  autocmd BufWritePre * call hook#write#auto_mkdir( expand('<afile>:p:h'), v:cmdbang )
+  " remove extra spaces
+  autocmd BufWritePre * call hook#write#space_clean()
+  " reload ~/.vimrc when it was updated
+  autocmd BufWritePost $MYVIMRC source $MYVIMRC
+  " reload ~/.vimrc.mine when it was updated  => only when .vimrc.mine exists
+  if exists('g:private_vimrc')
+    autocmd BufWritePost $SECRETVIMRC source $SECRETVIMRC
+  endif
+  " reload ~/.gvimrc when it was updated  => only used in gVim
+  if IsGUI()
+    autocmd BufWritePost $MYGVIMRC source $MYGVIMRC
+  endif
+  " autocmd for each filetype
+  autocmd FileType gitcommit execute "normal! gg"
+  " omnifunc
+  "autocmd FileType ada setlocal omnifunc=adacomplete#Complete
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
+  autocmd FileType c setlocal omnifunc=ccomplete#Complete
+  autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+  autocmd FileType java setlocal omnifunc=javacomplete#Complete
+  autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+  if has('python3')
+    autocmd FileType python setlocal omnifunc=python3complete#Complete
+  else
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  endif
+augroup END
+
+" NeoBundle Config
+if exists('s:plugin_loaded')
+  source $VIMDIR/config/plugins.config.vim
+  call neobundle#call_hook('on_source')
+endif
+
+"================================================
+" Environment
+"================================================
+" Set title the file path
+let &titleold = ""
+let &titlestring = "%f"
+" Show row number
+set number
+augroup numberwidth
+  autocmd!
+  autocmd BufEnter,WinEnter,BufWinEnter * let &l:numberwidth = len(line("$")) + 2
+augroup END
+" Don't show escape chars
+set nolist
+" Show status line
+set laststatus=2
+" cmd height = 1
+set cmdheight=1
+" Show commandsd
+set showcmd
+" colors
+set t_Co=256
+set background=dark
+colorscheme original
+syntax on
+" Show matches
+set showmatch
+
+" Indent
+set autoindent
+set smartindent
+set cindent
+set cinoptions&
+"set cinoptions+=:0,g4,N0,h0,f0
+set cinoptions+=h0,(4,Us,p0
+" Tab
+set tabstop=8
+set softtabstop=2
+set shiftwidth=2
+set smarttab
+set expandtab
+" Folding
+set foldmethod=marker
+set foldlevelstart=0
+" wrapping
+set whichwrap=b,s,h,l,<,>,[,]
+set backspace=indent,eol,start
+set wildmenu
+" Hiden buffer
+set hidden
+" Deny auto CR
+set textwidth=0
+" window
+set splitright
+set splitbelow
+set scrolloff=10
+set lazyredraw
+set modeline
+
+" search
+set hlsearch
+set nowrapscan
+set ignorecase
+set smartcase
+set incsearch
+set wildignore=*.o,*.class,*.beam,*.dvi,*.pdf
+
+" for NoeVim
+if IsNVim()
+  call s:source_config('neovim.vim')
+endif
+
+" for GUI env
+if !IsNVim() && IsGUI()
+  call s:source_config('gui.vim')
+endif
+
+
+"================================================
+" key mappings
+"================================================
+call s:source_config('mappings.vim')
+
+
+"================================================
+" Etc.
+"================================================
+set helplang&
+set helplang=en,ja
+
+let t:cwd = getcwd()
+
+set secure
+
+
+" vim:ft=vim:ts=2:sw=2

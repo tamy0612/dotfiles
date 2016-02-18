@@ -1,6 +1,10 @@
 function! s:hook_path(path)
-  return fnameescape(expand($VIMDIR.'/bundle/_config/'.a:path))
+  return fnameescape(expand($VIMDIR.'/config/plugins/'.a:path))
 endfunction
+
+augroup AutoCmd
+  autocmd!
+augroup END
 
 
 " unite "{{{
