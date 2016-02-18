@@ -141,12 +141,14 @@ if neobundle#tap('syntastic')
 endif
 "}}}
 
+
 " easymotion "{{{
 if neobundle#tap('vim-easymotion')
   let neobundle#hooks.on_source = s:hook_path('on_source/easymotion.vim')
   call neobundle#untap()
 endif
 "}}}
+
 
 " operator-replace "{{{
 if neobundle#tap('vim-operator-replace')
@@ -178,17 +180,17 @@ endif
 "}}}
 
 
-" vim-clang-format "{{{
-if neobundle#tap('vim-clang-format')
-  let neobundle#hooks.on_source = s:hook_path('on_source/vim-clang-format.vim')
+" vim-clang "{{{
+if neobundle#tap('vim-clang')
+  let neobundle#hooks.on_source = s:hook_path('on_source/vim-clang.vim')
   call neobundle#untap()
 endif
 "}}}
 
 
-" python.vim "{{{
-if neobundle#tap('python.vim')
-  let python_highlight_all = 1
+" vim-clang-format "{{{
+if neobundle#tap('vim-clang-format')
+  let neobundle#hooks.on_source = s:hook_path('on_source/vim-clang-format.vim')
   call neobundle#untap()
 endif
 "}}}
@@ -201,3 +203,11 @@ if neobundle#tap('vim-marching')
   imap <buffer> <C-x><C-x><C-o> <Plug>(marching_force_start_omni_complete)
 endif
 " }}}
+
+
+" python.vim "{{{
+if neobundle#tap('python.vim')
+  let python_highlight_all = 1
+  call neobundle#untap()
+endif
+"}}}

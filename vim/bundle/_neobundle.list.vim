@@ -273,6 +273,12 @@ NeoBundleLazy 'vim-jp/cpp-vim', {
       \ 'filetypes' : [ 'c', 'cpp' ],
       \ }
 
+NeoBundleLazy 'justmao945/vim-clang', {
+      \ 'filetypes' : [
+      \   'c', 'cpp'
+      \ ]
+      \ }
+
 NeoBundleLazy 'rhysd/vim-clang-format', {
       \ 'filetypes' : [
       \   'c', 'cpp'
