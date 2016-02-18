@@ -128,14 +128,16 @@ if !isdirectory(s:plugin_dir)
 endif
 
 "" Load plugin manager
-let s:plugin_manager = expand(s:plugin_dir.'/neobundle.vim')
-if !isdirectory(s:plugin_manager)
+let s:plugin_manager = {}
+let s:plugin_manager.name = 'neobundle.vim'
+let s:plugin_manager.dir = expand(s:plugin_dir . '/' . s:plugin_manager['name'])
+if !isdirectory(s:plugin_manager['dir'])
   if executable('git')
     echo "Downloading plugin manager..."
-    execute '!git clone https://github.com/Shougo/neobundle.vim' s:plugin_manager
+    execute '!git clone https://github.com/Shougo/neobundle.vim' s:plugin_manager['dir']
   endif
 endif
-if !isdirectory(s:plugin_manager)
+if !isdirectory(s:plugin_manager.dir)
   unlet s:plugin_manager
   echo "Plugin manager is not installed"
 endif
@@ -143,7 +145,7 @@ endif
 if exists('s:plugin_manager')
 
   if &runtimepath !~ '/neobundle.vim'
-    execute 'set runtimepath^=' . fnamemodify(s:plugin_manager, ':p')
+    execute 'set runtimepath^=' . fnamemodify(s:plugin_manager['dir'], ':p')
   endif
 
   let g:neobundle#enable_tail_path = 1
