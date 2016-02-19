@@ -120,6 +120,15 @@ endif
 "================================================
 " Plugins
 "================================================
+"" Python config
+let g:loaded_python_provider = 1
+let g:python_host_skip_check = 1
+if exists('$PYENV_ROOT')
+  let g:python3_host_prog = $PYENV_ROOT.'/shims/python3'
+else
+  let g:python3_host_prog = substitute(system('which python3'), '\n', '', 'g')
+endif
+
 "" Plugin dir
 let s:plugin_dir = expand('$CACHE_DIR/vim/plugins')
 if !isdirectory(s:plugin_dir)
@@ -167,10 +176,10 @@ if exists('s:plugin_manager')
 
   else
 
-    call dein#begin(expand(s:plugin_dir.'/dein'))
-
     let s:toml_path = expand('$VIMDIR/config/plugins.default.toml')
     let s:toml_lazy_path = expand('$VIMDIR/config/plugins.lazy.toml')
+
+		call dein#begin(expand(s:plugin_dir))
 
     if dein#load_cache([expand('<sfile>'), s:toml_path, s:toml_lazy_path])
       call dein#add('Shougo/dein.vim', {'rtp': ''})
@@ -179,9 +188,9 @@ if exists('s:plugin_manager')
       call dein#save_cache()
     endif
 
-    "call s:source_config('plugins.config.vim')
-
     call dein#end()
+
+    call s:source_config('plugins.vim')
 
   endif
 
