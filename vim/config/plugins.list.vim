@@ -316,6 +316,10 @@ NeoBundleLazy 'hynek/vim-python-pep8-indent', {
       \ 'filetypes' : 'python',
       \ }
 
+NeoBundleLazy 'elixir-lang/vim-elixir', {
+      \ 'filetypes' : 'elixir'
+      \ }
+
 NeoBundleLazy 'hail2u/vim-css3-syntax', {
       \ 'filetypes' : 'css'
       \ }
