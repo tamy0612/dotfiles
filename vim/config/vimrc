@@ -100,21 +100,7 @@ let &undodir = &backupdir
 "================================================
 " encoding
 "================================================
-if has('vim_starting')
-  set enc=utf-8
-  set fencs=ucs-bom,iso-2022-jp,euc-jp,utf-8,cp932,cp20932
-endif
-
-set fileformat=unix
-set fileformats=unix,mac,dos
-
-set formatoptions&
-set formatoptions+=mM
-set formatexpr=autofmt#japanese#formatexpr()
-
-if has('multi_byte_ime')
-  set iminsert=0 imsearch=0
-endif
+call s:source_config('encoding.vim')
 
 
 "================================================
