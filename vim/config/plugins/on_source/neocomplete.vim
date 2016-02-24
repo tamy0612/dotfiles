@@ -72,11 +72,11 @@ if !exists('g:neocomplete#sources#omni#input_patterns')
 endif
 
 " include path
-if g:is_osx
+if IsMac()
   let g:neocomplete#sources#include#paths = {
         \ 'cpp':  '.,/usr/include,/usr/include/c++/4.2.1,/usr/local/include',
         \ 'c':    '.,/usr/include,/usr/local/include'}
-elseif g:is_linux
+elseif IsLinux()
   let g:neocomplete#sources#include#paths = {
         \ 'cpp':  '.,/usr/include,/usr/include/c++/4.8,/usr/local/include',
         \ 'c':    '.,/usr/include,/usr/local/include'}
