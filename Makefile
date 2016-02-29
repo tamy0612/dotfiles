@@ -6,14 +6,12 @@ all:
 	@echo "Usage:"
 	@echo "  make <zsh|gnuplot|vim|nvim|anyenv|homebrew>"
 
+.PHONY: zsh vim
 zsh:
 	@[ -d $(HOME)/.zsh ] || ln -s $(PWD)/zsh $(HOME)/.zsh
 	@[ -f $(HOME)/.zshenv ] || ln -s $(PWD)/zsh/zshenv $(HOME)/.zshenv
 	@[ -f $(HOME)/.zshrc ] || ln -s $(PWD)/zsh/zshrc $(HOME)/.zshrc
 	@[ type zcompile > /dev/null 2>&1 ] && ( zsh -fc "zcompile $(HOME)/.zshenv" ) & ( zsh -fc "zcompile $(HOME)/.zshrc" )
-
-gnuplot:
-	@[ -f $(HOME)/.gnuplot ] || ln -s $(PWD)/gnuplot $(HOME)/.gnuplot
 
 vim:
 	@[ -d $(HOME)/.vim ] || ln -s $(PWD)/vim $(HOME)/.vim
@@ -24,6 +22,9 @@ nvim:
 
 anyenv:
 	@[ -d $(HOME)/.anyenv ] || git clone $(ANYENV_REPO) $(HOME)/.anyenv
+
+gnuplot:
+	@[ -f $(HOME)/.gnuplot ] || ln -s $(PWD)/gnuplot $(HOME)/.gnuplot
 
 homebrew:
 ifeq ($(OS),Darwin)
