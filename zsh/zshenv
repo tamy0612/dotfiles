@@ -1,6 +1,7 @@
 # dir
 export ZDIR=$HOME/dotfiles/zsh
 export XDG_CONFIG_DIR=$HOME/.config
+export CACHE_DIR=$HOME/.cache
 
 # path
 typeset -U PATH path
