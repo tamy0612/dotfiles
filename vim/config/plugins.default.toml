@@ -1,0 +1,20 @@
+[[plugins]]
+repo  = 'Shougo/dein.vim'
+
+[[plugins]]
+repo  = 'Shougo/vimproc'
+build = 'make'
+
+[[plugins]]
+repo  = 'godlygeek/csapprox'
+if    = "!has('gui_running') || has('nvim')"
+
+[[plugins]]
+repo  = 'thinca/vim-guicolorscheme'
+if    = "!has('gui_running') || has('nvim')"
+
+[[plugins]]
+repo  = 'itchyny/lightline.vim'
+
+[[plugins]]
+repo  = 'tamy0612/template.vim'

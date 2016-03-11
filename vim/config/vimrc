@@ -106,7 +106,7 @@ call s:source_config('encoding.vim')
 "================================================
 " Plugins
 "================================================
-"" Python config
+" Python config
 let g:loaded_python_provider = 1
 let g:python_host_skip_check = 1
 if exists('$PYENV_ROOT')
@@ -115,184 +115,24 @@ else
   let g:python3_host_prog = substitute(system('which python3'), '\n', '', 'g')
 endif
 
-"" Plugin dir
-let s:plugin_dir = expand('$CACHE_DIR/vim/plugins')
-if !isdirectory(s:plugin_dir)
-  echo "Creating plugin dir..."
-  call mkdir(s:plugin_dir, 'p')
-endif
+call s:source_config('dein.vim')
 
-"" Load plugin manager
-let s:plugin_manager = {}
-let s:plugin_manager.name = 'neobundle.vim'
-let s:plugin_manager.dir = expand(s:plugin_dir . '/' . s:plugin_manager['name'])
-if !isdirectory(s:plugin_manager['dir'])
-  if executable('git')
-    echo "Downloading plugin manager..."
-    execute '!git clone https://github.com/Shougo/'.s:plugin_manager['name'] s:plugin_manager['dir']
-  endif
-endif
-if !isdirectory(s:plugin_manager.dir)
-  unlet s:plugin_manager
-  echo "Plugin manager is not installed"
-endif
+call s:source_config('plugins.vim')
 
-if exists('s:plugin_manager')
-
-  if &runtimepath !~ '/'.s:plugin_manager['name']
-    execute 'set runtimepath^=' . fnamemodify(s:plugin_manager['dir'], ':p')
-  endif
-
-  if s:plugin_manager.name == 'neobundle.vim'
-
-    let g:neobundle#enable_tail_path = 1
-    let g:neobundle#default_options = {}
-
-    call neobundle#begin( expand(s:plugin_dir) )
-
-    " Default plugins
-    call s:source_config("plugins.list.vim")
-    " local plugins
-    if filereadable( $HOME . '/.neobundle.local' )
-      execute 'source' expand('$HOME/.neobundle.local')
-    endif
-
-    call neobundle#end()
-    NeoBundleCheck
-
-  else
-
-    let s:toml_path = expand('$VIMDIR/config/plugins.default.toml')
-    let s:toml_lazy_path = expand('$VIMDIR/config/plugins.lazy.toml')
-
-		call dein#begin(expand(s:plugin_dir))
-
-    if dein#load_cache([expand('<sfile>'), s:toml_path, s:toml_lazy_path])
-      call dein#add('Shougo/dein.vim', {'rtp': ''})
-      call dein#load_toml(s:toml_path)
-      call dein#load_toml(s:toml_lazy_path, {'lazy' : 1})
-      call dein#save_cache()
-    endif
-
-    call dein#end()
-
-    call s:source_config('plugins.vim')
-
-  endif
-
-  let s:plugin_loaded = 1
-
+if has('vim_starting') && dein#check_install()
+  call dein#install()
 endif
 
 filetype plugin indent on
 syntax enable
 
-augroup MyCmdGroup
-  " mkdir when the target directory does not exist
-  autocmd BufWritePre * call hook#write#auto_mkdir( expand('<afile>:p:h'), v:cmdbang )
-  " remove extra spaces
-  autocmd BufWritePre * call hook#write#space_clean()
-  " reload ~/.vimrc when it was updated
-  autocmd BufWritePost $MYVIMRC source $MYVIMRC
-  " reload ~/.vimrc.mine when it was updated  => only when .vimrc.mine exists
-  if exists('g:private_vimrc')
-    autocmd BufWritePost $SECRETVIMRC source $SECRETVIMRC
-  endif
-  " reload ~/.gvimrc when it was updated  => only used in gVim
-  if IsGUI()
-    autocmd BufWritePost $MYGVIMRC source $MYGVIMRC
-  endif
-  " autocmd for each filetype
-  autocmd FileType gitcommit execute "normal! gg"
-  " omnifunc
-  "autocmd FileType ada setlocal omnifunc=adacomplete#Complete
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
-  autocmd FileType c setlocal omnifunc=ccomplete#Complete
-  autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-  autocmd FileType java setlocal omnifunc=javacomplete#Complete
-  autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-  if has('python3')
-    autocmd FileType python setlocal omnifunc=python3complete#Complete
-  else
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  endif
-augroup END
-
-" NeoBundle Config
-if exists('s:plugin_loaded')
-  source $VIMDIR/config/plugins.config.vim
-  call neobundle#call_hook('on_source')
-endif
 
 "================================================
 " Environment
 "================================================
-" Set title the file path
-let &titleold = ""
-let &titlestring = "%f"
-" Show row number
-set number
-augroup numberwidth
-  autocmd!
-  autocmd BufEnter,WinEnter,BufWinEnter * let &l:numberwidth = len(line("$")) + 2
-augroup END
-" Don't show escape chars
-set nolist
-" Show status line
-set laststatus=2
-" cmd height = 1
-set cmdheight=1
-" Show commandsd
-set showcmd
-" colors
-set t_Co=256
-set background=dark
-colorscheme original
-syntax on
-" Show matches
-set showmatch
+call s:source_config('view.vim')
 
-" Indent
-set autoindent
-set smartindent
-set cindent
-set cinoptions&
-"set cinoptions+=:0,g4,N0,h0,f0
-set cinoptions+=h0,(4,Us,p0
-" Tab
-set tabstop=8
-set softtabstop=2
-set shiftwidth=2
-set smarttab
-set expandtab
-" Folding
-set foldmethod=marker
-set foldlevelstart=0
-" wrapping
-set whichwrap=b,s,h,l,<,>,[,]
-set backspace=indent,eol,start
-set wildmenu
-" Hiden buffer
-set hidden
-" Deny auto CR
-set textwidth=0
-" window
-set splitright
-set splitbelow
-set scrolloff=10
-set lazyredraw
-set modeline
-
-" search
-set hlsearch
-set nowrapscan
-set ignorecase
-set smartcase
-set incsearch
-set wildignore=*.o,*.class,*.beam,*.dvi,*.pdf
+call s:source_config('edit.vim')
 
 " for NoeVim
 if IsNVim()
