@@ -15,7 +15,7 @@ if &runtimepath !~ '/'.s:plugin_manager
   if !isdirectory( s:plugin_manager_dir )
     if executable('git')
       echo "Downloading plugin manager..."
-      execute '!git clone https://github.com/Shougo/'.s:plugin_manager s:plugin_manager_name
+      execute '!git clone https://github.com/Shougo/'.s:plugin_manager s:plugin_manager_dir
     else
       echo "command 'git' required"
       finish
