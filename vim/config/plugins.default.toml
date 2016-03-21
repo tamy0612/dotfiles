@@ -6,11 +6,13 @@ repo  = 'Shougo/vimproc'
 build = 'make'
 
 [[plugins]]
-repo  = 'godlygeek/csapprox'
-if    = "!has('gui_running') || has('nvim')"
+repo      = 'Shougo/unite.vim'
 
 [[plugins]]
-repo  = 'thinca/vim-guicolorscheme'
+repo      = 'Shougo/unite-sudo'
+
+[[plugins]]
+repo  = 'godlygeek/csapprox'
 if    = "!has('gui_running') || has('nvim')"
 
 [[plugins]]
@@ -18,3 +20,7 @@ repo  = 'itchyny/lightline.vim'
 
 [[plugins]]
 repo  = 'tamy0612/template.vim'
+
+[[plugins]]
+repo  = 'tamy0612/argos.vim'
+on_ft = 'argos'
