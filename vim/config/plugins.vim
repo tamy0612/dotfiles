@@ -2,8 +2,8 @@ function! s:hook_path(name)
   return fnameescape(expand($VIMDIR.'/config/plugins/'.a:name))
 endfunction
 
-function! s:load_config(name)
-  execute 'autocmd MyCmdGroup User' 'dein#source#'.g:dein#name 'source '.s:hook_path(a:name)
+function! s:load_config(dein_name, plugin_name)
+  execute 'autocmd MyCmdGroup User' 'dein#source#'.a:dein_name 'source '.s:hook_path(a:plugin_name)
 endfunction
 
 
@@ -67,27 +67,25 @@ if dein#tap('unite.vim')
     inoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('vimfiler'))
   endfunction
   autocmd MyCmdGroup FileType unite call s:deine_unite_keymappings()
-  "execute 'autocmd MyCmdGroup User' 'dein#source#'.g:dein#name
-  "      \ 'source '.s:hook_path('unite.vim')
-  call s:load_config('unite.vim')
+  call s:load_config(g:dein#name, 'unite.vim')
 endif
 "}}}
 
 
 " unite-outline "{{{
 if dein#tap('unite-outline')
-  call s:load_config('unite-outline.vim')
+  call s:load_config(g:dein#name, 'unite-outline.vim')
 endif
 "}}}
 
 
 " completion "{{{
 if dein#tap('deoplete.nvim') && has('nvim')
-  call s:load_config('deoplete.nvim')
+  call s:load_config(g:dein#name, 'deoplete.nvim')
 endif
 
 if dein#tap('neocomplete') && !has('nvim') && has('lua')
-  call s:load_config('neocomplete.vim')
+  call s:load_config(g:dein#name, 'neocomplete.vim')
 endif
 "}}}
 
@@ -97,21 +95,21 @@ if dein#tap('neosnippet.vim')
   if has('conceal')
     set conceallevel=2 concealcursor=i
   endif
-  call s:load_config('neosnippet.vim')
+  call s:load_config(g:dein#name, 'neosnippet.vim')
 endif
 "}}}
 
 
 " ctags "{{{
 if dein#tap('ctags.vim')
-  call s:load_config('ctags.vim')
+  call s:load_config(g:dein#name, 'ctags.vim')
 endif
 "}}}
 
 
 " SrcExpl "{{{
 if dein#tap('SrcExpl')
-  call s:load_config('srcexpl.vim')
+  call s:load_config(g:dein#name, 'srcexpl.vim')
 endif
 "}}}
 
@@ -119,7 +117,7 @@ endif
 " VimFiler "{{{
 if dein#tap('vimfiler')
   nmap <Space>vf :VimFilerExplorer<CR>
-  call s:load_config('vimfiler.vim')
+  call s:load_config(g:dein#name, 'vimfiler.vim')
 endif
 "}}}
 
@@ -127,7 +125,7 @@ endif
 " CtrlP "{{{
 if dein#tap('ctrlp.vim')
   nnoremap <C-p> :<C-u>CtrlP<CR>
-  call s:load_config('ctrlp.vim')
+  call s:load_config(g:dein#name, 'ctrlp.vim')
 endif
 "}}}
 
@@ -135,7 +133,7 @@ endif
 " quickrun "{{{
 if dein#tap('vim-quickrun')
   nmap <silent> <Leader>r <Plug>(quickrun)
-  call s:load_config('vim-quickrun.vim')
+  call s:load_config(g:dein#name, 'vim-quickrun.vim')
 endif
 "}}}
 
@@ -145,7 +143,7 @@ if dein#tap('vimshell')
   noremap <Plug>(vimshell_toggle) :VimShell -toggle<CR>
   nnoremap <C-s> :<C-u>VimShellPop -toggle<CR>
   inoremap <C-s> <C-[>:<C-u>VimShellPop -toggle<CR>
-  call s:load_config('vimshell.vim')
+  call s:load_config(g:dein#name, 'vimshell.vim')
 endif
 "}}}
 
@@ -153,21 +151,21 @@ endif
 " indentLine "{{{
 if dein#tap('indentLine')
   nnoremap <Leader>i :<C-u>:IndentLinesToggle<CR>
-  call s:load_config('indentline.vim')
+  call s:load_config(g:dein#name, 'indentline.vim')
 endif
 "}}}
 
 
 " syntastic "{{{
 if dein#tap('syntastic')
-  call s:load_config('syntastic.vim')
+  call s:load_config(g:dein#name, 'syntastic.vim')
 endif
 "}}}
 
 
 " easymotion "{{{
 if dein#tap('vim-easymotion')
-  call s:load_config('easymotion.vim')
+  call s:load_config(g:dein#name, 'easymotion.vim')
 endif
 "}}}
 
@@ -201,14 +199,14 @@ endif
 
 " vim-clang "{{{
 if dein#tap('vim-clang')
-  call s:load_config('vim-clang.vim')
+  call s:load_config(g:dein#name, 'vim-clang.vim')
 endif
 "}}}
 
 
 " vim-clang-format "{{{
 if dein#tap('vim-clang-format')
-  call s:load_config('vim-clang-format.vim')
+  call s:load_config(g:dein#name, 'vim-clang-format.vim')
 endif
 "}}}
 
@@ -217,7 +215,7 @@ endif
 if dein#tap('vim-marching')
   imap <buffer> <C-x><C-o> <Plug>(marching_start_omni_complete)
   imap <buffer> <C-x><C-x><C-o> <Plug>(marching_force_start_omni_complete)
-  call s:load_config('vim-marching.vim')
+  call s:load_config(g:dein#name, 'vim-marching.vim')
 endif
 " }}}
 
