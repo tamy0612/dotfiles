@@ -2,3 +2,4 @@ back/
 bundle/
 ftplugin/gitcommit.vim
 tmp/
+.init.vim-rplugin~
