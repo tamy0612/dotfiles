@@ -1,3 +1,10 @@
+# Completion
+[[plugins]]
+repo      = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo      = 'Shougo/context_filetype.vim'
+
 [[plugins]]
 repo      = 'Shougo/deoplete.nvim'
 depends   = 'context_filetype.vim'
@@ -17,12 +24,6 @@ on_ft     = 'snippet'
 on_i      = 1
 
 [[plugins]]
-repo      = 'Shougo/neosnippet-snippets'
-
-[[plugins]]
-repo      = 'Shougo/context_filetype.vim'
-
-[[plugins]]
 repo      = 'Shougo/neco-vim'
 on_ft     = 'vim'
 on_i      = 1
@@ -40,6 +41,7 @@ repo      = 'ujihisa/neco-look'
 on_i      = 1
 
 
+# Utilities
 [[plugins]]
 repo      = 'Shougo/echodoc.vim'
 on_i      = 1
@@ -88,11 +90,29 @@ repo      = 'tyru/open-browser.vim'
 on_map    = '<Plug>'
 
 [[plugins]]
-repo      = 'ctrlpvim/ctrlp.vim'
+repo  = 'thinca/vim-guicolorscheme'
+if    = "!has('gui_running') || has('nvim')"
 
+
+# Filer
 [[plugins]]
 repo      = 'scrooloose/nerdtree'
 on_cmd    = ['NERDTreeFind', 'NERDTreeToggle']
+
+[[plugins]]
+repo      = 'Shougo/vimfiler'
+depends   = 'Shougo/unite.vim'
+on_map    = '<Plug>'
+on_path   = '.*'
+
+[[plugins]]
+repo      = 'ctrlpvim/ctrlp.vim'
+on_map    = '<C-p>'
+
+
+# Unite
+[[plugins]]
+repo      = 'Shougo/unite.vim'
 
 [[plugins]]
 repo      = 'Shougo/unite-build'
@@ -100,11 +120,11 @@ depends   = 'unite.vim'
 
 [[plugins]]
 repo      = 'Shougo/unite-outline'
-on_source = 'unite.vim'
+depends   = 'unite.vim'
 
 [[plugins]]
 repo      = 'Shougo/unite-help'
-on_source = 'unite.vim'
+depends   = 'unite.vim'
 
 [[plugins]]
 repo      = 'rhysd/unite-codic.vim'
@@ -117,10 +137,11 @@ depends   = 'unite.vim'
 
 [[plugins]]
 repo      = 'osyo-manga/unite-quickfix'
+depends   = 'unite.vim'
 
 [[plugins]]
 repo      = 'osyo-manga/unite-filetype'
-on_source = 'unite.vim'
+depends   = 'unite.vim'
 
 [[plugins]]
 repo      = 'ujihisa/unite-colorscheme'
@@ -131,24 +152,14 @@ repo      = 'thinca/vim-qfreplace'
 on_ft     = ['unite', 'quickfix']
 
 
-[[plugins]]
-repo      = 'Shougo/vimfiler'
-depends   = 'Shougo/unite.vim'
-on_map    = '<Plug>'
-on_path   = '.*'
-
-
+# Shell
 [[plugins]]
 repo      = 'Shougo/vimshell'
 disabled  = "has('nvim')"
 on_map    = '<Plug>'
 
 
-[[plugins]]
-repo  = 'thinca/vim-guicolorscheme'
-if    = "!has('gui_running') || has('nvim')"
-
-
+# Operator
 [[plugins]]
 repo      = 'kana/vim-operator-user'
 
@@ -167,27 +178,35 @@ repo      = 'chikatoike/concealedyank.vim'
 on_map    = [['x', '<Plug>(operator-concealedyank)']]
 
 
+# Tags
 [[plugins]]
 repo      = 'majutsushi/tagbar'
 on_ft     = ['awk', 'c', 'cpp', 'd', 'java', 'python', 'ruby', 'tex']
+on_i      = 1
 
 [[plugins]]
 repo      = 'SrcExpl'
 on_ft     = ['awk', 'c', 'cpp', 'd', 'java', 'python', 'ruby', 'tex']
+on_i      = 1
 
 
+# Edit
 [[plugins]]
 repo      = 'kana/vim-smartinput'
 on_ft     = ['c', 'cpp', 'd', 'go', 'java', 'scala', 'css', 'sass', 'php', 'javascript']
+on_i      = 1
 
 [[plugins]]
 repo      = 'tpope/vim-endwise'
 on_ft     = ['c', 'cpp', 'ruby', 'crystal', 'elixir', 'lua', 'sh', 'zsh', 'vim']
+on_i      = 1
 
 [[plugins]]
 repo      = 'scrooloose/syntastic'
-on_ft     = ['c', 'cpp', 'java', 'python', 'ruby', 'javascript']
+on_cmd    = ['SyntasticCheck', 'SyntasticToggleMode']
 
+
+# Plugins for specific filetypes
 [[plugins]]
 repo      = 'vim-jp/cpp-vim'
 on_ft     = ['c', 'cpp']

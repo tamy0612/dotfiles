@@ -6,9 +6,6 @@ repo  = 'Shougo/vimproc'
 build = 'make'
 
 [[plugins]]
-repo      = 'Shougo/unite.vim'
-
-[[plugins]]
 repo      = 'Shougo/unite-sudo'
 
 [[plugins]]
@@ -23,4 +20,3 @@ repo  = 'tamy0612/template.vim'
 
 [[plugins]]
 repo  = 'tamy0612/argos.vim'
-on_ft = 'argos'

@@ -119,8 +119,13 @@ call s:source_config('dein.vim')
 
 call s:source_config('plugins.vim')
 
-if has('vim_starting') && dein#check_install()
-  call dein#install()
+if has('vim_starting')
+  if dein#check_install(['vimproc'])
+    call dein#install(['vimproc'])
+  endif
+  if dein#check_install()
+    call dein#install()
+  endif
 endif
 
 filetype plugin indent on
