@@ -2,6 +2,11 @@
 # set binding
 bindkey -e
 
+
+# cache dir
+export ZSH_CACHE_DIR=$CACHE_DIR/zsh
+[[ ! -d $ZSH_CACHE_DIR ]] && mkdir -p $ZSH_CACHE_DIR
+
 # enable commands
 autoload -Uz is-at-least
 autoload -Uz add-zsh-hook
@@ -90,12 +95,14 @@ fpath=(
 )
 zstyle :compinstall filename '~/.zshrc'
 autoload -Uz compinit && compinit
+
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' verbose true
 zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' use-cache true
+zstyle ':completion:*' cache-path $ZSH_CACHE_DIR/compcache
 zstyle ':completion:*' list-separator '--->'
 zstyle ':completion:*:default' menu select=2
 zstyle ':completion:*:options' description 'yes'
@@ -106,6 +113,7 @@ zstyle ':completion:*:corrections' format $YELLOW'%B%d '$RED'(errors: %e)%b'$DEF
 zstyle ':completion:*:sudo:*' command-path ${sudo_path}
 zstyle ':completion:*:manuals' separate-sections true
 zstyle ':completion:*:cd:*' ignore-parents parent pwd
+
 setopt correct
 setopt auto_list
 setopt auto_menu
@@ -121,10 +129,12 @@ setopt magic_equal_subst
 setopt complete_in_word
 setopt extended_glob
 setopt nolistbeep
+
 bindkey "[Z" reverse-menu-complete
 
+
 # Histry
-HISTFILE=~/.zsh_history
+HISTFILE=$ZSH_CACHE_DIR/zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 setopt share_history
@@ -139,10 +149,18 @@ if [ $UID -eq 0 ]; then
   SAVEHIST=0
 fi
 
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^P" history-beginning-search-backward-end
+bindkey "^N" history-beginning-search-forward-end
+
+
 # move
 setopt auto_cd
 setopt auto_pushd
 setopt pushd_ignore_dups
+
 
 # Options
 setopt print_eight_bit
@@ -165,8 +183,8 @@ export ZPLUGINDIR=$ZDIR/plugins
 
 # jumper
 export _Z_CMD=j
-export _Z_DATA=$HOME/.z
-[[ ! -f $HOME/.z ]] && touch $HOME/.z
+export _Z_DATA=$ZSH_CACHE_DIR/z_data
+[[ ! -f $_Z_DATA ]] && touch $_Z_DATA
 source $ZPLUGINDIR/z.sh/z.sh
 
 
