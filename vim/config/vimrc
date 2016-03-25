@@ -1,105 +1,27 @@
-"================================================
-" System
-"================================================
-if &compatible
-  set nocompatible
-endif
-
-let s:is_windows = has('win16') || has('win32') || has('win64')
-let s:is_cygwin  = has('win32unix')
-let s:is_sudo    = $SUDO_USER !=# '' && $USER !=# $SUDO_USER
-                   \ && $HOME !=# expand('~'.$USER)
-                   \ && $HOME ==# expand('~'.$SUDO_USER)
-let s:is_gui     = has('gui_running')
-let s:is_nvim    = has('nvim')
-
-function! IsWindows() abort
-  return s:is_windows || s:is_cygwin
-endfunction
-
-function! IsMac() abort
-  return !IsWindows()
-          \ && ( has('mac') || has('macunix') || has('gui_macvim')
-          \      || ( !executable('xdg-open') && system('uname') =~? '^darwin' ) )
-endfunction
-
-function! IsLinux()
-  return !IsWindows() && !IsMac() && has('unix')
-endfunction
-
-function! IsSUDO()
-  return s:is_sudo
-endfunction
-
-function! IsGUI() abort
-  return s:is_gui
-endfunction
-
-function! IsNVim()
-  return s:is_nvim
-endfunction
-
+if &compatible | set nocompatible | endif
 
 "================================================
-" Initialize
+" Utilities
 "================================================
 function! s:source_config( path ) abort
   execute 'source' fnameescape( $VIMDIR . '/config/' . a:path )
 endfunction
 
-"" My augroup
 augroup MyCmdGroup
   autocmd!
 augroup END
 
-"" message lang
-if IsWindows()
-  language message en
-else
-  language message C
-endif
-
-"" Private vimrc
-if filereadable( $HOME . '/.vimrc.mine' )
-  let g:private_vimrc = $HOME . '/.vimrc.mine'
-  execute 'source' g:private_vimrc
-endif
-
-"" Runtime path
-if IsWindows()
-  set runtimepath^=$VIMDIR
-  set runtimepath+=$VIMDIR/after
-endif
-
-"" Shell
-set shell=zsh
-if IsWindows()
-  set shellslash
-endif
-
-"" Cache
-if !exists('$CACHE_DIR')
-  let $CACHE_DIR = expand('~/.cache')
-endif
-if !isdirectory(expand($CACHE_DIR))
-  echo "Creating cache dir..."
-  call mkdir(expand($CACHE_DIR), 'p')
-endif
-
-"" Backup
-set backupdir=$CACHE_DIR/vim/back
-if !isdirectory(expand(&backupdir))
-  echo "Creating backup dir..."
-  call mkdir(expand(&backupdir), 'p')
-endif
-set noswapfile
-set undofile
-let &undodir = &backupdir
-
 
 "================================================
-" encoding
+" Initialize
 "================================================
+" Load environment
+call s:source_config("environment.vim")
+
+" Load initial settings
+call s:source_config("initialize.vim")
+
+" Load encode settings
 call s:source_config('encoding.vim')
 
 
@@ -133,12 +55,22 @@ syntax enable
 
 
 "================================================
-" Environment
+" Core editor settings
 "================================================
 call s:source_config('view.vim')
 
 call s:source_config('edit.vim')
 
+
+"================================================
+" key mappings
+"================================================
+call s:source_config('mappings.vim')
+
+
+"================================================
+" for specific environments
+"================================================
 " for NoeVim
 if IsNVim()
   call s:source_config('neovim.vim')
@@ -148,12 +80,6 @@ endif
 if !IsNVim() && IsGUI()
   call s:source_config('gui.vim')
 endif
-
-
-"================================================
-" key mappings
-"================================================
-call s:source_config('mappings.vim')
 
 
 "================================================

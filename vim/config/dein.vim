@@ -1,5 +1,5 @@
 "" Plugin dir
-let s:plugin_dir = expand('$CACHE_DIR/vim/plugins')
+let s:plugin_dir = expand('$VIM_CACHE_DIR/plugins')
 if !isdirectory(s:plugin_dir)
   echo "Creating plugin dir..."
   call mkdir(s:plugin_dir, 'p')
