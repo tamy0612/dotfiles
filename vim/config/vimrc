@@ -42,10 +42,8 @@ call s:source_config('dein.vim')
 call s:source_config('plugins.vim')
 
 if has('vim_starting')
-  if dein#check_install(['vimproc'])
-    call dein#install(['vimproc'])
-  endif
   if dein#check_install()
+		if dein#check_install(['vimproc']) | call dein#install(['vimproc']) | endif
     call dein#install()
   endif
 endif
@@ -92,5 +90,12 @@ let t:cwd = getcwd()
 
 set secure
 
+
+"================================================
+" Load local vimrc
+"================================================
+if file_readable(expand(getcwd() . '/.vimrc.local'))
+  execute "source" expand( getcwd() . '/.vimrc.local' )
+endif
 
 " vim:ft=vim:ts=2:sw=2
