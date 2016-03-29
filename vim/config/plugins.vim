@@ -7,40 +7,25 @@ function! s:load_config(dein_name, plugin_name)
 endfunction
 
 
-" Private auto commands  "{{{
-augroup MyCmdGroup
-  " mkdir when the target directory does not exist
-  autocmd BufWritePre * call hook#write#auto_mkdir( expand('<afile>:p:h'), v:cmdbang )
-  " remove extra spaces
-  autocmd BufWritePre * call hook#write#space_clean()
-  " reload ~/.vimrc when it was updated
-  autocmd BufWritePost $MYVIMRC source $MYVIMRC
-  " reload ~/.vimrc.mine when it was updated  => only when .vimrc.mine exists
-  if exists('g:private_vimrc')
-    autocmd BufWritePost $SECRETVIMRC source $SECRETVIMRC
+" context_filetype "{{{
+if dein#tap('context_filetype.vim')
+
+  if !exists('g:context_filetype#filetypes')
+    let g:context_filetype#filetypes = {}
   endif
-  " reload ~/.gvimrc when it was updated  => only used in gVim
-  if IsGUI()
-    autocmd BufWritePost $MYGVIMRC source $MYGVIMRC
-  endif
-  " autocmd for each filetype
-  autocmd FileType gitcommit execute "normal! gg"
-  " omnifunc
-  "autocmd FileType ada setlocal omnifunc=adacomplete#Complete
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
-  autocmd FileType c setlocal omnifunc=ccomplete#Complete
-  autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-  autocmd FileType java setlocal omnifunc=javacomplete#Complete
-  autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-  if has('python3')
-    autocmd FileType python setlocal omnifunc=python3complete#Complete
-  else
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  endif
-augroup END
+
+  let g:context_filetype#filetypes['toml'] = [
+        \   { 'filetype': 'vim',
+        \     'start': '^\s*hook_\(add\|source\|post_source\)\s*=\s*'."'"."''",
+        \     'end': "'"."''"
+        \   },
+        \   { 'filetype': 'vim',
+        \     'start': '^\s*hook_\(add\|source\|post_source\)\s*=\s*'.'"""',
+        \     'end': '"""'
+        \   }
+        \ ]
+
+endif
 "}}}
 
 
@@ -149,6 +134,18 @@ endif
 "}}}
 
 
+" lightline "{{{
+if dein#tap('lightline.vim')
+  let g:lightline = {
+        \ 'colorscheme': 'default',
+        \ 'component': {
+        \   'readonly': '%{&readonly?" x":""}'
+        \ }
+        \}
+endif
+"}}}
+
+
 " indentLine "{{{
 if dein#tap('indentLine')
   nnoremap <Leader>i :<C-u>:IndentLinesToggle<CR>
@@ -187,17 +184,6 @@ endif
 "}}}
 
 
-" lightline "{{{
-if dein#tap('lightline.vim')
-  let g:lightline = {
-        \ 'colorscheme' : 'default',
-        \ 'component' : {
-        \   'readonly' : '%{&readonly?" x":""}'
-        \ }}
-endif
-"}}}
-
-
 " vim-clang "{{{
 if dein#tap('vim-clang')
   call s:load_config(g:dein#name, 'vim-clang.vim')
@@ -225,4 +211,41 @@ endif
 if dein#tap('python.vim')
   let python_highlight_all = 1
 endif
+"}}}
+
+
+" Private auto commands  "{{{
+augroup MyCmdGroup
+  " mkdir when the target directory does not exist
+  autocmd BufWritePre * call hook#write#auto_mkdir( expand('<afile>:p:h'), v:cmdbang )
+  " remove extra spaces
+  autocmd BufWritePre * call hook#write#space_clean()
+  " reload ~/.vimrc when it was updated
+  autocmd BufWritePost $MYVIMRC source $MYVIMRC
+  " reload ~/.vimrc.mine when it was updated  => only when .vimrc.mine exists
+  if exists('g:private_vimrc')
+    autocmd BufWritePost $SECRETVIMRC source $SECRETVIMRC
+  endif
+  " reload ~/.gvimrc when it was updated  => only used in gVim
+  if IsGUI()
+    autocmd BufWritePost $MYGVIMRC source $MYGVIMRC
+  endif
+  " autocmd for each filetype
+  autocmd FileType gitcommit execute "normal! gg"
+  " omnifunc
+  "autocmd FileType ada setlocal omnifunc=adacomplete#Complete
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
+  autocmd FileType c setlocal omnifunc=ccomplete#Complete
+  autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+  autocmd FileType java setlocal omnifunc=javacomplete#Complete
+  autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+  if has('python3')
+    autocmd FileType python setlocal omnifunc=python3complete#Complete
+  else
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  endif
+augroup END
 "}}}

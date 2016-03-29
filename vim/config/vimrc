@@ -39,14 +39,14 @@ endif
 
 call s:source_config('dein.vim')
 
-call s:source_config('plugins.vim')
-
 if has('vim_starting')
   if dein#check_install()
 		if dein#check_install(['vimproc']) | call dein#install(['vimproc']) | endif
     call dein#install()
   endif
 endif
+
+call s:source_config('plugins.vim')
 
 filetype plugin indent on
 syntax enable

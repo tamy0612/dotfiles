@@ -6,6 +6,13 @@ repo  = 'Shougo/vimproc'
 build = 'make'
 
 [[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]]
+repo = 'osyo-manga/vim-precious'
+depends = ['context_filetype.vim']
+
+[[plugins]]
 repo      = 'Shougo/unite-sudo'
 
 [[plugins]]

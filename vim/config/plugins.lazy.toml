@@ -4,12 +4,6 @@ on_path   = '.*'
 
 # Completion
 [[plugins]]
-repo      = 'Shougo/neosnippet-snippets'
-
-[[plugins]]
-repo      = 'Shougo/context_filetype.vim'
-
-[[plugins]]
 repo      = 'Shougo/deoplete.nvim'
 depends   = 'context_filetype.vim'
 if        = "has('nvim')"
@@ -26,6 +20,9 @@ repo      = 'Shougo/neosnippet.vim'
 depends   = ['neosnippet-snippets', 'context_filetype.vim']
 on_ft     = 'snippet'
 on_i      = 1
+
+[[plugins]]
+repo      = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
 repo      = 'Shougo/neco-vim'

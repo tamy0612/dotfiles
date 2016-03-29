@@ -6,7 +6,7 @@ let g:deoplete#auto_completion_start_length = 2
 let g:deoplete#enable_reflesh_always        = 1
 let g:deoplete#enable_camel_case            = 1
 
-set completeopt+=noinsert
+set completeopt+=noselect
 
 imap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -15,9 +15,6 @@ imap <silent><expr> <TAB>
 
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
 
-inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
-
 inoremap <expr><C-g> deoplete#mappings#undo_completion()
 inoremap <expr><C-l> deoplete#mappings#refresh()
 
@@ -25,7 +22,3 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
-
-
-" clang
-let g:deoplete#sources#clang#libclang_path = ''
