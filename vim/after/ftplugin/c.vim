@@ -4,4 +4,4 @@ endif
 let b:did_cpp_ftplugin = 1
 
 setlocal commentstring=//%s
-setlocal path+=.,./src,./source
+setlocal path+=/usr/local/include,.,./src,./source
