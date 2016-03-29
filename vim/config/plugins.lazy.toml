@@ -1,3 +1,7 @@
+[[plugins]]
+repo      = 'Shougo/neomru.vim'
+on_path   = '.*'
+
 # Completion
 [[plugins]]
 repo      = 'Shougo/neosnippet-snippets'
@@ -101,7 +105,7 @@ on_cmd    = ['NERDTreeFind', 'NERDTreeToggle']
 
 [[plugins]]
 repo      = 'Shougo/vimfiler'
-depends   = 'Shougo/unite.vim'
+depends   = 'unite.vim'
 on_map    = '<Plug>'
 on_path   = '.*'
 
@@ -113,6 +117,7 @@ on_map    = '<C-p>'
 # Unite
 [[plugins]]
 repo      = 'Shougo/unite.vim'
+depends   = 'neomru.vim'
 
 [[plugins]]
 repo      = 'Shougo/unite-build'
@@ -128,7 +133,7 @@ depends   = 'unite.vim'
 
 [[plugins]]
 repo      = 'rhysd/unite-codic.vim'
-depends   = ['unite.vim', 'codic.vim']
+depends   = ['unite.vim', 'codic-vim']
 on_ft     = ['c', 'cpp', 'd', 'java', 'python', 'ruby']
 
 [[plugins]]

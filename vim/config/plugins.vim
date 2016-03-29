@@ -80,11 +80,12 @@ endif
 
 
 " completion "{{{
-if dein#tap('deoplete.nvim') && has('nvim')
+if dein#tap('deoplete.nvim')
+  let g:deoplete#enable_at_startup = 1
   call s:load_config(g:dein#name, 'deoplete.nvim')
 endif
 
-if dein#tap('neocomplete') && !has('nvim') && has('lua')
+if dein#tap('neocomplete')
   call s:load_config(g:dein#name, 'neocomplete.vim')
 endif
 "}}}
