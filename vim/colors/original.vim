@@ -83,3 +83,10 @@ augroup sl
   autocmd InsertEnter * hi StatusLine ctermfg=White ctermbg=DarkRed cterm=none
   autocmd InsertLeave * hi StatusLine ctermfg=LightGray ctermbg=DarkBlue cterm=none
 augroup END
+
+" Popup menu
+" -----------
+highlight Pmenu ctermbg=gray ctermfg=black
+highlight PmenuSel ctermbg=LightGray ctermfg=black
+highlight PmenuSbar ctermbg=lightgray
+highlight PmenuThumb ctermbg=green
