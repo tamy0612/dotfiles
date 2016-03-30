@@ -1,29 +1,35 @@
 [[plugins]]
-repo  = 'Shougo/dein.vim'
+repo    = 'Shougo/dein.vim'
 
 [[plugins]]
-repo  = 'Shougo/vimproc'
-build = 'make'
+repo    = 'Shougo/vimproc'
+build   = 'make'
 
 [[plugins]]
-repo = 'Shougo/context_filetype.vim'
+repo    = 'Shougo/context_filetype.vim'
 
 [[plugins]]
-repo = 'osyo-manga/vim-precious'
+repo    = 'osyo-manga/vim-precious'
 depends = ['context_filetype.vim']
 
 [[plugins]]
-repo      = 'Shougo/unite-sudo'
+repo    = 'Shougo/unite-sudo'
 
 [[plugins]]
-repo  = 'godlygeek/csapprox'
-if    = "!has('gui_running') || has('nvim')"
+repo    = 'godlygeek/csapprox'
+if      = "!has('gui_running') || has('nvim')"
 
 [[plugins]]
-repo  = 'itchyny/lightline.vim'
+repo    = 'itchyny/lightline.vim'
 
 [[plugins]]
-repo  = 'tamy0612/template.vim'
+repo    = 'tamy0612/template.vim'
 
 [[plugins]]
-repo  = 'tamy0612/argos.vim'
+repo    = 'tamy0612/argos.vim'
+
+[[plugins]]
+repo    = 'fuenor/qfixgrep'
+
+[[plugins]]
+repo    = 'tpope/vim-fugitive'
