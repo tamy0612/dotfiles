@@ -94,6 +94,10 @@ on_map    = '<Plug>'
 repo  = 'thinca/vim-guicolorscheme'
 if    = "!has('gui_running') || has('nvim')"
 
+[[plugins]]
+repo      = 'thinca/vim-qfreplace'
+on_ft     = ['unite', 'quickfix']
+
 
 # Filer
 [[plugins]]
@@ -148,10 +152,6 @@ depends   = 'unite.vim'
 [[plugins]]
 repo      = 'ujihisa/unite-colorscheme'
 depends   = ['unite.vim']
-
-[[plugins]]
-repo      = 'thinca/vim-qfreplace'
-on_ft     = ['unite', 'quickfix']
 
 
 # Shell
