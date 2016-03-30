@@ -12,8 +12,10 @@ imap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ deoplete#mappings#manual_complete()
-
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<C-h>"
+
+inoremap <expr><CR>  pumvisible() ? deoplete#mappings#close_popup() : "\<CR>"
+inoremap <expr><BS>  pumvisible() ? deoplete#mappings#smart_close_popup()."\<BS>" : "\<BS>"
 
 inoremap <expr><C-g> deoplete#mappings#undo_completion()
 inoremap <expr><C-l> deoplete#mappings#refresh()
