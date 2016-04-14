@@ -24,11 +24,11 @@ anyenv:
 	@[ -d $(HOME)/.anyenv ] || git clone $(ANYENV_REPO) $(HOME)/.anyenv
 
 gnuplot:
-	@[ -f $(HOME)/.gnuplot ] || ln -s $(PWD)/gnuplot $(HOME)/.gnuplot
+	@[ -f $(HOME)/.gnuplot ] || ln -s $(PWD)/others/gnuplot $(HOME)/.gnuplot
 
 homebrew:
 ifeq ($(OS),Darwin)
 	@[ $(shell which brew 2> /dev/null) ] || /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 else
-	@echo "Nothing to do for OS: $(OS)"
+	@echo "Nothing to do for $(OS)"
 endif
