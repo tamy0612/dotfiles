@@ -27,3 +27,6 @@ set ignorecase
 set smartcase
 set incsearch
 set wildignore=*.o,*.class,*.beam,*.dvi,*.pdf
+
+" clipboard
+set clipboard=unnamed

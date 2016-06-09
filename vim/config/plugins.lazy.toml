@@ -67,10 +67,6 @@ repo      = 'thinca/vim-quickrun'
 on_map    = '<Plug>'
 
 [[plugins]]
-repo      = 'itchyny/calendar.vim'
-on_cmd    = 'Calendar'
-
-[[plugins]]
 repo      = 'yuratomo/w3m.vim'
 on_cmd    = ['W3m', 'W3mTab', 'W3mSplit', 'W3mVsplit']
 
@@ -97,6 +93,14 @@ if    = "!has('gui_running') || has('nvim')"
 [[plugins]]
 repo      = 'thinca/vim-qfreplace'
 on_ft     = ['unite', 'quickfix']
+
+[[plugins]]
+repo      = 'itchyny/calendar.vim'
+on_cmd    = 'Calendar'
+
+[[plugins]]
+repo      = 'itchyny/vim-external'
+on_map    = '<Plug>'
 
 
 # Filer

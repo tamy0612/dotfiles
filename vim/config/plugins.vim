@@ -86,6 +86,16 @@ endif
 "}}}
 
 
+" vim-external "{{{
+if dein#tap('vim-external')
+  nnoremap [external] <Nop>
+  nmap <Space>e [external]
+  nmap <silent> [external]e <Plug>(external-explorer)
+  nmap <silent> [external]b <Plug>(external-browser)
+endif
+"}}}
+
+
 " ctags "{{{
 if dein#tap('ctags.vim')
   call s:load_config(g:dein#name, 'ctags.vim')
