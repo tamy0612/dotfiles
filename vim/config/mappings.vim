@@ -39,6 +39,11 @@ nnoremap <silent> <Leader>= :<C-u>execute "normal!gg=G"<CR>
 nnoremap <Leader>e :<C-u>e
 nnoremap <Leader>en :<C-u>enew<CR>
 nnoremap <Leader>es :<C-u>Scratch<CR>
+inoremap <C-t> <Esc><Left>"zx"zpa
+
+" highlight
+nnoremap <silent> <Space><Space> "zyiw:let @/ = '\<' . @z . '\>'<CR>:set hlsearch<CR>
+nmap # <Space><Space>:%s/<C-r>///g<Left><Left>
 nmap <Esc><Esc> :<C-u>nohlsearch<CR><Esc>
 
 " quick help
