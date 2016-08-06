@@ -68,8 +68,7 @@ case "${TERM}" in
     local prompt_fail_color='%{${fg[red]}%}'
     local prompt_ssh_color='%{${fg[cyan]}%}'
     local prompt_date_color='${GRAY}'
-    PROMPT="
-%(?.${prompt_main_color}.${prompt_fail_color})%n@%M:${prompt_sub_color}%~
+    PROMPT="%(?.${prompt_main_color}.${prompt_fail_color})%n@%M:${prompt_sub_color}%~
 ${prompt_date_color}[%D{%d/%m/%y %H:%M:%S}] %(?.${prompt_main_color}.${prompt_fail_color})%(!.#.>) %{${reset_color}%}"
     PROMPT2="${prompt_main_color}%_ > %{${reset_color}%}"
     SPROMPT="${prompt_fail_color}correct: ${prompt_sub_color}%R ${prompt_fail_color}-> ${prompt_main_color}%r ${prompt_fail_color}[nyae]? %{${reset_color}%}"
@@ -88,7 +87,8 @@ esac
 if [ -n "${SSH_CLIENT}${SSH_CONNECTION}" ]; then
   PROMPT=$CYAN"[ssh] "$PROMPT$DEFAULT
 fi
-
+PROMPT="
+$PROMPT"
 
 ## options
 # completion
