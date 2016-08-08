@@ -211,6 +211,10 @@ on_i      = 1
 repo      = 'scrooloose/syntastic'
 on_cmd    = ['SyntasticCheck', 'SyntasticToggleMode']
 
+[[plugins]]
+repo      = 'DoxygenToolkit.vim'
+on_ft     = ['c', 'cpp']
+
 
 # Plugins for specific filetypes
 [[plugins]]
@@ -316,3 +320,6 @@ on_ft     = 'css'
 [[plugins]]
 repo      = 'thinca/vim-ft-help_fold'
 on_ft     = 'help'
+
+[[plugins]]
+repo      = 'maxima.vim'

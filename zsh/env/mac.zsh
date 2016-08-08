@@ -26,7 +26,8 @@ fi
 
 # set R_HOME
 if type R > /dev/null 2>&1 ; then
-  export R_HOME=/Library/Frameworks/R.framework/Resources
+  # export R_HOME=/Library/Frameworks/R.framework/Resources
+  export R_HOME=`R RHOME`
 fi
 
 # curl setting
