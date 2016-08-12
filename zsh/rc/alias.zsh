@@ -1,7 +1,11 @@
 # default
 case ${OSTYPE} in
   darwin*)
-    alias ls='ls -F -G'
+    if type gls > /dev/null 2>&1 ; then
+      alias ls='gls -F --color=auto'
+    else
+      alias ls='ls -F -G'
+    fi
     ;;
   linux*)
     alias ls='ls -F --color=auto'
@@ -23,7 +27,6 @@ alias lr='ls -R'
 alias llr='ll -R'
 alias lar='la -R'
 alias llar='lla -R'
-alias ..='cd ..'
 if type tree > /dev/null 2>&1 ; then
   alias lt='tree'
   alias lta='tree -a'
