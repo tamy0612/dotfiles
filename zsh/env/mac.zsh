@@ -6,11 +6,11 @@ export KCODE=u
 
 # path
 path=(
-  /usr/local/bin(N-/)
   /Applications/MAMP/bin/php/php5.4.10/bin(N-/)
   /Applications/pTeX.app/teTeX/bin(N-/)
   $HOME/Library/TeXShop/bin(N-/)
   /Applications/Octave.app/Contents/Resources/bin(N-/)
+  /usr/local/bin(N-/)
   ${path}
 )
 
