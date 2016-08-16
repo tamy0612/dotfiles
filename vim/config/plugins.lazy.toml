@@ -322,4 +322,12 @@ repo      = 'thinca/vim-ft-help_fold'
 on_ft     = 'help'
 
 [[plugins]]
+repo      = 'rsmenon/vim-mathematica'
+on_ft     = 'matlab'
+
+[[plugins]]
 repo      = 'maxima.vim'
+
+[[plugins]]
+repo      = 'dart-lang/dart-vim-plugin'
+on_ft     = 'dart'
