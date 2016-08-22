@@ -53,3 +53,11 @@ alias vi='vim'
 # rm
 alias rm='rmtrash'
 alias sysrm='/bin/rm'
+
+# Gnu core-utils
+if type gls > /dev/null 2>&1 ; then
+  alias ls='gls -F --color=auto'
+fi
+if type gtimeout > /dev/null 2>&1 ; then
+  alias timeout='gtimeout'
+fi

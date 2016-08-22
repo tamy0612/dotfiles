@@ -1,11 +1,7 @@
 # default
 case ${OSTYPE} in
   darwin*)
-    if type gls > /dev/null 2>&1 ; then
-      alias ls='gls -F --color=auto'
-    else
-      alias ls='ls -F -G'
-    fi
+    alias ls='ls -F -G'
     ;;
   linux*)
     alias ls='ls -F --color=auto'

@@ -175,10 +175,6 @@ setopt long_list_jobs
 setopt list_types
 
 
-## load rc
-source $ZDIR/rc/alias.zsh
-
-
 ## load plugins
 export ZPLUGINDIR=$ZDIR/plugins
 

@@ -56,6 +56,10 @@ if [ -d $HOME/.anyenv ] ; then
 fi
 
 
+# load aliases
+source $ZDIR/rc/alias.zsh
+
+
 ## load settings depend on OSTYPE
 case ${OSTYPE} in
   darwin*)
