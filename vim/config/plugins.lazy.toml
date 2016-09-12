@@ -119,6 +119,12 @@ repo      = 'ctrlpvim/ctrlp.vim'
 on_map    = '<C-p>'
 
 
+# Denite
+[[plugins]]
+repo      = 'Shougo/denite.nvim'
+on_cmd    = 'Denite'
+if        = "has('nvim')"
+
 # Unite
 [[plugins]]
 repo      = 'Shougo/unite.vim'

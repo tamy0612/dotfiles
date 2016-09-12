@@ -29,6 +29,15 @@ endif
 "}}}
 
 
+" denite "{{{
+if dein#tap('denite.nvim')
+  nnoremap [denite] <Nop>
+  nmap <Space>d [denite]
+  nmap <silent> [denite]f :<C-u>Denite file_rec<CR>
+endif
+"}}}
+
+
 " unite "{{{
 if dein#tap('unite.vim')
   nnoremap [unite] <Nop>
