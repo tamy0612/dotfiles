@@ -1,3 +1,5 @@
+syntax on
+
 " Set title the file path
 let &titleold = ""
 let &titlestring = "%f"
@@ -15,11 +17,6 @@ set laststatus=2
 set cmdheight=1
 " Show commandsd
 set showcmd
-" colors
-set t_Co=256
-set background=dark
-colorscheme original
-syntax on
 " Show matches
 set showmatch
 

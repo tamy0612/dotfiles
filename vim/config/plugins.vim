@@ -7,6 +7,19 @@ function! s:load_config(dein_name, plugin_name)
 endfunction
 
 
+" colorscheme "{{{
+if dein#tap('clone.vim')
+  set t_Co=256
+  set background=dark
+  colorscheme clone
+else
+  set background=dark
+  colorscheme slate
+  echomsg "Use colorscheme 'slate' instead of 'clone'"
+endif
+"}}}
+
+
 " context_filetype "{{{
 if dein#tap('context_filetype.vim')
 

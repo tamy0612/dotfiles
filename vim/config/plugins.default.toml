@@ -29,6 +29,9 @@ repo    = 'tamy0612/template.vim'
 repo    = 'tamy0612/argos.vim'
 
 [[plugins]]
+repo    = 'tamy0612/clone.vim'
+
+[[plugins]]
 repo    = 'fuenor/qfixgrep'
 
 [[plugins]]
