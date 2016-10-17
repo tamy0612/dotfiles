@@ -6,9 +6,9 @@ set cinoptions&
 "set cinoptions+=:0,g4,N0,h0,f0
 set cinoptions+=h0,(4,Us,p0
 " Tab
-set tabstop=8
-set softtabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=0
 set smarttab
 set expandtab
 " wrapping

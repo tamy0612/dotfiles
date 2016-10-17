@@ -1,3 +1,4 @@
+# Essential
 [[plugins]]
 repo    = 'Shougo/dein.vim'
 
@@ -5,32 +6,26 @@ repo    = 'Shougo/dein.vim'
 repo    = 'Shougo/vimproc'
 build   = 'make'
 
-[[plugins]]
-repo    = 'Shougo/context_filetype.vim'
-
-[[plugins]]
-repo    = 'osyo-manga/vim-precious'
-depends = ['context_filetype.vim']
-
-[[plugins]]
-repo    = 'Shougo/unite-sudo'
-
+# Visual stuff
 [[plugins]]
 repo    = 'godlygeek/csapprox'
 if      = "!has('gui_running') || has('nvim')"
 
 [[plugins]]
 repo    = 'itchyny/lightline.vim'
-
-[[plugins]]
-repo    = 'tamy0612/template.vim'
-
-[[plugins]]
-repo    = 'tamy0612/argos.vim'
+hook_add = '''
+  let g:lightline = {
+        \ 'colorscheme': 'default',
+        \ 'component': {
+        \   'readonly': '%{&readonly?" x":""}'
+        \ }
+        \}
+'''
 
 [[plugins]]
 repo    = 'tamy0612/clone.vim'
 
+# Can be lazy
 [[plugins]]
 repo    = 'fuenor/qfixgrep'
 

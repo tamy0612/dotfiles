@@ -1,28 +1,97 @@
 OS          = $(shell uname)
 PWD    	    = $(shell pwd)
-ANYENV_REPO = "https://github.com/riywo/anyenv"
+
+XDG_CONFIG  = $(HOME)/.config
+ANYENV_HOME = $(HOME)/.anyenv
+ZSH_HOME    = $(HOME)/.zsh
+VIM_HOME    = $(HOME)/.vim
+NVIM_HOME   = $(XDG_CONFIG)/nvim
+
+PYENV       = $(ANYENV_HOME)/envs/pyenv
+PYTHON2_VER = 2.7.9
+PYTHON3_VER = 3.5.2
+
+.PHONY: zsh vim
+
 
 all:
 	@echo "Usage:"
 	@echo "  make <zsh|gnuplot|vim|nvim|anyenv|homebrew>"
 
-.PHONY: zsh vim
-zsh:
-	@[ -d $(HOME)/.zsh ] || ln -s $(PWD)/zsh $(HOME)/.zsh
-	@[ -f $(HOME)/.zshenv ] || ln -s $(PWD)/zsh/zshenv $(HOME)/.zshenv
-	@[ -f $(HOME)/.zshrc ] || ln -s $(PWD)/zsh/zshrc $(HOME)/.zshrc
-	@[ type zcompile > /dev/null 2>&1 ] && ( zsh -fc "zcompile $(HOME)/.zshenv" ) & ( zsh -fc "zcompile $(HOME)/.zshrc" )
 
-vim:
-	@[ -d $(HOME)/.vim ] || ln -s $(PWD)/vim $(HOME)/.vim
+# zsh
+zsh: $(ZSH_HOME) $(HOME)/.zshenv.zwc $(HOME)/.zshrc.zwc
+	@git submodule update --init
 
-nvim:
-	@[ -d $(HOME)/.config ] || mkdir -p $(HOME)/.config
-	@[ -d $(HOME)/.config/nvim ] || ln -s $(PWD)/vim $(HOME)/.config/nvim
+$(ZSH_HOME):
+	@ln -s $(PWD)/zsh $@
 
-anyenv:
-	@[ -d $(HOME)/.anyenv ] || git clone $(ANYENV_REPO) $(HOME)/.anyenv
+$(HOME)/.zshenv:
+	@ln -s $(PWD)/zsh/zshenv $@
 
+$(HOME)/.zshrc:
+	@ln -s $(PWD)/zsh/zshrc $@
+
+%.zwc: %
+	@[ type zcompile > /dev/null 2>&1 ] && zsh -fc "zcompile %"
+
+
+# vim
+vim: $(VIM_HOME)
+
+nvim: $(XDG_CONFIG) $(NVIM_HOME) $(PYENV)/versions/neovim2 $(PYENV)/versions/neovim3
+
+$(XDG_CONFIG):
+	@mkdir -p $@
+
+$(VIM_HOME):
+	@ln -s $(PWD)/vim $@
+
+$(NVIM_HOME): $(XDG_CONFIG)
+	@ln -s $(PWD)/vim $@
+
+$(PYENV)/versions/neovim2: $(PYENV)/plugins/pyenv-virtualenv
+	@pyenv install $(PYTHON2_VER)
+	@pyenv virtualenv $(PYTHON2_VER) neovim2
+	@pyenv activate neovim2
+	@pip install --upgrade pip
+	@pip install neovim flake8 jedi
+	@pyenv deactivate
+
+$(PYENV)/versions/neovim3: $(PYENV)/plugins/pyenv-virtualenv
+	@pyenv install $(PYTHON3_VER)
+	@pyenv virtualenv $(PYTHON3_VER) neovim3
+	@pyenv activate neovim3
+	@pip3 install --upgrade pip
+	@pip3 install neovim flake8 jedi
+	@pyenv deactivate
+
+
+# *env
+anyenv: $(ANYENV_HOME) $(ANYENV_HOME)/plugins/anyenv-update
+
+$(ANYENV_HOME):
+	@git clone https://github.com/riywo/anyenv $@
+
+$(ANYENV_HOME)/plugins: $(ANYENV_HOME)
+	@mkdir -p $@
+
+$(ANYENV_HOME)/plugins/anyenv-update: $(ANYENV_HOME)/plugins
+	@git clone https://github.com/znz/anyenv-update $@
+
+pyenv: $(PYENV) $(PYENV)/plugins/pyenv-virtualenv
+
+$(PYENV): $(ANYENV_HOME)
+	@anyenv install pyenv
+
+$(PYENV)/plugins:
+	@mkdir -p $@
+
+$(PYENV)/plugins/pyenv-virtualenv: $(PYENV)/plugins
+	@git clone https://github.com/yyuu/pyenv-virtualenv $@
+
+
+# others
 gnuplot:
 	@[ -f $(HOME)/.gnuplot ] || ln -s $(PWD)/others/gnuplot $(HOME)/.gnuplot
 

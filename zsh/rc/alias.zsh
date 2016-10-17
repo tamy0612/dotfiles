@@ -1,13 +1,4 @@
 # default
-case ${OSTYPE} in
-  darwin*)
-    alias ls='ls -F -G'
-    ;;
-  linux*)
-    alias ls='ls -F --color=auto'
-    ;;
-esac
-
 alias grep='grep --color=auto'
 
 if type colordiff > /dev/null 2>&1 ; then

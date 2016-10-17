@@ -30,8 +30,8 @@ if !dein#load_state(s:plugin_dir)
   finish
 endif
 
-let s:toml_path = expand('$VIMDIR/config/plugins.default.toml')
-let s:toml_lazy_path = expand('$VIMDIR/config/plugins.lazy.toml')
+let s:toml_path = expand('$VIMDIR/config/plugins/default.toml')
+let s:toml_lazy_path = expand('$VIMDIR/config/plugins/lazy.toml')
 
 call dein#begin(s:plugin_dir, [expand('<sfile>'), s:toml_path, s:toml_lazy_path])
 

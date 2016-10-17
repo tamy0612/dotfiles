@@ -1,4 +1,3 @@
-let g:quickrun_config = {}
 " global setting
 let g:quickrun_config._ = {
       \ 'runner' : 'vimproc',

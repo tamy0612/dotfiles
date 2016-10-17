@@ -10,9 +10,10 @@ done
 # path
 typeset -U PATH path
 path=(
-  /sbin(N-/)
-  /usr/local/bin(N-/)
   $HOME/bin(N-/)
+  /usr/local/bin(N-/)
+  /usr/bin(N-/)
+  /sbin(N-/)
   ${path}
 )
 
@@ -23,24 +24,6 @@ sudo_path=(
   /usr/local/bin(N-/)
   /usr/bin(N-/)
   /sbin(N-/)
-)
-
-# env
-if [ -x "`which nvim`" ] ; then
-  export EDITOR='nvim'
-elif [ -x "`which vim`" ] ; then
-  export EDITOR='vim'
-else
-  export EDITOR='vi'
-fi
-
-# D lang
-typeset -Tx D_IMPORT_DIR d_import_dir
-typeset -U d_import_dir
-d_import_dir=(
-  /usr/local/include/d2(N-/)
-  /usr/include/dmd/druntime/import(N-/)
-  /usr/include/dmd/phobos(N-/)
 )
 
 # anybenv
@@ -55,9 +38,21 @@ if [ -d $HOME/.anyenv ] ; then
   eval "$(anyenv init - --no-rehash)"
 fi
 
+# R
+if type R > /dev/null 2>&1 ; then
+  typeset -Tx R_HOME r_home
+  typeset -U r_home
+  rhome=(`R RHOME`)
+fi
 
-# load aliases
-source $ZDIR/rc/alias.zsh
+# D lang
+typeset -Tx D_IMPORT_DIR d_import_dir
+typeset -U d_import_dir
+d_import_dir=(
+  /usr/local/include/d2(N-/)
+  /usr/include/dmd/druntime/import(N-/)
+  /usr/include/dmd/phobos(N-/)
+)
 
 
 ## load settings depend on OSTYPE
@@ -69,6 +64,9 @@ case ${OSTYPE} in
     source $ZDIR/env/linux.zsh
     ;;
 esac
+
+## load aliases
+source $ZDIR/rc/alias.zsh
 
 
 ## auto compile

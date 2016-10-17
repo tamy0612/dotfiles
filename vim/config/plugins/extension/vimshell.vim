@@ -1,8 +1,6 @@
-let g:vimshell_split_command = ''
-let g:vimshell_enable_transient_user_prompt = 1
-let g:vimshell_force_overwrite_statusline = 1
-let g:vimshell_execute_file_list = {}
 call vimshell#set_execute_file('txt,vim,log', 'vim')
+
+let g:vimshell_execute_file_list = {}
 let g:vimshell_execute_file_list['rb'] = 'ruby'
 let g:vimshell_execute_file_list['pl'] = 'perl'
 let g:vimshell_execute_file_list['py'] = 'python'

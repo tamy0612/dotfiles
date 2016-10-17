@@ -16,11 +16,11 @@ function! IsMac() abort
           \      || ( !executable('xdg-open') && system('uname') =~? '^darwin' ) )
 endfunction
 
-function! IsLinux()
+function! IsLinux() abort
   return !IsWindows() && !IsMac() && has('unix')
 endfunction
 
-function! IsSUDO()
+function! IsSUDO() abort
   return s:is_sudo
 endfunction
 
@@ -28,6 +28,6 @@ function! IsGUI() abort
   return s:is_gui
 endfunction
 
-function! IsNVim()
+function! IsNVim() abort
   return s:is_nvim
 endfunction

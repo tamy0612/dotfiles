@@ -3,32 +3,34 @@
 export LANG=ja_JP.UTF-8
 export KCODE=u
 
-
 # path
 path=(
   /Applications/MAMP/bin/php/php5.4.10/bin(N-/)
-  /Applications/pTeX.app/teTeX/bin(N-/)
-  $HOME/Library/TeXShop/bin(N-/)
   /Applications/Octave.app/Contents/Resources/bin(N-/)
-  /usr/local/bin(N-/)
+  /Library/TeX/texbin(N-/)
   ${path}
 )
 
+# Editor
+if type nvim > /dev/null 2>&1 ; then
+    export EDITOR="nvim"
+    alias vim="${EDITOR} -c Project"
+elif [ -x "/usr/local/bin/vim" ] ; then
+    export EDITOR='/usr/local/bin/vim'
+    alias vim=$EDITOR
+elif [ -d "/Applications/MacVim.app" ] ; then
+    export EDITOR='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim'
+    alias vim=$EDITOR
+    alias gvim='/Applications/MacVim.app/Contents/MacOS/MacVim'
+    alias vimdiff='/Applications/MacVim.app/Contents/MacOS/vimdiff'
+else
+    export EDITOR='/usr/bin/vim'
+    alias vim=$EDITOR
+fi
+alias vi=$EDITOR
+
 # homebrew
-if type brew > /dev/null 2>&1 ; then
-  export BREW_HOME=/usr/local/Cellar
-fi
-
-# rsense
-if brew --prefix rsense > /dev/null 2>&1 ; then
-  export RSENSE_HOME=`brew --prefix rsense`
-fi
-
-# set R_HOME
-if type R > /dev/null 2>&1 ; then
-  # export R_HOME=/Library/Frameworks/R.framework/Resources
-  export R_HOME=`R RHOME`
-fi
+export BREW_HOME=/usr/local/Cellar
 
 # curl setting
 if [ -f $HOME/.curl/ca-bundle.crt ]; then
@@ -36,20 +38,6 @@ if [ -f $HOME/.curl/ca-bundle.crt ]; then
 fi
 
 ## Alias
-# vim
-case ${EDITOR} in
-  vim)
-    export EDITOR='/Applications/MacVim.app/Contents/MacOS/Vim'
-    alias vim="env LANG=ja_JP.UTF-8 ${EDITOR}"
-    alias gvim='/Applications/MacVim.app/Contents/MacOS/MacVim'
-    alias vimdiff='/Applications/MacVim.app/Contents/MacOS/vimdiff'
-    ;;
-  *)
-    alias vim=$EDITOR
-    ;;
-esac
-alias vi='vim'
-
 # rm
 alias rm='rmtrash'
 alias sysrm='/bin/rm'

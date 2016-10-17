@@ -17,6 +17,7 @@ imap <C-@> <C-[>
 
 " window
 nnoremap <Tab> <C-w>w
+nnoremap <S-Tab> <C-w>W
 nnoremap <C-S-h> <C-w>h
 nnoremap <C-S-Left> <C-w><Left>
 nnoremap <C-S-j> <C-w>j

@@ -5,12 +5,6 @@ else
   language message C
 endif
 
-"" Private vimrc
-if filereadable( $HOME . '/.vimrc.mine' )
-  let g:private_vimrc = $HOME . '/.vimrc.mine'
-  execute 'source' g:private_vimrc
-endif
-
 "" Runtime path
 if IsWindows()
   set runtimepath^=$VIMDIR
