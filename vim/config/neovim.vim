@@ -9,7 +9,7 @@ augroup MyCmdGroup
 augroup END
 
 function! s:popup_terminal_toggle(...)
-  let l:popup_terminal_name = "terminal:".get(a:000, 0, "popup")
+  let l:popup_terminal_name = "terminal:" . get(a:000, 0, 'popup')
   let l:popup_terminal_bufnr = bufnr(l:popup_terminal_name)
   let l:popup_terminal_winnr = bufwinnr(l:popup_terminal_name)
   if l:popup_terminal_bufnr > 0

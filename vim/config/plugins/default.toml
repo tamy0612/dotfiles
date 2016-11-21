@@ -8,26 +8,37 @@ build   = 'make'
 
 # Visual stuff
 [[plugins]]
+repo    = 'tamy0612/clone.vim'
+
+[[plugins]]
 repo    = 'godlygeek/csapprox'
 if      = "!has('gui_running') || has('nvim')"
 
 [[plugins]]
-repo    = 'itchyny/lightline.vim'
+repo     = 'itchyny/lightline.vim'
 hook_add = '''
-  let g:lightline = {
-        \ 'colorscheme': 'default',
-        \ 'component': {
-        \   'readonly': '%{&readonly?" x":""}'
-        \ }
-        \}
+    source $VIMDIR/config/plugins/extension/lightline.vim
 '''
 
 [[plugins]]
-repo    = 'tamy0612/clone.vim'
-
-# Can be lazy
-[[plugins]]
-repo    = 'fuenor/qfixgrep'
+repo        = 'tpope/vim-fugitive'
 
 [[plugins]]
-repo    = 'tpope/vim-fugitive'
+repo        = 'airblade/vim-gitgutter'
+hook_add    = '''
+    let g:gitgutter_async   = 1
+    let g:gitgutter_enabled = 1
+    let g:gitgutter_sign_added    = '+'
+    let g:gitgutter_sign_modified = '!'
+    let g:gitgutter_sign_removed  = '-'
+    let g:gitgutter_sign_modified_removed = '!-'
+
+    nnoremap [gitgutter] <Nop>
+    nmap <Leader>g [gitgutter]
+    nmap <silent>  [gitgutter]g :<C-u>GitGutterToggle<CR>
+    nmap <silent>  [gitgutter]n :<C-u>GitGutterNextHunk<CR>
+    nmap <silent>  [gitgutter]p :<C-u>GitGutterPrevHunk<CR>
+    nmap <silent>  [gitgutter]a :<C-u>GitGutterStageHunk<CR>
+    nmap <silent>  [gitgutter]r :<C-u>GitGutterUndoHunk<CR>
+    nmap <silent>  [gitgutter]p :<C-u>GitGutterPreviewHunk<CR>
+'''
