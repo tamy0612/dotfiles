@@ -21,11 +21,17 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo        = 'tpope/vim-fugitive'
+repo     = 'tpope/vim-fugitive'
+hook_add = '''
+    nnoremap [git] <Nop>
+    nmap <Leader>g [git]
+    nmap <silent>  [git]c :<C-u>Gcommit<CR>
+    nmap <silent>  [git]s :<C-u>Gstatus<CR>
+'''
 
 [[plugins]]
-repo        = 'airblade/vim-gitgutter'
-hook_add    = '''
+repo     = 'airblade/vim-gitgutter'
+hook_add = '''
     let g:gitgutter_async   = 1
     let g:gitgutter_enabled = 1
     let g:gitgutter_sign_added    = '+'
@@ -33,12 +39,12 @@ hook_add    = '''
     let g:gitgutter_sign_removed  = '-'
     let g:gitgutter_sign_modified_removed = '!-'
 
-    nnoremap [gitgutter] <Nop>
-    nmap <Leader>g [gitgutter]
-    nmap <silent>  [gitgutter]g :<C-u>GitGutterToggle<CR>
-    nmap <silent>  [gitgutter]n :<C-u>GitGutterNextHunk<CR>
-    nmap <silent>  [gitgutter]p :<C-u>GitGutterPrevHunk<CR>
-    nmap <silent>  [gitgutter]a :<C-u>GitGutterStageHunk<CR>
-    nmap <silent>  [gitgutter]r :<C-u>GitGutterUndoHunk<CR>
-    nmap <silent>  [gitgutter]p :<C-u>GitGutterPreviewHunk<CR>
+    nnoremap [git] <Nop>
+    nmap <Leader>g [git]
+    nmap <silent>  [git]g :<C-u>GitGutterToggle<CR>
+    nmap <silent>  [git]n :<C-u>GitGutterNextHunk<CR>
+    nmap <silent>  [git]p :<C-u>GitGutterPrevHunk<CR>
+    nmap <silent>  [git]a :<C-u>GitGutterStageHunk<CR>
+    nmap <silent>  [git]r :<C-u>GitGutterUndoHunk<CR>
+    nmap <silent>  [git]p :<C-u>GitGutterPreviewHunk<CR>
 '''
