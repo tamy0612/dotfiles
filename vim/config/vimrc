@@ -22,24 +22,13 @@ call s:source_config("initialize.vim")
 " Load encode settings
 call s:source_config('encoding.vim')
 
+" Load python path
+call s:source_config('python.vim')
+
 
 "================================================
 " Plugins
 "================================================
-" Python config
-if IsNVim()
-  let g:python3_host_prog = expand('~/.anyenv/envs/pyenv/versions/neovim3/bin/python3')
-  let g:python_host_prog  = expand('~/.anyenv/envs/pyenv/versions/neovim2/bin/python')
-else
-  let g:loaded_python_provider = 1
-  let g:python_host_skip_check = 1
-  if exists('$PYENV_ROOT')
-    let g:python3_host_prog = $PYENV_ROOT.'/shims/python3'
-  else
-    let g:python3_host_prog = substitute(system('which python3'), '\n', '', 'g')
-  endif
-endif
-
 call s:source_config('dein.vim')
 
 if has('vim_starting')
