@@ -2,10 +2,10 @@ nnoremap [denite] <Nop>
 nmap <Leader>d  [denite]
 
 nmap <silent>   [denite]b :<C-u>Denite -resume -buffer-name=buffer buffer<CR>
-nmap <silent>   [denite]f :<C-u>Denite -resume -buffer-name=file file_rec<CR>
-nmap <silent>   [denite]d :<C-u>Denite -resume -buffer-name=dir directory_rec<CR>
+nmap <silent>   [denite]f :<C-u>Denite -resume -buffer-name=file_rec file_rec<CR>
+nmap <silent>   [denite]d :<C-u>Denite -resume -buffer-name=directory_rec directory_rec<CR>
 nmap <silent>   [denite]l :<C-u>Denite -resume -buffer-name=line line<CR>
-nmap <silent>   [denite]y :<C-u>Denite -resume -buffer-name=yank neoyank<CR>
+nmap <silent>   [denite]y :<C-u>Denite -resume -buffer-name=neoyank neoyank<CR>
 
 nmap <silent>   [denite]g :<C-u>Denite -buffer-name=grep grep<CR>
 nmap <silent>   [denite]r :<C-u>Denite -resume -buffer-name=grep grep<CR>

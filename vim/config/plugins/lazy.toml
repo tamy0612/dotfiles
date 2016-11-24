@@ -142,6 +142,11 @@ if          = "has('nvim')"
 hook_add    = '''
     source $VIMDIR/config/plugins/mapping/denite.nvim
 '''
+hook_post_source = '''
+    for src in denite#helper#complete('',0,0)
+        call denite#custom#option(src, 'statusline', v:false)
+    endfor
+'''
 
 [[plugins]]
 repo        = 'Shougo/unite.vim'

@@ -1,54 +1,110 @@
 let g:lightline = {
             \ 'colorscheme': 'default',
             \ 'active': {
-            \   'left': [['mode', 'paste'], ['readonly', 'modified', 'gitbranch', 'gitstatus', 'filename']],
+            \   'left': [['mode', 'paste', 'modifiable'], ['modified', 'filename'], ['dirname', 'git']],
             \   'right': [['lineinfo'], ['percent'], ['fileformat', 'fileencoding', 'filetype']]
             \ },
             \ 'inactive': {
-            \   'left': [['readonly', 'modified', 'filename']],
-            \   'right': [['lineinfo'], ['percent'], ['filetype']]
+            \   'left': [['modified', 'filename']],
+            \   'right': [['lineinfo'], ['filetype']]
             \ },
             \ 'component_function': {
             \   'mode': 'LightlineMode',
-            \   'readonly': 'LightlineReadonly',
+            \   'modifiable': 'LightlineModifiable',
             \   'modified': 'LightlineModified',
-            \   'gitbranch': 'LightlineGitBranch',
-            \   'gitstatus': 'LightlineGitStatus',
             \   'filename': 'LightlineFilename',
-            \   'filetype': 'LightlineFiletype'
+            \   'dirname': 'LightlineDirname',
+            \   'git': 'LightlineGit',
+            \   'fileformat': 'LightlineFileformat',
+            \   'fileencoding': 'LightlineFileencoding',
+            \   'filetype': 'LightlineFiletype',
+            \   'percent': 'LightlinePercent',
+            \   'lineinfo': 'LightlineLineinfo'
             \ }
             \}
 
 
 function! LightlineMode()
-    if &ft == "denite"
-        return denite#get_status_mode()
+    if &ft =~ 'denite'
+        return substitute(denite#get_status_mode(), '-\|\s', '', 'g')
+    endif
+    if &ft =~ 'nerdtree'
+        return ''
     endif
 
     return lightline#mode()
 endfunction
 
 
-function! LightlineReadonly()
-    return &ft !~? 'help\|unite\|denite\|nerdtree' && &ro ? 'x' : ''
+function! LightlineModifiable()
+    return &ro ? 'x' : &modifiable ? '' : '-'
 endfunction
 
 
 function! LightlineModified()
-    return &ft =~ 'help\|unite\|denite\|nerdtree' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+    return &modified ? '+' : ''
 endfunction
 
 
 function! LightlineFilename()
     if &buftype == 'terminal'
-        return expand('%:t')
+        let l:process = split(expand('%:t'), ':')
+        return printf("[%s] %s", l:process[0], l:process[1])
     endif
-    if &ft =~ 'help\|unite\|denite\|nerdtree'
-        return ''
+    if &ft =~ 'denite'
+        return denite#get_status_sources()
+    endif
+    if &ft =~ 'nerdtree'
+        let l:dirname = fnamemodify(getcwd(), ':~')
+        return fnamemodify(l:dirname, (strlen(l:dirname) > 20 ? ':t' : ':~'))
     endif
 
     let l:filename = expand('%')
-    return strlen(l:filename) ? fnamemodify(l:filename, winwidth('.') > 120 ? ':~:.' : ':t') : ''
+    return strlen(l:filename)
+                \ ? fnamemodify(l:filename, winwidth('.') > 120 ? ':~:.' : ':t')
+                \ : ''
+endfunction
+
+
+function! LightlineDirname()
+    if &ft =~ 'nerdtree'
+        return ''
+    endif
+    if winwidth('.') < 120
+        return ''
+    endif
+    return fnamemodify(getcwd(), ':p:~')
+endfunction
+
+
+function! LightlineGit()
+    if &ro || &buftype =~ 'terminal\|nofile'
+                \ || &ft =~ 'help\|unite\|denite\|nerdtree'
+                \ || !exists('*fugitive#head')
+        return ''
+    endif
+
+    let l:branch = fugitive#head()
+    if strlen(l:branch)
+        return '[Git:' . l:branch . '] ' . LightlineGitStatus()
+    endif
+    return ''
+endfunction
+
+
+function! LightlineFileformat()
+    if &ft =~ 'denite\|unite\|nerdtree'
+        return ''
+    endif
+    return &fileformat
+endfunction
+
+
+function! LightlineFileencoding()
+    if &ft =~ 'denite\|unite\|nerdtree'
+        return ''
+    endif
+    return &fileencoding
 endfunction
 
 
@@ -56,20 +112,32 @@ function! LightlineFiletype()
     if &buftype == 'terminal'
         return 'terminal'
     endif
+    if &ft =~ 'denite\|unite\|nerdtree'
+        return ''
+    endif
     return &filetype
 endfunction
 
 
-function! LightlineGitBranch()
-    if &buftype =~ 'terminal\|nofile'
+function! LightlinePercent()
+    if &ft =~ 'nerdtree'
         return ''
     endif
-    if &ft =~ 'help\|unite\|denite\|nerdtree' || !exists('*fugitive#head')
-        return ''
-    endif
+    let l:cline = line('.')
+    let l:eline = line('$')
+    return printf("%3d%%", l:eline > 0 ? l:cline * 100 / l:eline : 0)
+endfunction
 
-    let l:branch = fugitive#head()
-    return strlen(l:branch) ? l:branch : ''
+
+function! LightlineLineinfo()
+    if &ft =~ 'nerdtree'
+        return ''
+    endif
+    if &ft =~ 'denite'
+        return denite#get_status_linenr()
+    endif
+    let l:cpos = getpos('.')
+    return printf('%3d:%-2d', l:cpos[1], l:cpos[2])
 endfunction
 
 
@@ -85,11 +153,9 @@ function! LightlineGitStatus()
                 \   g:gitgutter_sign_modified,
                 \   g:gitgutter_sign_removed
                 \ ]
-    if l:summary[0] + l:summary[1] + l:summary[2] > 0
-        for i in [0,1,2]
-            call add(l:gitinfo, l:summary[i] . l:symbols[i])
-        endfor
-    endif
+    for i in [0,1,2]
+        call add(l:gitinfo, l:summary[i] . l:symbols[i])
+    endfor
 
     return len(l:gitinfo) ? join(l:gitinfo, ' ') : ''
 endfunction
