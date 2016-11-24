@@ -21,7 +21,7 @@ all:
 
 # zsh
 zsh: $(ZSH_HOME) $(HOME)/.zshenv.zwc $(HOME)/.zshrc.zwc
-	@git submodule update --init
+	@git submodule update --init --recursive
 
 $(ZSH_HOME):
 	@ln -s $(PWD)/zsh $@
