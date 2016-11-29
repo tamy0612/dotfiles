@@ -1,0 +1,18 @@
+" Menu
+let s:menu = {}
+
+let s:menu.vimrc = {
+            \ 'description': 'Edit vimrc',
+            \ 'file_candidates': [
+            \   ['.vimrc.local', getcwd().'/.vimrc.local']
+            \ ]
+            \}
+let s:menu.vimrc.file_candidates += map(split(glob($VIMDIR.'/config/**/*')), "[fnamemodify(v:val, ':~'), v:val]")
+
+call denite#custom#var('menu', 'menus', s:menu)
+
+
+" Customization
+if executable('ack')
+    call denite#custom#var('grep', 'command', ['ack'])
+endif
