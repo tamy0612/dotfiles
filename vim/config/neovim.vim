@@ -38,4 +38,4 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 
 " Mappings
 tnoremap <ESC> <C-\><C-n>
-nnoremap <silent> <Leader>t :<C-u>ToggleTerm<CR>
+nnoremap <silent> <Leader>t :<C-u>ToggleTerm default<CR>
