@@ -26,7 +26,7 @@ hook_source = '''
     let g:deoplete#enable_camel_case            = 1
     let g:deoplete#text_mode_filetypes          = {'_': 1}
 
-    set completeopt+=noselect
+    set completeopt=menuone,noselect,longest
 
     inoremap <silent><expr> <TAB>
                 \ pumvisible() ? "\<C-n>" :
@@ -528,8 +528,8 @@ if          = "executable('clang')"
 on_ft       = ['c', 'cpp']
 hook_source = '''
     let g:clang_auto = 1
-    let g:clang_c_completeopt   = 'menuone'
-    let g:clang_cpp_completeopt = 'menuone'
+    let g:clang_c_completeopt   = 'menuone,noselect,longest'
+    let g:clang_cpp_completeopt = 'menuone,noselect,longest'
 
     let g:clang_cpp_options = '-std=c++1y'
     if IsMac()
