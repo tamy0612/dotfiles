@@ -1,10 +1,11 @@
 nnoremap [denite] <Nop>
 nmap <Leader>d  [denite]
 
-nmap <silent>   [denite]b :<C-u>Denite -no-statusline -cursor-wrap -vertical-preview -resume -buffer-name=buffer buffer<CR>
-nmap <silent>   [denite]f :<C-u>Denite -no-statusline -cursor-wrap -vertical-preview -resume -buffer-name=file `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
-nmap <silent>   [denite]d :<C-u>Denite -no-statusline -cursor-wrap -resume -buffer-name=directory directory_rec<CR>
-nmap <silent>   [denite]y :<C-u>Denite -no-statusline -cursor-wrap -resume -buffer-name=yank neoyank<CR>
+nmap <silent>   [denite]b :<C-u>Denite -no-statusline -cursor-wrap -vertical-preview -buffer-name=buffer buffer<CR>
+nmap <silent>   [denite]f :<C-u>Denite -no-statusline -cursor-wrap -vertical-preview -buffer-name=file `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
+nmap <silent>   [denite]o :<C-u>Denite -no-statusline -cursor-wrap -vertical-preview -buffer-name=outline outline<CR>
+nmap <silent>   [denite]d :<C-u>Denite -no-statusline -cursor-wrap -buffer-name=directory directory_rec<CR>
+nmap <silent>   [denite]y :<C-u>Denite -no-statusline -cursor-wrap -buffer-name=yank neoyank<CR>
 nmap <silent>   [denite]m :<C-u>Denite -no-statusline -cursor-wrap menu<CR>
 nmap <silent>   [denite]h :<C-u>Denite -no-statusline -cursor-wrap help<CR>
 
