@@ -14,6 +14,7 @@ nnoremap <Up> gk
 
 " mode change
 imap <C-@> <C-[>
+nmap ; :
 
 " window
 nnoremap <Tab> <C-w>w
