@@ -669,7 +669,7 @@ hook_source = '''
 
 # Web development  #{{{
 [[plugins]]
-repo      = 'amirh/HTML-AutoCloseTag'
+repo      = 'HTML-AutoCloseTag'
 on_ft     = ['html', 'xml']
 
 [[plugins]]
