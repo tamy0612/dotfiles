@@ -1,16 +1,23 @@
+" Denite mapping
 nnoremap [denite] <Nop>
-nmap <Leader>d  [denite]
+nmap . [denite]
 
-nmap <silent>   [denite]b :<C-u>Denite -no-statusline -cursor-wrap -vertical-preview -buffer-name=buffer buffer<CR>
-nmap <silent>   [denite]f :<C-u>Denite -no-statusline -cursor-wrap -vertical-preview -buffer-name=file `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
-nmap <silent>   [denite]o :<C-u>Denite -no-statusline -cursor-wrap -vertical-preview -buffer-name=outline outline<CR>
-nmap <silent>   [denite]d :<C-u>Denite -no-statusline -cursor-wrap -buffer-name=directory directory_rec<CR>
-nmap <silent>   [denite]y :<C-u>Denite -no-statusline -cursor-wrap -buffer-name=yank neoyank<CR>
-nmap <silent>   [denite]m :<C-u>Denite -no-statusline -cursor-wrap menu<CR>
-nmap <silent>   [denite]h :<C-u>Denite -no-statusline -cursor-wrap help<CR>
+nmap <silent> [denite]b :<C-u>Denite -no-statusline -cursor-wrap -buffer-name=buffer buffer<CR>
+nmap <silent> [denite]f :<C-u>Denite -no-statusline -cursor-wrap -vertical-preview -buffer-name=file file_point file_old file_mru `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
+nmap <silent> [denite]o :<C-u>Denite -no-statusline -cursor-wrap -vertical-preview -buffer-name=outline outline<CR>
+nmap <silent> [denite]j :<C-u>Denite -no-statusline -cursor-wrap -auto-highlight -vertical-preview jump<CR>
+nmap <silent> [denite]d :<C-u>Denite -no-statusline -cursor-wrap directory_rec<CR>
+nmap <silent> [denite]y :<C-u>Denite -no-statusline -cursor-wrap register neoyank<CR>
+xmap <silent> [denite]y :<C-u>Denite -no-statusline -cursor-wrap -default-action=replace register neoyunk<CR>
+nmap <silent> [denite]m :<C-u>Denite -no-statusline -cursor-wrap menu<CR>
+nmap <silent> [denite]h :<C-u>Denite -no-statusline -cursor-wrap help<CR>
 
-nmap <silent>   [denite]l :<C-u>Denite -no-statusline -cursor-wrap -auto-highlight -vertical-preview -buffer-name=search line<CR>
-nmap <silent>   [denite]g :<C-u>Denite -no-statusline -cursor-wrap -auto-highlight -vertical-preview -buffer-name=search grep<CR>
-nmap <silent>   [denite]r :<C-u>Denite -no-statusline -cursor-wrap -auto-highlight -vertical-preview -resume -buffer-name=search<CR>
-nmap <silent>   [denite]n :<C-u>Denite -no-statusline -resume -cursor-pos=+1 -immediately -buffer-name=search<CR>
-nmap <silent>   [denite]p :<C-u>Denite -no-statusline -resume -cursor-pos=-1 -immediately -buffer-name=search<CR>
+nmap <silent> [denite]g :<C-u>Denite -no-statusline -cursor-wrap -auto-highlight -vertical-preview -no-empty -buffer-name=search grep<CR>
+nmap <silent> [denite]n :<C-u>Denite -no-statusline -resume -cursor-pos=+1 -immediately -buffer-name=search grep<CR>
+nmap <silent> [denite]p :<C-u>Denite -no-statusline -resume -cursor-pos=-1 -immediately -buffer-name=search grep<CR>
+
+nmap <silent> [denite]r :<C-u>Denite -no-statusline -cursor-wrap -auto-highlight -vertical-preview -buffer-name=search -resume<CR>
+
+" embedment
+nnoremap <silent> / :<C-u>Denite -no-statusline -cursor-wrap -auto-highlight -vertical-preview -buffer-name=search line<CR>
+nnoremap <silent> * :<C-u>DeniteCursorWord -no-statusline -cursor-wrap -auto-highlight -vertical-preview -buffer-name=search line<CR>
