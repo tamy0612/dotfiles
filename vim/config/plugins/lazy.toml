@@ -644,6 +644,13 @@ on_source = '''
 '''
 #}}}
 
+# R  #{{{
+[[plugins]]
+repo      = 'jalvesaq/Nvim-R'
+if        = "has('nvim')"
+on_ft     = 'r'
+#}}}
+
 # Markdown  #{{{
 [[plugins]]
 repo      = 'rcmdnk/vim-markdown'
