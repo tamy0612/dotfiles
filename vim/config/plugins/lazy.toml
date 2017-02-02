@@ -147,6 +147,15 @@ hook_post_source = '''
 '''
 
 [[plugins]]
+repo        = 'tamy0612/denite-quickfix.nvim'
+depends     = 'denite.nvim'
+if          = 'dein#tap("denite.nvim")'
+on_cmd      = 'Denite'
+hook_add    = '''
+    nnoremap <silent> [denite]q :<C-u>Denite -mode=normal -highlight-mode-normal=CursorLine -no-statusline -cursor-wrap -auto-highlight -vertical-preview quickfix<CR>
+'''
+
+[[plugins]]
 repo        = 'Shougo/unite.vim'
 depends     = 'neomru.vim'
 if          = "!has('nvim')"
