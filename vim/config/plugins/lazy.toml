@@ -488,6 +488,13 @@ on_source = ['vim-watchdogs']
 [[plugins]]
 repo      = 'syngan/vim-vimlparser'
 on_source = 'vim-vimlint'
+
+[[plugins]]
+repo        = 'neomake/neomake'
+if          = 'has("nvim")'
+on_cmd      = ['NeoMake']
+hook_source = '''
+'''
 #}}}
 
 # Utilities  #{{{
@@ -591,6 +598,11 @@ hook_source = '''
         let g:deoplete#sources#clang#clang_header  = '/usr/local/opt/llvm/include'
     endif
 '''
+
+[[plugins]]
+repo        = 'critiqjo/lldb.nvim'
+if          = 'has("nvim")'
+on_cmd      = ['LL', 'LLsession', 'LLmode']
 
 [[plugins]]
 repo        = 'DoxygenToolkit.vim'

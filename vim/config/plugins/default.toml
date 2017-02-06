@@ -6,6 +6,19 @@ repo    = 'Shougo/dein.vim'
 repo    = 'Shougo/vimproc'
 build   = 'make'
 
+
+# terminal
+[[plugins]]
+repo        = 'kassio/neoterm'
+if          = 'has("nvim")'
+hook_add    = '''
+    let g:neoterm_position = 'horizontal'
+
+    nnoremap <silent> <Leader>t :<C-u>Ttoggle<CR>
+    vnoremap <silent> <Leader>t :<C-u>TREPLSendSelection<CR>
+'''
+
+
 # Visual stuff
 [[plugins]]
 repo    = 'tamy0612/clone.vim'
