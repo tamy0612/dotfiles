@@ -1,7 +1,7 @@
 let g:lightline = {
             \ 'colorscheme': 'default',
             \ 'active': {
-            \   'left': [['mode', 'paste', 'modifiable'], ['modified', 'filename'], ['dirname', 'git']],
+            \   'left': [['mode', 'paste', 'modifiable'], ['modified', 'filename'], ['gitinfo']],
             \   'right': [['lineinfo'], ['percent'], ['fileformat', 'fileencoding', 'filetype']]
             \ },
             \ 'inactive': {
@@ -13,8 +13,7 @@ let g:lightline = {
             \   'modifiable': 'LightlineModifiable',
             \   'modified': 'LightlineModified',
             \   'filename': 'LightlineFilename',
-            \   'dirname': 'LightlineDirname',
-            \   'git': 'LightlineGit',
+            \   'gitinfo': 'LightlineGitinfo',
             \   'fileformat': 'LightlineFileformat',
             \   'fileencoding': 'LightlineFileencoding',
             \   'filetype': 'LightlineFiletype',
@@ -60,33 +59,28 @@ function! LightlineFilename()
     endif
 
     let l:filename = expand('%')
-    return strlen(l:filename)
-                \ ? fnamemodify(l:filename, winwidth('.') > 120 ? ':~:.' : ':t')
-                \ : ''
+    if strlen(l:filename) == 0
+        return (&modified ? '[Unsaved]' : '[No Name]')
+    endif
+
+    if winwidth('.') - strlen(l:filename) > 120
+        return fnamemodify(l:filename, ':~:.')
+    elseif winwidth('.') - strlen(l:filename) > 80
+        return fnamemodify(l:filename, ':t')
+    else
+        return pathshorten(l:filename)
+    endif
 endfunction
 
 
-function! LightlineDirname()
+function! LightlineGitinfo()
     if &ft =~ 'nerdtree'
-        return ''
-    endif
-    if winwidth('.') < 120
-        return ''
-    endif
-    return fnamemodify(getcwd(), ':p:~')
-endfunction
-
-
-function! LightlineGit()
-    if &ro || &buftype =~ 'terminal\|nofile'
-                \ || &ft =~ 'help\|unite\|denite\|nerdtree'
-                \ || !exists('*fugitive#head')
         return ''
     endif
 
     let l:branch = fugitive#head()
     if strlen(l:branch)
-        return '[Git:' . l:branch . '] ' . LightlineGitStatus()
+        return l:branch . ': ' . LightlineGitStatus()
     endif
     return ''
 endfunction
