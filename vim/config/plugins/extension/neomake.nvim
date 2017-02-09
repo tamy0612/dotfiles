@@ -1,0 +1,11 @@
+let g:neomake_open_list = 1
+
+let g:neomake_python_check_maker = {
+            \ 'exe': 'flake8',
+            \ 'errorformat': '%f:%l:%c: %m'
+            \}
+
+let g:neomake_vim_check_maker = {
+            \ 'fn': 'vimlint#vimlint',
+            \ 'errorformat': '%f:%l:%c:%m'
+            \}

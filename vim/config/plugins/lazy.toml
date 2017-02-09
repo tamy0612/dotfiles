@@ -492,8 +492,12 @@ on_source = 'vim-vimlint'
 [[plugins]]
 repo        = 'neomake/neomake'
 if          = 'has("nvim")'
-on_cmd      = ['NeoMake']
+on_cmd      = ['Neomake']
+hook_add    = '''
+    nnoremap <C-b> :<C-u>Neomake<CR>
+'''
 hook_source = '''
+    source $VIMDIR/config/plugins/extension/neomake.nvim
 '''
 #}}}
 
@@ -533,6 +537,17 @@ hook_add    = '''
 #}}}
 
 # Filetypes  #{{{
+# Vim  #{{{
+[[plugins]]
+repo      = 'ynkdir/vim-vimlparser'
+on_source = 'vim-vimlint'
+
+[[plugins]]
+repo      = 'syngan/vim-vimlint'
+depends   = 'vim-vimlparser'
+on_func   = 'vimlint#vimlint'
+#}}}
+
 # C/C++  #{{{
 [[plugins]]
 repo      = 'vim-jp/cpp-vim'
