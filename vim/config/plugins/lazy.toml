@@ -405,7 +405,22 @@ hook_source = '''
 '''
 #}}}
 
-# Build  #{{{
+# Build & Run  #{{{
+[[plugins]]
+repo        = 'neomake/neomake'
+if          = 'has("nvim")'
+on_cmd      = ['Neomake']
+hook_add    = '''
+    cabbrev mak Neomake
+    cabbrev make Neomake
+'''
+hook_source = '''
+    let g:neomake_open_list = 2
+    let g:neomake_echo_current_error = 1
+
+    source $VIMDIR/config/plugins/extension/neomake.nvim
+'''
+
 [[plugins]]
 repo        = 'thinca/vim-quickrun'
 on_map      = '<Plug>'
@@ -447,58 +462,47 @@ on_ft       = ['unite', 'quickfix']
 #   hi SyntasticWarningSign ctermfg=220
 # '''
 
-[[plugins]]
-repo        = 'osyo-manga/vim-watchdogs'
-depends     = ['vim-quickrun', 'vimproc', 'shabadou.vim']
-on_cmd      = 'WatchdogsRun'
-hook_add    = '''
-    nnoremap <silent> <Leader>c :<C-u>WatchdogsRun<CR>
-'''
-hook_source = '''
-    let g:watchdogs_check_BufWritePost_enables = {
-        \ 'python': 1
-        \}
-    let g:watchdogs_check_CursorHold_enables = {
-        \ 'python': 1
-        \}
-    let g:watchdogs_check_BufWritePost_enable_on_wq = 0
-'''
-hook_post_source = '''
-    source $VIMDIR/config/plugins/extension/watchdogs.vim
-'''
+# [[plugins]]
+# repo        = 'osyo-manga/vim-watchdogs'
+# depends     = ['vim-quickrun', 'vimproc', 'shabadou.vim']
+# on_cmd      = 'WatchdogsRun'
+# hook_add    = '''
+#     nnoremap <silent> <Leader>c :<C-u>WatchdogsRun<CR>
+# '''
+# hook_source = '''
+#     let g:watchdogs_check_BufWritePost_enables = {
+#         \ 'python': 1
+#         \}
+#     let g:watchdogs_check_CursorHold_enables = {
+#         \ 'python': 1
+#         \}
+#     let g:watchdogs_check_BufWritePost_enable_on_wq = 0
+# '''
+# hook_post_source = '''
+#     source $VIMDIR/config/plugins/extension/watchdogs.vim
+# '''
 
-[[plugins]]
-repo      = 'osyo-manga/shabadou.vim'
-on_source = ['vim-watchdogs', 'vim-quickrun']
+# [[plugins]]
+# repo      = 'osyo-manga/shabadou.vim'
+# on_source = ['vim-watchdogs', 'vim-quickrun']
 
-[[plugins]]
-repo      = 'cohama/vim-hier'
-on_source = ['vim-watchdogs']
+# [[plugins]]
+# repo      = 'cohama/vim-hier'
+# on_source = ['vim-watchdogs']
 
-[[plugins]]
-repo      = 'dannyob/quickfixstatus'
-on_source = ['vim-watchdogs']
+# [[plugins]]
+# repo      = 'dannyob/quickfixstatus'
+# on_source = ['vim-watchdogs']
 
-[[plugins]]
-repo      = 'syngan/vim-vimlint'
-depends   = 'vim-vimlparser'
-on_ft     = 'vim'
-on_source = ['vim-watchdogs']
+# [[plugins]]
+# repo      = 'syngan/vim-vimlint'
+# depends   = 'vim-vimlparser'
+# on_ft     = 'vim'
+# on_source = ['vim-watchdogs']
 
-[[plugins]]
-repo      = 'syngan/vim-vimlparser'
-on_source = 'vim-vimlint'
-
-[[plugins]]
-repo        = 'neomake/neomake'
-if          = 'has("nvim")'
-on_cmd      = ['Neomake']
-hook_add    = '''
-    nnoremap <C-b> :<C-u>Neomake<CR>
-'''
-hook_source = '''
-    source $VIMDIR/config/plugins/extension/neomake.nvim
-'''
+# [[plugins]]
+# repo      = 'syngan/vim-vimlparser'
+# on_source = 'vim-vimlint'
 #}}}
 
 # Utilities  #{{{

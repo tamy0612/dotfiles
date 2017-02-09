@@ -1,11 +1,39 @@
-let g:neomake_open_list = 1
+let s:default_errorformat = '%f:%l:%c: %m'
+let s:pip_bin = $PYENV_ROOT . '/versions/neovim3/bin/'
 
-let g:neomake_python_check_maker = {
-            \ 'exe': 'flake8',
-            \ 'errorformat': '%f:%l:%c: %m'
-            \}
+" Vim script
+" let g:neomake_vim_vint_maker = {
+"             \ 'exe': s:pip_bin.'vint',
+"             \ 'errorformat': '%f:%l:%c:%m'
+"             \}
+let g:neomake_vim_vint_exe = s:pip_bin.'vint'
+let g:neomake_vim_enabled_makers = ['vint']
 
-let g:neomake_vim_check_maker = {
-            \ 'fn': 'vimlint#vimlint',
-            \ 'errorformat': '%f:%l:%c:%m'
+" C/C++
+let g:neomake_c_compile_maker = {
+            \ 'exe': (executable('clang') ? 'clang' : 'gcc'),
+            \ 'args': ['-std=c99', '-c', '-O0', '-I.'],
+            \ 'errorformat': s:default_errorformat,
             \}
+let g:neomake_c_enabled_makers = ['compile']
+let g:neomake_cpp_compile_maker = {
+            \ 'exe': (executable('clang++') ? 'clang++' : 'g++'),
+            \ 'args': ['-std=c++1z', '-c', '-O0', '-I.'],
+            \ 'errorformat': s:default_errorformat
+            \}
+let g:neomake_cpp_enabled_makers = ['compile']
+
+" python
+let g:neomake_python_flake8_maker = {
+            \ 'exe': s:pip_bin.'flake8',
+            \ 'args': [
+            \   '--ignore=E221,E241,E272,E251,W702,E203,E201,E202',
+            \   '--format=default'
+            \ ],
+            \ 'errorformat': '%E%f:%l: could not compile,%-Z%p^,' .
+            \                '%A%f:%l:%c: %t%n %m,' .
+            \                '%A%f:%l: %t%n %m,' .
+            \                '%-G%.%#',
+            \ 'postprocess': function('neomake#makers#ft#python#Flake8EntryProcess')
+            \}
+let g:neomake_python_enabled_makers = ['flake8']
