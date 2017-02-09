@@ -9,6 +9,11 @@ let s:menu.vimrc = {
             \}
 let s:menu.vimrc.file_candidates += map(split(glob($VIMDIR.'/config/**/*')), "[fnamemodify(v:val, ':~'), v:val]")
 
+let s:menu.plugins = {
+            \ 'description': 'List plugins'
+            \}
+let s:menu.plugins.file_candidates = map(split(glob($VIM_CACHE_DIR.'/plugins/**/*')), "[fnamemodify(v:val, ';~'), v:val]")
+
 call denite#custom#var('menu', 'menus', s:menu)
 
 
