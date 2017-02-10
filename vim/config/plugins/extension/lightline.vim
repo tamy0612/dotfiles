@@ -46,7 +46,10 @@ endfunction
 
 
 function! LightlineFilename()
-    if &buftype == 'terminal'
+    if &buftype =~ 'quickfix'
+        return '[Quickfix]'
+    endif
+    if &buftype =~ 'terminal'
         let l:process = split(expand('%:t'), ':')
         return printf("[%s] %s", l:process[0], l:process[1])
     endif
