@@ -234,32 +234,17 @@ hook_add    = '''
 repo        = 'easymotion/vim-easymotion'
 on_map      = '<Plug>'
 hook_add    = '''
-    " `s{char}{char}{label}`
-    nmap s <Plug>(easymotion-overwin-f2)
-    " Bidirectional & within line 't' motion
-    omap t <Plug>(easymotion-bd-tl)
+    noremap [easy-motion] <Nop>
+    nmap m [easy-motion]
 
-    map <Space>l <Plug>(easymotion-lineforward)
-    map <Space>j <Plug>(easymotion-j)
-    map <Space>k <Plug>(easymotion-k)
-    map <Space>h <Plug>(easymotion-linebackward)
-
-    map <Space><Right> <Plug>(easymotion-lineforward)
-    map <Space><Down> <Plug>(easymotion-j)
-    map <Space><Up> <Plug>(easymotion-k)
-    map <Space><Left> <Plug>(easymotion-linebackward)
-
-    " <Leader>f{char} to move to {char}
-    map  <Space>f <Plug>(easymotion-bd-f)
-    nmap <Space>f <Plug>(easymotion-overwin-f)
-
-    " Move to line
-    map  <Space>L <Plug>(easymotion-bd-jk)
-    nmap <Space>L <Plug>(easymotion-overwin-line)
-
-    " Move to word
-    map  <Space>w <Plug>(easymotion-bd-w)
-    nmap <Space>w <Plug>(easymotion-overwin-w)
+    nmap [easy-motion]c <Plug>(easymotion-overwin-f)
+    nmap [easy-motion]s <Plug>(easymotion-overwin-f2)
+    nmap [easy-motion]h <Plug>(easymotion-linebackward)
+    nmap [easy-motion]j <Plug>(easymotion-j)
+    nmap [easy-motion]k <Plug>(easymotion-k)
+    nmap [easy-motion]l <Plug>(easymotion-lineforward)
+    nmap [easy-motion]w <Plug>(easymotion-bd-w)
+    nmap [easy-motion]e <Plug>(easymotion-bd-e)
 '''
 hook_source = '''
     let g:EasyMotion_do_mapping = 0         " Disable default mappings
