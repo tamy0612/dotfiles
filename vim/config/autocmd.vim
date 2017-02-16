@@ -14,6 +14,7 @@ augroup MyCmdGroup
     endif
 
     " autocmd for specific filetypes
+    autocmd FileType help nnoremap <silent> q :<C-u>q<CR>
     autocmd FileType gitcommit execute "normal! gg"
 
     " omnifunc
