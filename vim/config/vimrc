@@ -22,6 +22,15 @@ call s:source_config("initialize.vim")
 " Load encode settings
 call s:source_config('encoding.vim')
 
+" Load default editor settings
+call s:source_config('edit.vim')
+
+" Load view settings
+call s:source_config('view.vim')
+
+" Load default mappings
+call s:source_config('mappings.vim')
+
 " Load python path
 call s:source_config('python.vim')
 
@@ -43,19 +52,14 @@ syntax enable
 
 call s:source_config('autocmd.vim')
 
-
-"================================================
-" Core editor settings
-"================================================
-call s:source_config('view.vim')
-
-call s:source_config('edit.vim')
-
-
-"================================================
-" key mappings
-"================================================
-call s:source_config('mappings.vim')
+" Colorscheme
+set background=dark
+if dein#tap('clone.vim')
+  set t_Co=256
+  colorscheme clone
+else
+  colorscheme darkblue
+endif
 
 
 "================================================

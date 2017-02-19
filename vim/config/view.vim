@@ -1,13 +1,5 @@
 syntax on
 
-" Colorscheme
-set background=dark
-if dein#tap('clone.vim')
-  set t_Co=256
-  colorscheme clone
-else
-  colorscheme darkblue
-endif
 " Set title the file path
 let &titleold = ""
 let &titlestring = "%f"

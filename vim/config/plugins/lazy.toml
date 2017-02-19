@@ -735,6 +735,9 @@ on_ft     = 'javascript'
 [[plugins]]
 repo      = 'cespare/vim-toml'
 on_ft     = 'toml'
+hook_add  = '''
+    autocmd BufNewFile,BufRead *.toml set filetype=toml
+'''
 
 [[plugins]]
 repo      = 'elzr/vim-json'
@@ -787,6 +790,17 @@ on_ft     = 'dart'
 
 
 # Utilities  #{{{
+[[plugins]]
+repo     = 'tpope/vim-fugitive'
+on_cmd   = ['Gcommit', 'Gstatus']
+on_func  = 'fugitive#'
+hook_add = '''
+    nnoremap [git] <Nop>
+    nmap <Leader>g [git]
+    nmap <silent>  [git]c :<C-u>Gcommit<CR>
+    nmap <silent>  [git]s :<C-u>Gstatus<CR>
+'''
+
 [[plugins]]
 repo        = 'thinca/vim-guicolorscheme'
 if          = "!has('gui_running') || has('nvim')"

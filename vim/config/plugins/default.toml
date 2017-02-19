@@ -21,7 +21,7 @@ hook_add    = '''
 '''
 
 
-# Visual stuff
+# Visual
 [[plugins]]
 repo    = 'tamy0612/clone.vim'
 
@@ -33,15 +33,6 @@ if      = "!has('gui_running') || has('nvim')"
 repo     = 'itchyny/lightline.vim'
 hook_add = '''
     source $VIMDIR/config/plugins/extension/lightline.vim
-'''
-
-[[plugins]]
-repo     = 'tpope/vim-fugitive'
-hook_add = '''
-    nnoremap [git] <Nop>
-    nmap <Leader>g [git]
-    nmap <silent>  [git]c :<C-u>Gcommit<CR>
-    nmap <silent>  [git]s :<C-u>Gstatus<CR>
 '''
 
 [[plugins]]
