@@ -1,3 +1,6 @@
+"
+let mapleader = "\<Space>"
+
 " cursor
 imap OA <UP>
 imap OB <Down>

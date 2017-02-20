@@ -389,7 +389,7 @@ repo        = 'majutsushi/tagbar'
 on_ft       = ['awk', 'c', 'cpp', 'd', 'java', 'python', 'ruby', 'tex', 'vim', 'R']
 on_cmd      = 'TagbarToggle'
 hook_add    = '''
-    nnoremap <silent> <Leader>t :<C-u>TagbarToggle<CR>
+    nnoremap <silent> <Leader>o :<C-u>TagbarToggle<CR>
 '''
 hook_source = '''
     let g:tagbar_compact = 1
