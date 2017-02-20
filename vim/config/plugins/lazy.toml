@@ -229,6 +229,25 @@ hook_add    = '''
     vmap v <Plug>(expand_region_expand)
     vmap <C-v> <Plug>(expand_region_shrink)
 '''
+hook_source = '''
+    let g:expand_region_text_objects = {
+        \ 'iw': 1,
+        \ 'iW': 0,
+        \ 'i"': 1,
+        \ 'i'': 0,
+        \ 'i]': 1,
+        \ 'ib': 1,
+        \ 'iB': 1,
+        \ 'il': 1,
+        \ 'ip': 1,
+        \ 'ie': 0
+        \}
+    call expand_refion#custom_text_objects({
+        \ 'a]': 1,
+        \ 'ab': 1,
+        \ 'aB': 1
+        \})
+'''
 
 [[plugins]]
 repo        = 'easymotion/vim-easymotion'
@@ -281,6 +300,15 @@ hook_add    = '''
 [[plugins]]
 repo        = 'chikatoike/concealedyank.vim'
 on_map      = [['x', '<Plug>(operator-concealedyank)']]
+
+[[plugins]]
+repo        = 'kana/vim-textobj-line'
+on_source   = 'vim-expand-region'
+depends     = 'vim-textobj-user'
+
+[[plugins]]
+repo        = 'kana/vim-textobj-user'
+on_source   = 'vim-textobj-line'
 #}}}
 
 
