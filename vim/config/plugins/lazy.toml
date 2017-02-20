@@ -383,6 +383,25 @@ on_source   = ['previm']
 
 
 # Development #{{{
+
+# Terminal  #{{{
+[[plugins]]
+repo        = 'kassio/neoterm'
+if          = 'has("nvim")'
+on_source   = 'vim-test'
+on_cmd      = ['Topen', 'Tclose', 'Ttoggle', 'Tpos', 'Tmap']
+hook_add    = '''
+    let g:neoterm_position = 'horizontal'
+    let g:neoterm_autoinsert = 1
+    let g:neoterm_automap_keys = "\<Leader>T"
+
+    nnoremap <silent> <Leader>t :<C-u>Ttoggle<CR>
+    vnoremap <silent> <Leader>t :<C-u>TREPLSendSelection<CR>
+
+    source $VIMDIR/config/plugins/extension/neoterm.nvim
+'''
+#}}}
+
 # Tags  #{{{
 [[plugins]]
 repo        = 'majutsushi/tagbar'
@@ -457,7 +476,7 @@ hook_add    = '''
         let g:quickrun_config = {}
     endif
 
-    nmap <silent> <Leader>r <Plug>(quickrun)
+    nmap <silent> <Leader>q <Plug>(quickrun)
 '''
 hook_source = '''
     source $VIMDIR/config/plugins/extension/quickrun.vim

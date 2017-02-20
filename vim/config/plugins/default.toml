@@ -7,33 +7,6 @@ repo    = 'Shougo/vimproc'
 build   = 'make'
 
 
-# terminal
-[[plugins]]
-repo        = 'kassio/neoterm'
-if          = 'has("nvim")'
-hook_add    = '''
-    let g:neoterm_position = 'horizontal'
-    let g:neoterm_autoinsert = 1
-
-    nnoremap <silent> <Leader>t :<C-u>Ttoggle<CR>
-    vnoremap <silent> <Leader>t :<C-u>TREPLSendSelection<CR>
-
-    function! TposToggleFn(bang)
-        if g:neoterm_position == 'horizontal'
-            Tpos vertical
-        else
-            Tpos horizontal
-        endif
-        if(a:bang)
-            Tclose
-            Topen
-        endif
-    endfunction
-    command! -bang -nargs=0 TposToggle call TposToggleFn(<bang>0)
-    nnoremap <silent> <Leader>T :<C-u>TposToggle!<CR>
-'''
-
-
 # Visual
 [[plugins]]
 repo    = 'tamy0612/clone.vim'
