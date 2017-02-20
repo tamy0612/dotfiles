@@ -467,6 +467,19 @@ hook_source = '''
 repo        = 'thinca/vim-qfreplace'
 on_ft       = ['unite', 'quickfix']
 
+[[plugins]]
+repo        = 'janko-m/vim-test'
+on_cmd      = ['TtestNearest', 'TtestFile', 'TtestSuite', 'TtestLast', 'TtestVisit']
+hook_source = '''
+    if dein#tap('neoterm')
+        let test#strategy = 'neoterm'
+    elseif has('nvim')
+        let test#strategy = 'neovim'
+    elseif dein#tap('vimproc')
+        let test#strategy = 'vimproc'
+    endif
+'''
+
 # [[plugins]]
 # repo      = 'scrooloose/syntastic'
 # on_cmd    = ['SyntasticCheck', 'SyntasticToggleMode']
