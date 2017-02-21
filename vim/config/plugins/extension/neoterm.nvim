@@ -1,0 +1,25 @@
+" Tpos toggle
+function! TposToggleFn(bang)
+    if g:neoterm_position == 'horizontal'
+        Tpos vertical
+    else
+        Tpos horizontal
+    endif
+    if(a:bang)
+        Tclose
+        Topen
+    endif
+endfunction
+
+command! -bang -nargs=0 TposToggle call TposToggleFn(<bang>0)
+
+
+" REPL config
+let s:repl = {}
+let s:repl.r = 'R --no-save --quiet'
+let s:repl.python = 'python'
+let s:repl.ruby = (executable('pry') ? 'pry' : 'irb')
+
+for [ft, cmd] in items(s:repl)
+    execute "autocmd! FileType " . ft . " :Tmap " . cmd
+endfor
