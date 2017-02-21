@@ -2,8 +2,10 @@
 function! TposToggleFn(bang)
     if g:neoterm_position == 'horizontal'
         Tpos vertical
+        let g:neoterm_size = ''
     else
         Tpos horizontal
+        let g:neoterm_size = 20
     endif
     if(a:bang)
         Tclose
