@@ -502,7 +502,7 @@ on_ft       = ['unite', 'quickfix']
 
 [[plugins]]
 repo        = 'janko-m/vim-test'
-on_cmd      = ['TtestNearest', 'TtestFile', 'TtestSuite', 'TtestLast', 'TtestVisit']
+on_cmd      = ['TestNearest', 'TestFile', 'TestSuite', 'TestLast', 'TestVisit']
 hook_source = '''
     if dein#tap('neoterm')
         let test#strategy = 'neoterm'
