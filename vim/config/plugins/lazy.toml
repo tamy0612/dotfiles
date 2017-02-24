@@ -302,12 +302,16 @@ hook_add    = '''
 
 [[plugins]]
 repo        = 'rhysd/vim-operator-surround'
-depends     = 'vim-operator-user'
+depends     = ['vim-operator-user', 'vim-textobj-anyblock']
 on_map      = '<Plug>'
 hook_add    = '''
-    nmap <silent>sa <Plug>toperator-surround-appendta
-    nmap <silent>sd <Plug>(operator-surround-delete)a
-    nmap <silent>sr <Plug>(operator-surround-replace)a
+    nmap <silent>ys <Plug>(operator-surround-append)iw
+    nmap <silent>ds <Plug>(operator-surround-delete)ab
+    nmap <silent>cs <Plug>(operator-surround-replace)ab
+
+    xmap <silent>ys <Plug>(operator-surround-append)
+    xmap <silent>ds <Plug>(operator-surround-delete)
+    xmap <silent>cs <Plug>(operator-surround-replace)
 '''
 
 [[plugins]]
@@ -315,13 +319,40 @@ repo        = 'chikatoike/concealedyank.vim'
 on_map      = [['x', '<Plug>(operator-concealedyank)']]
 
 [[plugins]]
+repo        = 'kana/vim-textobj-user'
+on_source   = 'vim-textobj-line'
+
+[[plugins]]
 repo        = 'kana/vim-textobj-line'
 on_source   = 'vim-expand-region'
 depends     = 'vim-textobj-user'
 
 [[plugins]]
-repo        = 'kana/vim-textobj-user'
-on_source   = 'vim-textobj-line'
+repo        = 'rhysd/vim-textobj-anyblock'
+depends     = ['vim-textobj-user']
+on_source   = 'vim-operator-surround'
+
+[[plugins]]
+repo        = 'AndrewRadev/switch.vim'
+on_cmd      = ['Switch', 'SwitchReverse']
+hook_add    = '''
+    nnoremap <silent> <Leader>s :<C-u>Switch<CR>
+    nnoremap <silent> <Leader>S :<C-u>SwitchReverse<CR>
+'''
+hook_source = '''
+    let g:switch_mapping = ""
+'''
+
+# [[plugins]]
+# repo        = 'terryma/vim-multiple-cursors'
+# hook_source = '''
+#     let g:multi_cursor_use_default_mapping = 0
+
+#     let g:multi_cursor_next_key='<C-n>'
+#     let g:multi_cursor_prev_key='<C-p>'
+#     let g:multi_cursor_skip_key='<C-x>'
+#     let g:multi_cursor_quit_key='<Esc>'
+# '''
 #}}}
 
 
@@ -396,8 +427,18 @@ on_source   = ['previm']
 
 
 # Development #{{{
+# Tools  #{{{
+[[plugins]]
+repo     = 'tpope/vim-fugitive'
+on_cmd   = ['Gcommit', 'Gstatus']
+on_func  = 'fugitive#'
+hook_add = '''
+    nnoremap [git] <Nop>
+    nmap <Leader>g [git]
+    nmap <silent>  [git]c :<C-u>Gcommit<CR>
+    nmap <silent>  [git]s :<C-u>Gstatus<CR>
+'''
 
-# Terminal  #{{{
 [[plugins]]
 repo        = 'kassio/neoterm'
 if          = 'has("nvim")'
@@ -414,9 +455,7 @@ hook_add    = '''
 
     source $VIMDIR/config/plugins/extension/neoterm.nvim
 '''
-#}}}
 
-# Tags  #{{{
 [[plugins]]
 repo        = 'majutsushi/tagbar'
 on_ft       = ['awk', 'c', 'cpp', 'd', 'java', 'python', 'ruby', 'tex', 'vim', 'R']
@@ -594,7 +633,10 @@ on_event    = 'InsertEnter'
 
 [[plugins]]
 repo        = 'tpope/vim-commentary'
-on_map      = ['gc', '<Plug>']
+on_cmd      = 'Commentary'
+hook_add    = '''
+    map <silent> <Leader>c :Commentary<CR>
+'''
 
 [[plugins]]
 repo        = 'h1mesuke/vim-alignta'
@@ -865,14 +907,12 @@ on_ft     = 'dart'
 
 # Utilities  #{{{
 [[plugins]]
-repo     = 'tpope/vim-fugitive'
-on_cmd   = ['Gcommit', 'Gstatus']
-on_func  = 'fugitive#'
-hook_add = '''
-    nnoremap [git] <Nop>
-    nmap <Leader>g [git]
-    nmap <silent>  [git]c :<C-u>Gcommit<CR>
-    nmap <silent>  [git]s :<C-u>Gstatus<CR>
+repo        = 'mtth/scratch.vim'
+on_map      = ['gs', 'gS']
+hook_source = '''
+    let g:scratch_insert_autohide = 0
+
+    autocmd! FileType scratch nnoremap <buffer><silent> q :<C-u>ScratchPreview<CR>
 '''
 
 [[plugins]]
