@@ -22,7 +22,7 @@ fi
 
 # clear
 alias cl='clear'
-alias cls='clear; ls'
+alias cls='clear; echo "Location: `pwd`";ls'
 
 
 # shortcuts
