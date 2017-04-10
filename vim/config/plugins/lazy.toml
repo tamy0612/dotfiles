@@ -755,6 +755,12 @@ repo      = 'artur-shaik/vim-javacomplete2'
 on_ft     = 'java'
 #}}}
 
+# Scala  #{{{
+[[plugins]]
+repo      = 'derekwyatt/vim-scala'
+on_ft     = 'scala'
+#}}}
+
 # Ruby  #{{{
 [[plugins]]
 repo        = 'vim-ruby/vim-ruby'
