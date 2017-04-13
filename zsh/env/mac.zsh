@@ -32,6 +32,11 @@ alias vi=$EDITOR
 # homebrew
 export BREW_HOME=/usr/local/Cellar
 
+# java home
+if [ -x "/usr/libexec/java_home" ] ; then
+    export JAVA_HOME=$(/usr/libexec/java_home)
+fi
+
 # curl setting
 if [ -f $HOME/.curl/ca-bundle.crt ]; then
   export CURL_CA_BUNDLE=$HOME/.curl/ca-bundle.crt
@@ -39,8 +44,10 @@ fi
 
 ## Alias
 # rm
-alias rm='rmtrash'
-alias sysrm='/bin/rm'
+if type rmtrash > /dev/null 2>&1 ; then
+    alias rm='rmtrash'
+    alias sysrm='/bin/rm'
+fi
 
 # Gnu core-utils
 if type gls > /dev/null 2>&1 ; then
