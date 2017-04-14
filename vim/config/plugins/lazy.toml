@@ -851,13 +851,12 @@ on_ft     = ['html', 'xml']
 repo      = 'hail2u/vim-css3-syntax'
 on_ft     = 'css'
 
-# [[plugins]]
-# repo      = 'jiangmiao/simple-javascript-indenter'
-# on_ft     = 'javascript'
-
-# [[plugins]]
-# repo      = 'jelera/vim-javascript-syntax'
-# on_ft     = 'javascript'
+[[plugins]]
+repo      = 'nikvdp/ejs-syntax'
+on_ft     = 'ejs'
+hook_add  = '''
+    autocmd BufNewFile,BufRead *.ejs set filetype=ejs
+'''
 #}}}
 
 # Data structure  #{{{
