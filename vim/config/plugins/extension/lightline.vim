@@ -2,7 +2,7 @@ let g:lightline = {
             \ 'colorscheme': 'default',
             \ 'active': {
             \   'left': [['mode', 'paste', 'modifiable'], ['modified', 'filename'], ['gitinfo']],
-            \   'right': [['lineinfo'], ['percent'], ['fileformat', 'fileencoding', 'filetype']]
+            \   'right': [['lineinfo'], ['percent', 'bytes'], ['fileformat', 'fileencoding', 'filetype']]
             \ },
             \ 'inactive': {
             \   'left': [['modified', 'filename']],
@@ -18,6 +18,7 @@ let g:lightline = {
             \   'fileencoding': 'LightlineFileencoding',
             \   'filetype': 'LightlineFiletype',
             \   'percent': 'LightlinePercent',
+            \   'bytes': 'LightlineBytes',
             \   'lineinfo': 'LightlineLineinfo'
             \ }
             \}
@@ -123,6 +124,19 @@ function! LightlinePercent()
     let l:cline = line('.')
     let l:eline = line('$')
     return printf("%3d%%", l:eline > 0 ? l:cline * 100 / l:eline : 0)
+endfunction
+
+
+function! LightlineBytes()
+    if &ft =~ 'help\|unite\|denite\|nerdtree' || &buftype == 'terminal'
+        return ''
+    endif
+    if mode() =~ 'v\|V\|'
+        execute 'normal "xy'
+        execute 'normal gv'
+        return strlen(@x)
+    endif
+    return ''
 endfunction
 
 

@@ -651,6 +651,7 @@ hook_add    = '''
         autocmd BufNewFile *.h,*.hpp execute 'TemplateLoad /init.h'
         autocmd BufNewFile *.d       execute 'TemplateLoad /init.d'
         autocmd BufNewFile *.java    execute 'TemplateLoad /init.java'
+        autocmd BufNewFile build.sbt execute 'TemplateLoad /init.sbt.scala'
     augroup END
 '''
 #}}}
@@ -755,6 +756,12 @@ repo      = 'artur-shaik/vim-javacomplete2'
 on_ft     = 'java'
 #}}}
 
+# Scala  #{{{
+[[plugins]]
+repo      = 'derekwyatt/vim-scala'
+on_ft     = 'scala'
+#}}}
+
 # Ruby  #{{{
 [[plugins]]
 repo        = 'vim-ruby/vim-ruby'
@@ -799,6 +806,12 @@ on_source = '''
 '''
 #}}}
 
+# Javascript  #{{{
+[[plugins]]
+repo      = 'pangloss/vim-javascript'
+on_ft     = ['javascript']
+#}}}
+
 # R  #{{{
 [[plugins]]
 repo      = 'jalvesaq/Nvim-R'
@@ -839,12 +852,11 @@ repo      = 'hail2u/vim-css3-syntax'
 on_ft     = 'css'
 
 [[plugins]]
-repo      = 'jiangmiao/simple-javascript-indenter'
-on_ft     = 'javascript'
-
-[[plugins]]
-repo      = 'jelera/vim-javascript-syntax'
-on_ft     = 'javascript'
+repo      = 'nikvdp/ejs-syntax'
+on_ft     = 'ejs'
+hook_add  = '''
+    autocmd BufNewFile,BufRead *.ejs set filetype=ejs
+'''
 #}}}
 
 # Data structure  #{{{
