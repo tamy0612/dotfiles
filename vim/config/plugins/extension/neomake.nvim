@@ -9,6 +9,9 @@ let s:pip_bin = $PYENV_ROOT . '/versions/neovim3/bin/'
 let g:neomake_vim_vint_exe = s:pip_bin.'vint'
 let g:neomake_vim_enabled_makers = ['vint']
 
+" Make
+let g:neomake_make_maker_exe = 'make'
+
 " C/C++
 let g:neomake_c_compile_maker = {
             \ 'exe': (executable('clang') ? 'clang' : 'gcc'),
