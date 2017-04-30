@@ -129,7 +129,7 @@ on_event    = 'InsertEnter'
 #}}}
 
 
-# Unite  #{{{
+# Denite  #{{{
 [[plugins]]
 repo        = 'Shougo/neomru.vim'
 on_path     = '.*'
@@ -148,89 +148,16 @@ hook_post_source = '''
 '''
 
 [[plugins]]
-repo        = 'tamy0612/denite-experimental.nvim'
-depends     = ['denite.nvim']
-on_cmd      = 'Denite'
-if          = "has('nvim')"
-hook_add    = '''
-    nnoremap <silent> [denite]t :<C-u>Denite -auto-highlight -vertical-preview -buffer-name=search tags<CR>
-'''
-hook_post_source = '''
-    call denite#custom#var('tags', 'ignore_types', ['i'])
-'''
-
-[[plugins]]
-repo        = 'Shougo/unite.vim'
-depends     = 'neomru.vim'
-if          = "!has('nvim')"
-hook_add    = '''
-    source $VIMDIR/config/plugins/mapping/unite.vim
-'''
-hook_source = '''
-    let g:unite_enable_start_insert = 0
-    let g:unite_source_file_mru_limit = 50
-    let g:unite_source_file_mru_filename_format = ''
-
-    autocmd MyCmdGroup FileType unite call s:unite_my_keymappings()
-    function! s:unite_my_keymappings()
-        nnoremap <silent><buffer><expr> s unite#smart_map('s', unite#do_action('split'))
-        inoremap <silent><buffer><expr> s unite#smart_map('s', unite#do_action('split'))
-        nnoremap <silent><buffer><expr> v unite#smart_map('v', unite#do_action('vsplit'))
-        inoremap <silent><buffer><expr> v unite#smart_map('v', unite#do_action('vsplit'))
-        nnoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('vimfiler'))
-        inoremap <silent><buffer><expr> f unite#smart_map('f', unite#do_action('vimfiler'))
-    endfunction
-
-    source $VIMDIR/config/plugins/extension/unite.vim
-'''
-
-[[plugins]]
-repo        = 'Shougo/unite-build'
-if          = "dein#tap('unite.vim')"
-depends     = 'unite.vim'
-
-[[plugins]]
-repo        = 'Shougo/unite-outline'
-if          = "dein#tap('unite.vim')"
-depends     = 'unite.vim'
-hook_source = '''
-    source $VIMDIR/config/plugins/extension/unite_outline.vim
-'''
-
-[[plugins]]
-repo        = 'Shougo/unite-help'
-if          = "dein#tap('unite.vim')"
-depends     = 'unite.vim'
-
-[[plugins]]
-repo        = 'rhysd/unite-codic.vim'
-if          = "dein#tap('unite.vim')"
-depends     = ['unite.vim', 'codic-vim']
-on_ft       = ['c', 'cpp', 'd', 'java', 'python', 'ruby']
-
-[[plugins]]
-repo        = 'pasela/unite-webcolorname'
-if          = "dein#tap('unite.vim')"
-depends     = 'unite.vim'
-
-[[plugins]]
-repo        = 'osyo-manga/unite-quickfix'
-if          = "dein#tap('unite.vim')"
-depends     = 'unite.vim'
-
-[[plugins]]
-repo        = 'osyo-manga/unite-filetype'
-if          = "dein#tap('unite.vim')"
-depends     = 'unite.vim'
-
-[[plugins]]
-repo        = 'ujihisa/unite-colorscheme'
-if          = "dein#tap('unite.vim')"
-depends     = ['unite.vim']
-
-[[plugins]]
 repo        = 'Shougo/neoyank.vim'
-on_source   = ['unite.vim', 'denite.nvim']
+on_source   = ['denite.nvim']
+
+[[plugins]]
+repo        = 'chemzqm/unite-location'
+depends     = 'denite.nvim'
+on_cmd      = ['Denite']
+hook_add    = '''
+    nnoremap <silent> [denite]q :Denite -auto-preview -auto-highlight -auto-resize -resume quickfix
+'''
 #}}}
 
 
@@ -347,7 +274,7 @@ hook_source = '''
 # repo        = 'terryma/vim-multiple-cursors'
 # hook_source = '''
 #     let g:multi_cursor_use_default_mapping = 0
-
+#
 #     let g:multi_cursor_next_key='<C-n>'
 #     let g:multi_cursor_prev_key='<C-p>'
 #     let g:multi_cursor_skip_key='<C-x>'
