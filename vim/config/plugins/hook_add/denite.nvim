@@ -1,0 +1,27 @@
+" embedment
+nnoremap <silent> / :<C-u>Denite -no-statusline -cursor-wrap -auto-highlight -vertical-preview -buffer-name=resumable line<CR>
+nnoremap <silent> * :<C-u>DeniteCursorWord -no-statusline -cursor-wrap -auto-highlight -vertical-preview -buffer-name=resumable line<CR>
+
+" Shortcut mappings
+nmap <silent> <Leader>b :<C-u>Denite -no-statusline -cursor-wrap buffer<CR>
+nmap <silent> <Leader>g :<C-u>Denite -no-statusline -cursor-wrap -auto-highlight -vertical-preview -no-empty -buffer-name=resumable grep<CR>
+nmap <silent> <Leader>l :<C-u>Denite -no-statusline -cursor-wrap -auto-highlight -vertical-preview -no-empty -buffer-name=resumable location_list quickfix<CR>
+nmap <silent> <Leader><Space> :<C-u>Denite -no-statusline -cursor-wrap -auto-highlight -vertical-preview -buffer-name=resumable -resume<CR>
+
+" Denite mapping
+nnoremap [denite] <Nop>
+nmap <Leader>d [denite]
+
+nmap <silent> [denite]f :<C-u>Denite -no-statusline -cursor-wrap -vertical-preview file_point file_old file_mru `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
+nmap <silent> [denite]o :<C-u>Denite -no-statusline -cursor-wrap -vertical-preview outline<CR>
+nmap <silent> [denite]j :<C-u>Denite -no-statusline -cursor-wrap -auto-highlight -vertical-preview jump<CR>
+nmap <silent> [denite]d :<C-u>Denite -no-statusline -cursor-wrap directory_rec<CR>
+nmap <silent> [denite]y :<C-u>Denite -no-statusline -cursor-wrap register neoyank<CR>
+xmap <silent> [denite]y :<C-u>Denite -no-statusline -cursor-wrap -default-action=replace register neoyunk<CR>
+nmap <silent> [denite]m :<C-u>Denite -no-statusline -cursor-wrap menu<CR>
+nmap <silent> [denite]h :<C-u>Denite -no-statusline -cursor-wrap help<CR>
+
+nmap <silent> [denite]n :<C-u>Denite -no-statusline -resume -cursor-pos=+1 -immediately -buffer-name=resumable grep<CR>
+nmap <silent> [denite]p :<C-u>Denite -no-statusline -resume -cursor-pos=-1 -immediately -buffer-name=resumable grep<CR>
+
+nmap [denite] :<C-u>Denite -mode=normal -highlight-mode-normal=CursorLine -no-status

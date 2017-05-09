@@ -8,7 +8,7 @@ hook_add    = '''
     endif
 '''
 hook_source = '''
-    source $VIMDIR/config/plugins/extension/context_filetype.vim
+    source $VIMDIR/config/plugins/hook_source/context_filetype.vim
 '''
 
 [[plugins]]
@@ -18,37 +18,8 @@ on_source   = ['deoplete_clang', 'deoplete-jedi']
 if          = "has('nvim')"
 on_event    = 'InsertEnter'
 hook_source = '''
-    let g:deoplete#enable_at_startup            = 1
-    let g:deoplete#enable_ignore_case           = 1
-    let g:deoplete#enable_smart_case            = 1
-    let g:deoplete#auto_completion_start_length = 2
-    let g:deoplete#enable_reflesh_always        = 1
-    let g:deoplete#enable_camel_case            = 1
-    let g:deoplete#text_mode_filetypes          = {'_': 1}
-
-    set completeopt=menuone,noselect,longest
-
-    inoremap <silent><expr> <TAB>
-                \ pumvisible() ? "\<C-n>" :
-                \ neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" :
-                \ <SID>check_back_space() ? "\<TAB>" :
-                \ deoplete#mappings#manual_complete()
-    inoremap <silent><expr> <S-TAB>
-                \ pumvisible() ? "\<C-p>" :
-                \ neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<C-h>"
-
-    inoremap <expr><Space>  pumvisible() ? deoplete#mappings#close_popup()."\<Space>" : "\<Space>"
-    inoremap <expr><BS>     deoplete#mappings#smart_close_popup()."\<BS>"
-
-    inoremap <expr><C-g> deoplete#mappings#undo_completion()
-    inoremap <expr><C-l> deoplete#mappings#refresh()
-
-    function! s:check_back_space() abort
-        let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~ '\s'
-    endfunction
-
-    source $VIMDIR/config/plugins/extension/deoplete.nvim
+    source $VIMDIR/config/plugins/hook_source/deoplete.config.nvim
+    source $VIMDIR/config/plugins/hook_source/deoplete.mapping.nvim
 '''
 
 [[plugins]]
@@ -57,23 +28,8 @@ depends     = 'context_filetype.vim'
 if          = "!has('nvim') && has('lua')"
 on_event    = 'InsertEnter'
 hook_source = '''
-    set completeopt+=longest
-
-    inoremap <expr><TAB> pumvisible() ? "\<Down>" : "\<Tab>"
-
-    let g:acp_enableAtStartup                      = 0
-    let g:neocomplete#enable_at_startup            = 1
-    let g:neocomplete#enable_smart_case            = 1
-    let g:neocomplete#enable_fuzzy_completion      = 1
-    let g:neocomplete#max_list                     = 10
-    let g:neocomplete#use_vimproc                  = 1
-    let g:neocomplete#min_keyword_length           = 3
-    let g:neocomplete#lock_buffer_name_pattern     = '\*ku\*'
-    let g:neocomplete#auto_completion_start_length = 2
-    let g:neocomplete#enable_auto_select           = 0
-    let g:neocomplete#text_mode_filetypes          = {'_': 1}
-
     source $VIMDIR/config/plugins/extension/neocomplete.vim
+    inoremap <expr><TAB> pumvisible() ? "\<Down>" : "\<Tab>"
 '''
 
 [[plugins]]
@@ -83,16 +39,7 @@ hook_source = '''
     let g:neosnippet#enable_snipmate_compatibility = 1
     let g:neosnippet#snippets_directory = $VIMDIR.'/snippets'
 
-    imap <C-k> <Plug>(neosnippet_expand_or_jump)
-    smap <C-k> <Plug>(neosnippet_expand_or_jump)
-    xmap <C-k> <Plug>(neosnippet_expand)
-    imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-    imap <expr><Down> pumvisible() ? "\<C-n>" : "\<Down>"
-    imap <expr><Up> pumvisible() ? "\<C-p>" : "\<Up>"
-    imap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)"
-                                         \ : pumvisible() ? "\<C-n>" : "\<TAB>"
-    smap <expr><TAB> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)"
-                                         \ : "\<TAB>"
+    source $VIMDIR/config/plugins/hook_source/neosnippet.mapping.vim
 '''
 
 [[plugins]]
@@ -141,10 +88,10 @@ on_cmd      = 'Denite'
 on_source   = 'denite-experimental.nvim'
 if          = "has('nvim')"
 hook_add    = '''
-    source $VIMDIR/config/plugins/mapping/denite.nvim
+    source $VIMDIR/config/plugins/hook_add/denite.nvim
 '''
 hook_post_source = '''
-    source $VIMDIR/config/plugins/extension/denite.nvim
+    source $VIMDIR/config/plugins/hook_post_source/denite.nvim
 '''
 
 [[plugins]]
@@ -155,9 +102,6 @@ on_source   = ['denite.nvim']
 repo        = 'chemzqm/unite-location'
 depends     = 'denite.nvim'
 on_cmd      = ['Denite']
-hook_add    = '''
-    nnoremap <silent> [denite]q :Denite -auto-preview -auto-highlight -auto-resize -resume quickfix
-'''
 #}}}
 
 
@@ -170,48 +114,17 @@ hook_add    = '''
     vmap <C-v> <Plug>(expand_region_shrink)
 '''
 hook_source = '''
-    let g:expand_region_text_objects = {
-        \ 'iw': 1,
-        \ 'iW': 0,
-        \ 'i"': 1,
-        \ 'i'': 0,
-        \ 'i]': 1,
-        \ 'ib': 1,
-        \ 'iB': 1,
-        \ 'il': 1,
-        \ 'ip': 1,
-        \ 'ie': 0
-        \}
-    call expand_refion#custom_text_objects({
-        \ 'a]': 1,
-        \ 'ab': 1,
-        \ 'aB': 1
-        \})
+    source $VIMDIR/config/plugins/hook_source/expand_region.vim
 '''
 
 [[plugins]]
 repo        = 'easymotion/vim-easymotion'
 on_map      = '<Plug>'
 hook_add    = '''
-    noremap [easy-motion] <Nop>
-    nmap m [easy-motion]
-
-    nmap [easy-motion]c <Plug>(easymotion-overwin-f)
-    nmap [easy-motion]s <Plug>(easymotion-overwin-f2)
-    nmap [easy-motion]h <Plug>(easymotion-linebackward)
-    nmap [easy-motion]j <Plug>(easymotion-j)
-    nmap [easy-motion]k <Plug>(easymotion-k)
-    nmap [easy-motion]l <Plug>(easymotion-lineforward)
-    nmap [easy-motion]w <Plug>(easymotion-bd-w)
-    nmap [easy-motion]e <Plug>(easymotion-bd-e)
+    source $VIMDIR/config/plugins/hook_add/easymotion.vim
 '''
 hook_source = '''
-    let g:EasyMotion_do_mapping = 0         " Disable default mappings
-    let g:EasyMotion_smartcase = 1          " Turn on case insensitive feature
-    let g:EasyMotion_use_upper = 0          " Use uppercase target labels and type as a lower case
-    let g:EasyMotion_smartcase = 1          " type `l` and match `l`&`L`
-    let g:EasyMotion_use_smartsign_us = 1   " Smartsign (type `3` and match `3`&`#`)
-    let g:EasyMotion_startofline = 0        " keep cursor column when JK motion
+    source $VIMDIR/config/plugins/hook_source/easymotion.vim
 '''
 
 [[plugins]]
@@ -309,10 +222,7 @@ hook_add    = '''
     inoremap <C-s> <C-[>:<C-u>VimShellPop -toggle<CR>
 '''
 hook_source = '''
-    let g:vimshell_split_command = ''
-    let g:vimshell_enable_transient_user_prompt = 1
-    let g:vimshell_force_overwrite_statusline = 1
-    source $VIMDIR/config/plugins/extension/vimshell.vim
+    source $VIMDIR/config/plugins/hook_source/vimshell.vim
 '''
 #}}}
 
@@ -359,17 +269,13 @@ hook_add = '''
 repo        = 'kassio/neoterm'
 if          = 'has("nvim")'
 on_source   = 'vim-test'
-on_cmd      = ['Topen', 'Tclose', 'Ttoggle', 'Tpos', 'Tmap']
+on_cmd      = ['Topen', 'Tclose', 'Ttoggle', 'Tpos', 'Tmap', 'TREPLSendSelection']
 hook_add    = '''
-    let g:neoterm_position = 'horizontal'
-    let g:neoterm_size = 20
-    let g:neoterm_autoinsert = 1
-    let g:neoterm_automap_keys = "\<Leader>T"
-
     nnoremap <silent> <Leader>t :<C-u>Ttoggle<CR>
     vnoremap <silent> <Leader>t :<C-u>TREPLSendSelection<CR>
-
-    source $VIMDIR/config/plugins/extension/neoterm.nvim
+'''
+hook_source = '''
+    source $VIMDIR/config/plugins/hook_source/neoterm.nvim
 '''
 
 [[plugins]]
@@ -392,31 +298,7 @@ repo        = 'SrcExpl'
 on_ft       = ['awk', 'c', 'cpp', 'd', 'java', 'python', 'ruby', 'tex']
 on_cmd      = 'SrcExplToggle'
 hook_source = '''
-    let s:cwd = getcwd()
-    if isdirectory(s:cwd . "/src")
-        let s:src_dir = s:cwd . "/src"
-    elseif isdirectory(s:cwd . "/source")
-        let s:src_dir = s:cwd . "/source"
-    else
-        let s:src_dir = s:cwd
-    endif
-
-    let g:SrcExpl_winHeight     = 20
-    let g:SrcExpl_updateTagsCmd = 'ctags --sort=foldcase -R ' . s:src_dir
-
-    if has('cscope')
-        set csprg=cscope
-        set csto=0
-        set cst
-        set nocsverb
-        if filereadable("cscope.out")
-            cs add cscope.out
-        elseif $CSCOPE_DB != ""
-            cs add $CSCOPE_DB
-        endif
-        set csverb
-        set cscopequickfix=s-,c-,d-,i-,t-,e-
-    endif
+    source $VIMDIR/config/plugins/hook_source/srcexpl.vim
 '''
 
 [[plugins]]
@@ -443,14 +325,10 @@ repo        = 'thinca/vim-quickrun'
 on_map      = '<Plug>'
 on_source   = ['shabadou.vim', 'vim-watchdogs']
 hook_add    = '''
-    if !exists('g:quickrun_config')
-        let g:quickrun_config = {}
-    endif
-
     nmap <silent> <Leader>q <Plug>(quickrun)
 '''
 hook_source = '''
-    source $VIMDIR/config/plugins/extension/quickrun.vim
+    source $VIMDIR/config/plugins/hook_source/quickrun.vim
 '''
 
 [[plugins]]
@@ -496,13 +374,7 @@ on_cmd      = 'Align'
 repo        = 'thinca/vim-template'
 on_cmd      = 'TemplateLoad'
 hook_add    = '''
-    augroup MyTemplates
-        autocmd!
-        autocmd BufNewFile *.h,*.hpp execute 'TemplateLoad /init.h'
-        autocmd BufNewFile *.d       execute 'TemplateLoad /init.d'
-        autocmd BufNewFile *.java    execute 'TemplateLoad /init.java'
-        autocmd BufNewFile build.sbt execute 'TemplateLoad /init.sbt.scala'
-    augroup END
+    source $VIMDIR/config/plugins/hook_add/template.vim
 '''
 #}}}
 
@@ -528,14 +400,7 @@ repo        = 'justmao945/vim-clang'
 if          = "executable('clang')"
 on_ft       = ['c', 'cpp']
 hook_source = '''
-    let g:clang_auto = 1
-    let g:clang_c_completeopt   = 'menuone,noselect,longest'
-    let g:clang_cpp_completeopt = 'menuone,noselect,longest'
-
-    let g:clang_cpp_options = '-std=c++1y'
-    if IsMac()
-        let g:clang_cpp_options = g:clang_cpp_options . ' -stdlib=libc++'
-    endif
+    source $VIMDIR/config/plugins/hook_source/clang.vim
 '''
 
 [[plugins]]
@@ -543,32 +408,12 @@ repo        = 'rhysd/vim-clang-format'
 if          = "executable('clang-format')"
 on_ft       = ['c', 'cpp']
 depends     = ['vimproc', 'vim-operator-user']
-hook_source = '''
+hook_add    = '''
     nnoremap = :<C-u>ClangFormat<CR>
     vnoremap = :ClangFormat<CR>
-
-    if executable('cppman')
-        autocmd MyCmdGroup FileType cpp set keywordprg=cppman
-    endif
-
-    let g:clang_format#command = 'clang-format'
-    let g:clang_format#code_style = 'LLVM'
-    let g:clang_format#style_options = {
-        \ 'TabWidth': 4,
-        \ 'AccessModifierOffset': 0,
-        \ 'AlignConsecutiveAssignments': 'true',
-        \ 'AlignEscapedNewlinesLeft': 'true',
-        \ 'AllowAllParametersOfDeclarationOnNextLine': 'false',
-        \ 'AllowShortFunctionsOnASingleLine': 'true',
-        \ 'BraceWrapping': {'AfterFunction': 'true'},
-        \ 'BreakBeforeBraces': 'Stroustrup',
-        \ 'BreakConstructorInitializersBeforeComma': 'true',
-        \ 'SpacesBeforeTrailingComments': 2,
-        \ 'CommentPragmas': '\*'
-        \}
-    let g:clang_format#filetype_style_options = {
-        \ 'cpp': {'Standard': "C++11"},
-        \}
+'''
+hook_source = '''
+    source $VIMDIR/config/plugins/hook_source/clang_format.vim
 '''
 
 [[plugins]]
@@ -618,7 +463,7 @@ repo        = 'vim-ruby/vim-ruby'
 on_ft       = 'ruby'
 on_map      = '<Plug>'
 hook_add    = '''
-    let g:ruby_path = ""
+    let g:ruby_path = ''
 '''
 hook_source = '''
     set tabstop=2
@@ -644,10 +489,10 @@ on_ft     = 'python'
 depends   = 'deoplete.nvim'
 
 [[plugins]]
-repo      = 'Yggdroot/indentLine'
-on_ft     = ['python']
-on_cmd    = 'IndentLineToggle'
-on_source = '''
+repo        = 'Yggdroot/indentLine'
+on_ft       = ['python']
+on_cmd      = 'IndentLineToggle'
+hook_source = '''
     let g:indentLine_enabled = 1
     let g:indentLine_char = '|'
     let g:indentLine_fileType = ['python']
@@ -774,10 +619,13 @@ on_ft       = ['unite', 'quickfix']
 
 [[plugins]]
 repo        = 'mtth/scratch.vim'
+on_cmd      = ['ScratchPreview']
 on_map      = ['gs', 'gS']
+hook_add    = '''
+    nnoremap <silent> <Leader>s :<C-u>ScratchPreview<CR>
+'''
 hook_source = '''
     let g:scratch_insert_autohide = 0
-
     autocmd! FileType scratch nnoremap <buffer><silent> q :<C-u>ScratchPreview<CR>
 '''
 

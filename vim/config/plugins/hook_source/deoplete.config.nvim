@@ -1,0 +1,16 @@
+set completeopt=menuone,noselect,longest
+
+let g:deoplete#enable_at_startup            = 1
+let g:deoplete#enable_ignore_case           = 1
+let g:deoplete#enable_smart_case            = 1
+let g:deoplete#auto_completion_start_length = 2
+let g:deoplete#enable_reflesh_always        = 1
+let g:deoplete#enable_camel_case            = 1
+let g:deoplete#text_mode_filetypes          = {'_': 1}
+
+if !exists('g:deoplete#omni_patterns')
+    let g:deoplete#omni_patterns = {}
+endif
+let g:deoplete#omni_patterns.ruby = '[^.*\t]\.\w*\|\h\w*::'
+let g:deoplete#omni_patterns.c    = '[^.[:digit:]*\t]\%(\.\|->\)'
+let g:deoplete#omni_patterns.cpp  = '[^.[:digit:]*\t]\%(\.\|->\)\|\h\w*::'
