@@ -1,6 +1,11 @@
+let g:neoterm_position = 'horizontal'
+let g:neoterm_size = 15
+let g:neoterm_autoinsert = 1
+let g:neoterm_automap_keys = "\<Leader>T"
+
 " Tpos toggle
 function! TposToggleFn(bang)
-    if g:neoterm_position == 'horizontal'
+    if g:neoterm_position ==# 'horizontal'
         Tpos vertical
         let g:neoterm_size = ''
     else
@@ -23,5 +28,5 @@ let s:repl.python = 'python'
 let s:repl.ruby = (executable('pry') ? 'pry' : 'irb')
 
 for [ft, cmd] in items(s:repl)
-    execute "autocmd! FileType " . ft . " :Tmap " . cmd
+    execute 'autocmd! FileType ' . ft . ' :Tmap ' . cmd
 endfor

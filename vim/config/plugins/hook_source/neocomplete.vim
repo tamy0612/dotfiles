@@ -1,3 +1,17 @@
+set completeopt+=longest
+
+let g:acp_enableAtStartup                      = 0
+let g:neocomplete#enable_at_startup            = 1
+let g:neocomplete#enable_smart_case            = 1
+let g:neocomplete#enable_fuzzy_completion      = 1
+let g:neocomplete#max_list                     = 10
+let g:neocomplete#use_vimproc                  = 1
+let g:neocomplete#min_keyword_length           = 3
+let g:neocomplete#lock_buffer_name_pattern     = '\*ku\*'
+let g:neocomplete#auto_completion_start_length = 2
+let g:neocomplete#enable_auto_select           = 0
+let g:neocomplete#text_mode_filetypes          = {'_': 1}
+
 " dict
 let g:neocomplete#dictionary_filetype_lists = {
       \ 'php' : $VIMDIR.'/dict/php.dict',

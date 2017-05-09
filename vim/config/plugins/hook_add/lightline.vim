@@ -1,7 +1,7 @@
 let g:lightline = {
             \ 'colorscheme': 'default',
             \ 'active': {
-            \   'left': [['mode', 'paste', 'modifiable'], ['modified', 'filename'], ['gitinfo']],
+            \   'left': [['mode', 'paste', 'modifiable'], ['modified', 'filename', 'lint'], ['gitinfo']],
             \   'right': [['lineinfo'], ['percent', 'bytes'], ['fileformat', 'fileencoding', 'filetype']]
             \ },
             \ 'inactive': {
@@ -13,6 +13,7 @@ let g:lightline = {
             \   'modifiable': 'LightlineModifiable',
             \   'modified': 'LightlineModified',
             \   'filename': 'LightlineFilename',
+            \   'lint': 'ALEGetStatusLine',
             \   'gitinfo': 'LightlineGitinfo',
             \   'fileformat': 'LightlineFileformat',
             \   'fileencoding': 'LightlineFileencoding',
