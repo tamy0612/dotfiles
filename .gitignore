@@ -1,4 +1,6 @@
 tmp/
 vim/back/
 vim/bundle/
+
 zsh/.zcompdump
+.python-version

@@ -269,17 +269,6 @@ hook_add    = '''
 hook_source = '''
     let g:switch_mapping = ""
 '''
-
-# [[plugins]]
-# repo        = 'terryma/vim-multiple-cursors'
-# hook_source = '''
-#     let g:multi_cursor_use_default_mapping = 0
-#
-#     let g:multi_cursor_next_key='<C-n>'
-#     let g:multi_cursor_prev_key='<C-p>'
-#     let g:multi_cursor_skip_key='<C-x>'
-#     let g:multi_cursor_quit_key='<Esc>'
-# '''
 #}}}
 
 
@@ -429,24 +418,26 @@ hook_source = '''
         set cscopequickfix=s-,c-,d-,i-,t-,e-
     endif
 '''
+
+[[plugins]]
+repo        = 'w0rp/ale'
+on_map      = '<Plug>'
+on_cmd      = ['ALEEnable', 'ALEToggle']
+on_ft       = ['c', 'cpp', 'python', 'vim']
+hook_add    = '''
+    nmap <silent> <Leader>at <Plug>(ale_toggle)
+'''
+hook_source = '''
+    source $VIMDIR/config/plugins/hook_source/ale.config.vim
+    source $VIMDIR/config/plugins/hook_source/ale.linter.vim
+'''
+hook_post_source = '''
+    nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+    nmap <silent> <C-j> <Plug>(ale_next_wrap)
+'''
 #}}}
 
 # Build & Run  #{{{
-[[plugins]]
-repo        = 'neomake/neomake'
-if          = 'has("nvim")'
-on_cmd      = ['Neomake']
-hook_add    = '''
-    cabbrev mak Neomake
-    cabbrev make Neomake
-'''
-hook_source = '''
-    let g:neomake_open_list = 2
-    let g:neomake_echo_current_error = 1
-
-    source $VIMDIR/config/plugins/extension/neomake.nvim
-'''
-
 [[plugins]]
 repo        = 'thinca/vim-quickrun'
 on_map      = '<Plug>'
@@ -463,10 +454,6 @@ hook_source = '''
 '''
 
 [[plugins]]
-repo        = 'thinca/vim-qfreplace'
-on_ft       = ['unite', 'quickfix']
-
-[[plugins]]
 repo        = 'janko-m/vim-test'
 on_cmd      = ['TestNearest', 'TestFile', 'TestSuite', 'TestLast', 'TestVisit']
 hook_source = '''
@@ -478,70 +465,6 @@ hook_source = '''
         let test#strategy = 'vimproc'
     endif
 '''
-
-# [[plugins]]
-# repo      = 'scrooloose/syntastic'
-# on_cmd    = ['SyntasticCheck', 'SyntasticToggleMode']
-# hook_add  = '''
-#   nnoremap <silent> <C-c> :<C-u>SyntasticCheck<CR>
-# '''
-# hook_source = '''
-#   let g:syntastic_error_symbol='x'
-#   let g:syntastic_warning_symbol='!'
-#   let g:syntastic_style_error_symbol = 'x'
-#   let g:syntastic_style_warning_symbol = '!'
-#   let g:syntastic_check_on_wq = 0
-#   let g:syntastic_auto_loc_list = 1
-#   let g:syntastic_auto_jump = 3
-#   let g:syntastic_always_populate_loc_list = 2
-#
-#   source $VIMDIR/config/plugins/extension/syntastic.vim
-#
-#   hi SyntasticErrorSign ctermfg=160
-#   hi SyntasticWarningSign ctermfg=220
-# '''
-
-# [[plugins]]
-# repo        = 'osyo-manga/vim-watchdogs'
-# depends     = ['vim-quickrun', 'vimproc', 'shabadou.vim']
-# on_cmd      = 'WatchdogsRun'
-# hook_add    = '''
-#     nnoremap <silent> <Leader>c :<C-u>WatchdogsRun<CR>
-# '''
-# hook_source = '''
-#     let g:watchdogs_check_BufWritePost_enables = {
-#         \ 'python': 1
-#         \}
-#     let g:watchdogs_check_CursorHold_enables = {
-#         \ 'python': 1
-#         \}
-#     let g:watchdogs_check_BufWritePost_enable_on_wq = 0
-# '''
-# hook_post_source = '''
-#     source $VIMDIR/config/plugins/extension/watchdogs.vim
-# '''
-
-# [[plugins]]
-# repo      = 'osyo-manga/shabadou.vim'
-# on_source = ['vim-watchdogs', 'vim-quickrun']
-
-# [[plugins]]
-# repo      = 'cohama/vim-hier'
-# on_source = ['vim-watchdogs']
-
-# [[plugins]]
-# repo      = 'dannyob/quickfixstatus'
-# on_source = ['vim-watchdogs']
-
-# [[plugins]]
-# repo      = 'syngan/vim-vimlint'
-# depends   = 'vim-vimlparser'
-# on_ft     = 'vim'
-# on_source = ['vim-watchdogs']
-
-# [[plugins]]
-# repo      = 'syngan/vim-vimlparser'
-# on_source = 'vim-vimlint'
 #}}}
 
 # Utilities  #{{{
@@ -845,6 +768,10 @@ on_ft     = 'dart'
 
 
 # Utilities  #{{{
+[[plugins]]
+repo        = 'thinca/vim-qfreplace'
+on_ft       = ['unite', 'quickfix']
+
 [[plugins]]
 repo        = 'mtth/scratch.vim'
 on_map      = ['gs', 'gS']
