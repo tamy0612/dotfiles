@@ -269,9 +269,10 @@ hook_add = '''
 repo        = 'kassio/neoterm'
 if          = 'has("nvim")'
 on_source   = 'vim-test'
-on_cmd      = ['Topen', 'Tclose', 'Ttoggle', 'Tpos', 'Tmap', 'TREPLSendSelection']
+on_cmd      = ['Tnew', 'Topen', 'Ttoggle', 'Tmap', 'TREPLSendSelection']
 hook_add    = '''
     nnoremap <silent> <Leader>t :<C-u>Ttoggle<CR>
+    nnoremap <silent> <Leader>T :<C-u>Tnew<CR>
     vnoremap <silent> <Leader>t :<C-u>TREPLSendSelection<CR>
 '''
 hook_source = '''
