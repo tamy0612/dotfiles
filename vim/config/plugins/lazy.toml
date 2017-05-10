@@ -266,20 +266,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo        = 'kassio/neoterm'
-if          = 'has("nvim")'
-on_source   = 'vim-test'
-on_cmd      = ['Tnew', 'Topen', 'Ttoggle', 'Tmap', 'TREPLSendSelection']
-hook_add    = '''
-    nnoremap <silent> <Leader>t :<C-u>Ttoggle<CR>
-    nnoremap <silent> <Leader>T :<C-u>Tnew<CR>
-    vnoremap <silent> <Leader>t :<C-u>TREPLSendSelection<CR>
-'''
-hook_source = '''
-    source $VIMDIR/config/plugins/hook_source/neoterm.nvim
-'''
-
-[[plugins]]
 repo        = 'majutsushi/tagbar'
 on_ft       = ['awk', 'c', 'cpp', 'd', 'java', 'python', 'ruby', 'tex', 'vim', 'R']
 on_cmd      = 'TagbarToggle'
@@ -320,7 +306,7 @@ hook_post_source = '''
 '''
 #}}}
 
-# Build & Run  #{{{
+# Test  #{{{
 [[plugins]]
 repo        = 'thinca/vim-quickrun'
 on_map      = '<Plug>'

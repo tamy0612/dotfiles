@@ -1,4 +1,5 @@
-set completeopt=menuone,noselect,longest
+set completeopt=menuone,noselect,longest,preview
+autocmd MyCmdGroup CompleteDone * pclose!
 
 let g:deoplete#enable_at_startup            = 1
 let g:deoplete#enable_ignore_case           = 1
