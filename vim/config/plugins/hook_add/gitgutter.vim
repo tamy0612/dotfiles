@@ -6,10 +6,10 @@ let g:gitgutter_sign_removed  = '-'
 let g:gitgutter_sign_modified_removed = '!-'
 
 nnoremap [git] <Nop>
-nmap <Leader>g [git]
+nmap <C-g> [git]
 nmap <silent>  [git]g :<C-u>GitGutterToggle<CR>
 nmap <silent>  [git]n :<C-u>GitGutterNextHunk<CR>
 nmap <silent>  [git]p :<C-u>GitGutterPrevHunk<CR>
 nmap <silent>  [git]a :<C-u>GitGutterStageHunk<CR>
 nmap <silent>  [git]r :<C-u>GitGutterUndoHunk<CR>
-nmap <silent>  [git]p :<C-u>GitGutterPreviewHunk<CR>
+nmap <silent>  [git]v :<C-u>GitGutterPreviewHunk<CR>

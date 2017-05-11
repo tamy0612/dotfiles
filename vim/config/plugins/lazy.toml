@@ -256,13 +256,10 @@ on_source   = ['previm']
 # Tools  #{{{
 [[plugins]]
 repo     = 'tpope/vim-fugitive'
-on_cmd   = ['Gcommit', 'Gstatus']
+on_cmd   = ['Gcommit', 'Gstatus', 'Gdiff']
 on_func  = 'fugitive#'
-hook_add = '''
-    nnoremap [git] <Nop>
-    nmap <Leader>g [git]
-    nmap <silent>  [git]c :<C-u>Gcommit<CR>
-    nmap <silent>  [git]s :<C-u>Gstatus<CR>
+hook_source = '''
+    let g:gitgutter_map_keys = 0
 '''
 
 [[plugins]]
