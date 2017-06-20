@@ -19,7 +19,6 @@ let g:lightline = {
             \   'fileencoding': 'LightlineFileencoding',
             \   'filetype': 'LightlineFiletype',
             \   'percent': 'LightlinePercent',
-            \   'bytes': 'LightlineBytes',
             \   'lineinfo': 'LightlineLineinfo'
             \ }
             \}
@@ -133,9 +132,9 @@ function! LightlineBytes()
         return ''
     endif
     if mode() =~ 'v\|V\|'
-        execute 'normal "xy'
-        execute 'normal gv'
-        return strlen(@x)
+        " execute 'normal "xy'
+        " execute 'normal gv'
+        " return strlen(@x)
     endif
     return ''
 endfunction

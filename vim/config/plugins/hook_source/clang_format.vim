@@ -11,6 +11,7 @@ let g:clang_format#style_options = {
     \ 'AlignEscapedNewlinesLeft': 'true',
     \ 'AllowAllParametersOfDeclarationOnNextLine': 'false',
     \ 'AllowShortFunctionsOnASingleLine': 'true',
+    \ 'AlwaysBreakTemplateDeclarations': 'true',
     \ 'BraceWrapping': {'AfterFunction': 'true'},
     \ 'BreakBeforeBraces': 'Stroustrup',
     \ 'BreakConstructorInitializersBeforeComma': 'true',
@@ -18,5 +19,5 @@ let g:clang_format#style_options = {
     \ 'CommentPragmas': '\*'
     \}
 let g:clang_format#filetype_style_options = {
-    \ 'cpp': {'Standard': 'C++1z'},
+    \ 'cpp': {'Standard': 'C++11'},
     \}

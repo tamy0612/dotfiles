@@ -182,6 +182,29 @@ hook_add    = '''
 hook_source = '''
     let g:switch_mapping = ""
 '''
+
+[[plugins]]
+repo        = 'osyo-manga/vim-operator-highlighter'
+on_map      = '<Plug>'
+hook_add    = '''
+    let g:operator#highlighter#config = {
+        \  'group': 'Search',
+        \  'clear_time' : 3000
+        \}
+
+    noremap <Plug>(yank) y
+    xnoremap <expr> y operator#sequence#map("\<Plug>(operator-highlighter-once)", "\<Plug>(yank)")
+'''
+
+[[plugins]]
+repo       = 'haya14busa/vim-asterisk'
+on_map     = '<Plug>'
+hook_add   = '''
+    map * <Plug>(asterisk-z*)
+    map g* <Plug>(asterisk-gz*)
+    map # <Plug>(asterisk-z#)
+    map g# <Plug>(asterisk-gz#)
+'''
 #}}}
 
 
@@ -278,7 +301,7 @@ hook_source = '''
 '''
 
 [[plugins]]
-repo        = 'SrcExpl'
+repo        = 'vim-scripts/SrcExpl'
 on_ft       = ['awk', 'c', 'cpp', 'd', 'java', 'python', 'ruby', 'tex']
 on_cmd      = 'SrcExplToggle'
 hook_source = '''
@@ -331,6 +354,23 @@ hook_source = '''
 
 # Utilities  #{{{
 [[plugins]]
+repo        = 'Yggdroot/indentLine'
+on_ft       = ['c', 'cpp', 'scala', 'python', 'vim', 'json', 'toml']
+on_cmd      = ['IndentLinesToggle', 'IndentLinesReset']
+hook_add    = '''
+    set conceallevel=1
+
+    let g:indentLine_enabled = 0
+    let g:indentLine_conceallevel = 1
+
+    nnoremap <silent> <Leader>it :<C-u>IndentLinesToggle<CR>
+    nnoremap <silent> <Leader>ir :<C-u>IndentLinesReset<CR>
+'''
+hook_source = '''
+    hi Conceal ctermfg=111 ctermbg=NONE guifg=#708090 guibg=NONE
+'''
+
+[[plugins]]
 repo        = 'osyo-manga/vim-precious'
 depends     = ['context_filetype.vim']
 on_cmd      = ['PreciousSwitch', 'PreciousReset']
@@ -379,25 +419,28 @@ on_func   = 'vimlint#vimlint'
 repo      = 'vim-jp/cpp-vim'
 on_ft     = ['c', 'cpp']
 
-[[plugins]]
-repo        = 'justmao945/vim-clang'
-if          = "executable('clang')"
-on_ft       = ['c', 'cpp']
-hook_source = '''
-    source $VIMDIR/config/plugins/hook_source/clang.vim
-'''
+# [[plugins]]
+# repo        = 'justmao945/vim-clang'
+# if          = "executable('clang')"
+# on_ft       = ['c', 'cpp']
+# hook_source = '''
+#     source $VIMDIR/config/plugins/hook_source/clang.vim
+# '''
 
 [[plugins]]
 repo        = 'rhysd/vim-clang-format'
 if          = "executable('clang-format')"
 on_ft       = ['c', 'cpp']
 depends     = ['vimproc', 'vim-operator-user']
+on_source   = 'vim-clang'
 hook_add    = '''
     nnoremap = :<C-u>ClangFormat<CR>
     vnoremap = :ClangFormat<CR>
 '''
 hook_source = '''
-    source $VIMDIR/config/plugins/hook_source/clang_format.vim
+    " source $VIMDIR/config/plugins/hook_source/clang_format.vim
+    let g:clang_format#detect_style_file = 1
+    let g:clang_format#auto_format_on_insert_leave = 1
 '''
 
 [[plugins]]
@@ -419,7 +462,7 @@ if          = 'has("nvim")'
 on_cmd      = ['LL', 'LLsession', 'LLmode']
 
 [[plugins]]
-repo        = 'DoxygenToolkit.vim'
+repo        = 'vim-scripts/DoxygenToolkit.vim'
 on_ft       = ['c', 'cpp']
 #}}}
 
@@ -458,7 +501,7 @@ hook_source = '''
 
 # Python  #{{{
 [[plugins]]
-repo      = 'Flake8-vim'
+repo      = 'vim-scripts/Flake8-vim'
 on_ft     = 'python'
 if        = "has('python')"
 
@@ -471,18 +514,6 @@ repo      = 'zchee/deoplete-jedi'
 if        = "has('nvim')"
 on_ft     = 'python'
 depends   = 'deoplete.nvim'
-
-[[plugins]]
-repo        = 'Yggdroot/indentLine'
-on_ft       = ['python']
-on_cmd      = 'IndentLineToggle'
-hook_source = '''
-    let g:indentLine_enabled = 1
-    let g:indentLine_char = '|'
-    let g:indentLine_fileType = ['python']
-
-    hi Conceal ctermfg=111 ctermbg=NONE guifg=#708090 guibg=NONE
-'''
 #}}}
 
 # Javascript  #{{{
@@ -512,7 +543,7 @@ depends   = 'open-browser.vim'
 # LaTeX  #{{{
 [[plugins]]
 repo        = 'vim-latex/vim-latex'
-on_ft       = ['latex']
+on_ft       = ['latex', 'tex']
 hook_add    = '''
     let g:tex_flavor = 'latex'
 '''
@@ -523,7 +554,7 @@ hook_source = '''
 
 # Web development  #{{{
 [[plugins]]
-repo      = 'HTML-AutoCloseTag'
+repo      = 'vim-scripts/HTML-AutoCloseTag'
 on_ft     = ['html', 'xml']
 
 [[plugins]]
@@ -586,7 +617,7 @@ repo      = 'rsmenon/vim-mathematica'
 on_ft     = 'matlab'
 
 [[plugins]]
-repo      = 'maxima.vim'
+repo      = 'vim-scripts/maxima.vim'
 
 [[plugins]]
 repo      = 'dart-lang/dart-vim-plugin'

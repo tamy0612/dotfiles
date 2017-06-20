@@ -40,3 +40,6 @@ nmap # "zyiw:let @/ = '\<' . @z . '\>'<CR>:%s/<C-r>///gc<Left><Left><Left>
 
 " quick help
 nnoremap <expr> K (&filetype is# 'vim' ? (':help ' . fnameescape(expand('<cword>')) . '<CR>') : 'K')
+
+" count characters
+map <C-c> g<C-g>

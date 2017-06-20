@@ -40,3 +40,8 @@ repo     = 'airblade/vim-gitgutter'
 hook_add = '''
     source $VIMDIR/config/plugins/hook_add/gitgutter.vim
 '''
+
+
+# Utility
+[[plugins]]
+repo     = 'thinca/vim-operator-sequence'

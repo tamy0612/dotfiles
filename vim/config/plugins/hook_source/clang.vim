@@ -1,6 +1,6 @@
 let g:clang_auto = 1
 let g:clang_diagsopt = ''
-let g:clang_format_auto = executable('clang-format')
+" let g:clang_format_auto = executable('clang-format')
 let g:clang_include_sysheaders_from_gcc = executable('clang')
 let g:clang_verbose_pmenu = 0
 
