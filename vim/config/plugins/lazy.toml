@@ -69,10 +69,6 @@ hook_add    = '''
     set noshowmode
     let g:echodoc#enable_at_startup = 1
 '''
-
-[[plugins]]
-repo        = 'kana/vim-smartinput'
-on_event    = 'InsertEnter'
 #}}}
 
 
@@ -379,8 +375,7 @@ on_cmd      = ['PreciousSwitch', 'PreciousReset']
 repo        = 'vim-jp/autofmt'
 
 [[plugins]]
-repo        = 'tpope/vim-endwise'
-on_ft       = ['c', 'cpp', 'ruby', 'crystal', 'elixir', 'lua', 'sh', 'zsh', 'vim']
+repo        = 'cohama/lexima.vim'
 on_event    = 'InsertEnter'
 
 [[plugins]]
