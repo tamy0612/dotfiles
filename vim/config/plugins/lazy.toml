@@ -472,8 +472,11 @@ on_ft     = 'java'
 
 # Scala  #{{{
 [[plugins]]
-repo      = 'derekwyatt/vim-scala'
-on_ft     = 'scala'
+repo        = 'derekwyatt/vim-scala'
+on_ft       = ['scala']
+hook_source = '''
+    autocmd MyCmdGroup BufWritePre *.scala SortScalaImports
+'''
 #}}}
 
 # Ruby  #{{{
