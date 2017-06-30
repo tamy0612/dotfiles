@@ -14,7 +14,7 @@ PYTHON3_VER = 3.5.2
 
 
 # commands
-.PHONY: zsh anyenv vim nvim gnuplot homebrew
+.PHONY: zsh anyenv vim nvim gnuplot ctags clang-format homebrew
 all:
 	@echo "Usage:"
 	@echo "  make <zsh|anyenv|pyenv|vim|nvim|gnuplot|homebrew>"
@@ -31,6 +31,10 @@ vim: $(VIM_HOME) $(XDG_CACHE)
 nvim: $(NVIM_HOME) $(XDG_CACHE) $(PYENV_HOME) $(PYENV_HOME)/versions/neovim2 $(PYENV_HOME)/versions/neovim3
 
 gnuplot: $(HOME)/.gnuplot
+
+ctags: $(HOME)/.ctags
+
+clang-format: $(HOME)/.clang-format
 
 homebrew:
 ifeq ($(OS),Darwin)
@@ -117,4 +121,10 @@ $(PYENV_HOME)/versions/neovim3:
 
 # others
 $(HOME)/.gnuplot:
-	@ln -s $(PWD)/others/gnuplot $(HOME)/.gnuplot
+	@ln -s $(PWD)/others/gnuplot $@
+
+$(HOME)/.ctags:
+	@ln -s $(PWD)/others/ctags $@
+
+$(HOME)/.clang-format:
+	@ln -s $(PWD)/others/clang-format $@

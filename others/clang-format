@@ -1,0 +1,23 @@
+---
+BasedOnStyle: LLVM
+IndentWidth: 4
+AlignConsecutiveAssignments: true
+AlignEscapedNewlinesLeft: true
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowShortFunctionsOnASingleLine: true
+BraceWrapping: {AfterControlStatement: false, AfterEnum: true, AfterFunction: true}
+BreakBeforeBraces: Stroustrup
+SpacesBeforeTrailingComments: 2
+---
+Language: Cpp
+AccessModifierOffset: 0
+AlwaysBreakTemplateDeclarations: true
+BreakConstructorInitializersBeforeComma: true
+CommentPragmas: \*
+Standard: Auto
+---
+Language: C
+CommentPragmas: \*
+Standard: Auto
+...
+
