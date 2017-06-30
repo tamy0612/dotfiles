@@ -308,10 +308,7 @@ hook_source = '''
 repo        = 'w0rp/ale'
 on_map      = '<Plug>'
 on_cmd      = ['ALEEnable', 'ALEToggle']
-on_ft       = ['c', 'cpp', 'python', 'vim']
-hook_add    = '''
-    nmap <silent> <Leader>at <Plug>(ale_toggle)
-'''
+on_ft       = ['c', 'cpp', 'd', 'scala', 'python', 'vim']
 hook_source = '''
     source $VIMDIR/config/plugins/hook_source/ale.config.vim
     source $VIMDIR/config/plugins/hook_source/ale.linter.vim
