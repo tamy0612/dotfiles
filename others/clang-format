@@ -15,9 +15,5 @@ AlwaysBreakTemplateDeclarations: true
 BreakConstructorInitializersBeforeComma: true
 CommentPragmas: \*
 Standard: Auto
----
-Language: C
-CommentPragmas: \*
-Standard: Auto
 ...
 
