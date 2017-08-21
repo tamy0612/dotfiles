@@ -1,0 +1,7 @@
+[[plugins]]
+repo     = 'rhysd/nyaovim-markdown-preview'
+on_ft    = ['markdown', 'mkd', 'rst']
+hook_add = '''
+    let g:markdown_preview_auto = 1
+    let g:markdown_preview_eager = 1
+'''

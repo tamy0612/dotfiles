@@ -37,6 +37,9 @@ call dein#begin(s:plugin_dir, [expand('<sfile>'), s:toml_path, s:toml_lazy_path]
 
 call dein#load_toml(s:toml_path, {'lazy': 0 })
 call dein#load_toml(s:toml_lazy_path, {'lazy': 1})
+if exists('g:nyaovim_version')
+    call dein#load_toml(expand('$VIMDIR/config/plugins/nyaovim.toml'), {'lazy': 1})
+endif
 
 call dein#end()
 call dein#save_state()
