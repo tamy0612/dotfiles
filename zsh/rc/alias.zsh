@@ -7,17 +7,24 @@ fi
 
 
 # ls family
-alias ll='ls -lh'
-alias la='ls -A'
-alias lla='ls -lhA'
+if type exa > /dev/null 2>&1 ; then
+    alias ls='exa --group-directories-first'
+    alias la='ls -a'
+    alias lt='ls -T -L 2'
+    alias lta='ls -Tl'
+else
+    alias la='ls -A'
+    if type tree > /dev/null 2>&1 ; then
+      alias lt='tree'
+      alias lta='tree -a'
+    fi
+fi
+alias ll='ls -lhF'
+alias lla='la -lhF'
 alias lr='ls -R'
 alias llr='ll -R'
 alias lar='la -R'
 alias llar='lla -R'
-if type tree > /dev/null 2>&1 ; then
-  alias lt='tree'
-  alias lta='tree -a'
-fi
 
 
 # clear
