@@ -79,6 +79,7 @@ endif
 "================================================
 " Etc.
 "================================================
+call s:source_config('build.vim')
 set helplang&
 set helplang=en,ja
 
