@@ -7,10 +7,11 @@ let &titlestring = "%f"
 set number
 augroup numberwidth
   autocmd!
-  autocmd BufEnter,WinEnter,BufWinEnter * let &l:numberwidth = len(line("$")) + 2
+  autocmd BufEnter,WinEnter,BufWinEnter * let &l:numberwidth = len(line("$")) + 1
 augroup END
-" Don't show escape chars
-set nolist
+" Show escape chars
+set list
+set listchars=trail:-
 " Show status line
 set laststatus=2
 " cmd height = 1
