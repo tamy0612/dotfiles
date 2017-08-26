@@ -14,7 +14,7 @@ hook_source = '''
 [[plugins]]
 repo        = 'Shougo/deoplete.nvim'
 depends     = 'context_filetype.vim'
-on_source   = ['deoplete_clang', 'deoplete-jedi']
+on_source   = ['deoplete-clang', 'deoplete-jedi', 'deoplete-zsh']
 if          = "has('nvim') && has('python')"
 on_event    = 'InsertEnter'
 hook_source = '''
@@ -200,6 +200,24 @@ hook_add   = '''
     map g* <Plug>(asterisk-gz*)
     map # <Plug>(asterisk-z#)
     map g# <Plug>(asterisk-gz#)
+'''
+#}}}
+
+
+# Terminal  #{{{
+[[plugins]]
+repo        = 'mklabs/split-term.vim'
+on_cmd      = ['Term', 'VTerm']
+hook_add    = '''
+'''
+hook_suorce = '''
+'''
+
+[[plugins]]
+repo        = 'Shougo/deol.nvim'
+on_cmd      = ['Deol', 'DeolEdit']
+hook_source = '''
+    let g:deol#prompt_pattern = '% \|%$'
 '''
 #}}}
 
@@ -577,7 +595,7 @@ repo      = 'elzr/vim-json'
 on_ft     = 'json'
 #}}}
 
-# Minor langs  #{{{
+# Misc.  #{{{
 [[plugins]]
 repo      = 'zah/nim.vim'
 on_ft     = 'nim'
@@ -617,6 +635,11 @@ repo      = 'vim-scripts/maxima.vim'
 [[plugins]]
 repo      = 'dart-lang/dart-vim-plugin'
 on_ft     = 'dart'
+
+[[plugins]]
+repo      = 'zchee/deoplete-zsh'
+on_ft     = 'zsh'
+depends   = ['deoplete.nvim']
 #}}}
 #}}}
 #}}}

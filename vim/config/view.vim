@@ -11,7 +11,7 @@ augroup numberwidth
 augroup END
 " Show escape chars
 set list
-set listchars=trail:-
+set listchars=tab:>\ ,trail:~
 " Show status line
 set laststatus=2
 " cmd height = 1
