@@ -22,11 +22,8 @@ call s:source_config("initialize.vim")
 " Load encode settings
 call s:source_config('encoding.vim')
 
-" Load default editor settings
-call s:source_config('edit.vim')
-
-" Load view settings
-call s:source_config('view.vim')
+" Load default options
+call s:source_config('options.vim')
 
 " Load default mappings
 call s:source_config('mappings.vim')
@@ -42,7 +39,7 @@ call s:source_config('dein.vim')
 
 if has('vim_starting')
   if dein#check_install()
-		if dein#check_install(['vimproc']) | call dein#install(['vimproc']) | endif
+    if dein#check_install(['vimproc']) | call dein#install(['vimproc']) | endif
     call dein#install()
   endif
 endif
