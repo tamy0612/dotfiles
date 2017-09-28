@@ -568,7 +568,7 @@ hook_source = '''
 # Web development  #{{{
 [[plugins]]
 repo      = 'vim-scripts/HTML-AutoCloseTag'
-on_ft     = ['html', 'xml']
+on_ft     = ['html', 'xml', 'php']
 
 [[plugins]]
 repo      = 'hail2u/vim-css3-syntax'
@@ -580,6 +580,10 @@ on_ft     = 'ejs'
 hook_add  = '''
     autocmd BufNewFile,BufRead *.ejs set filetype=ejs
 '''
+
+[[plugins]]
+repo        = 'mattn/emmet-vim'
+on_ft       = ['html', 'xml', 'php']
 #}}}
 
 # Data structure  #{{{
