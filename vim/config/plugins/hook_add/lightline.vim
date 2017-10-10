@@ -82,11 +82,10 @@ function! LightlineGitinfo()
         return ''
     endif
 
-    let l:branch = fugitive#head()
-    if strlen(l:branch)
-        return l:branch . ': ' . LightlineGitStatus()
+    if strlen(gina#component#repo#branch())
+        return gina#component#repo#preset() . ': ' . LightlineGitStatus()
     endif
-    return ''
+    return '[Untracked]'
 endfunction
 
 
