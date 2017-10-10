@@ -295,6 +295,9 @@ on_source   = ['previm']
 repo        = 'lambdalisue/gina.vim'
 on_cmd      = ['Gina']
 on_func     = 'gina#'
+hook_source = '''
+    nnoremap <silent> <C-g>s :<C-u>Gina status<CR>
+'''
 
 [[plugins]]
 repo        = 'majutsushi/tagbar'
