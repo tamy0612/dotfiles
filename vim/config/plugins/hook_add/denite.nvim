@@ -1,27 +1,22 @@
-" embedment
-nnoremap <silent> / :<C-u>Denite -no-statusline -cursor-wrap -auto-highlight -vertical-preview -buffer-name=resumable line<CR>
-nnoremap <silent> * :<C-u>DeniteCursorWord -no-statusline -cursor-wrap -auto-highlight -vertical-preview -buffer-name=resumable line<CR>
-
-" Shortcut mappings
-nmap <silent> <Leader>b :<C-u>Denite -no-statusline -cursor-wrap buffer<CR>
-nmap <silent> <Leader>j :<C-u>Denite -no-statusline -cursor-wrap -auto-highlight -vertical-preview jump<CR>
-nmap <silent> <Leader>g :<C-u>Denite -no-statusline -cursor-wrap -auto-highlight -vertical-preview -no-empty -buffer-name=resumable grep<CR>
-nmap <silent> <Leader>l :<C-u>Denite -no-statusline -cursor-wrap -auto-highlight -vertical-preview -no-empty -buffer-name=resumable location_list quickfix<CR>
-nmap <silent> <Leader><Space> :<C-u>Denite -no-statusline -cursor-wrap -auto-highlight -vertical-preview -buffer-name=resumable -resume<CR>
+" Shortcut
+nnoremap <silent> / :<C-u>Denite line<CR>
 
 " Denite mapping
 nnoremap [denite] <Nop>
 nmap <Leader>d [denite]
 
-nmap <silent> [denite]f :<C-u>Denite -no-statusline -cursor-wrap -vertical-preview `finddir('.git', ';') != '' ? 'file_rec/git' : ''` file_rec file_mru file_point file_old<CR>
-nmap <silent> [denite]o :<C-u>Denite -no-statusline -cursor-wrap -vertical-preview outline<CR>
-nmap <silent> [denite]d :<C-u>Denite -no-statusline -cursor-wrap directory_rec<CR>
-nmap <silent> [denite]r :<C-u>Denite -no-statusline -cursor-wrap register neoyank<CR>
-xmap <silent> [denite]r :<C-u>Denite -no-statusline -cursor-wrap -default-action=replace register neoyunk<CR>
-nmap <silent> [denite]m :<C-u>Denite -no-statusline -cursor-wrap menu<CR>
-nmap <silent> [denite]h :<C-u>Denite -no-statusline -cursor-wrap help<CR>
+nmap <silent> [denite]b :<C-u>Denite buffer<CR>
+nmap <silent> [denite]j :<C-u>Denite -auto-preview -vertical-preview jump<CR>
+nmap <silent> [denite]g :<C-u>Denite -auto-preview -vertical-preview grep<CR>
+nmap <silent> [denite]o :<C-u>Denite -auto-preview -vertical-preview outline tag<CR>
+nmap <silent> [denite]l :<C-u>Denite -auto-preview -vertical-preview location_list quickfix<CR>
+nmap <silent> [denite]f :<C-u>Denite `finddir('.git', ';') != '' ? 'file_rec/git' : ''` file_rec file_mru file_old<CR>
+nmap <silent> [denite]d :<C-u>Denite directory_rec<CR>
+nmap <silent> [denite]y :<C-u>Denite register neoyank<CR>
+xmap <silent> [denite]y :<C-u>Denite -default-action=replace register neoyunk<CR>
+nmap <silent> [denite]m :<C-u>Denite menu<CR>
+nmap <silent> [denite]h :<C-u>Denite help<CR>
 
-nmap <silent> [denite]n :<C-u>Denite -no-statusline -resume -cursor-pos=+1 -immediately -buffer-name=resumable grep<CR>
-nmap <silent> [denite]p :<C-u>Denite -no-statusline -resume -cursor-pos=-1 -immediately -buffer-name=resumable grep<CR>
-
-nmap [denite] :<C-u>Denite -mode=normal -highlight-mode-normal=CursorLine -no-status
+nmap <silent> [denite]. :<C-u>Denite -resume<CR>
+nmap <silent> [denite]n :<C-u>Denite -resume -cursor-pos=+1 -immediately<CR>
+nmap <silent> [denite]p :<C-u>Denite -resume -cursor-pos=-1 -immediately<CR>

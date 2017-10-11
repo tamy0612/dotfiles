@@ -656,9 +656,9 @@ on_ft       = ['unite', 'quickfix']
 
 [[plugins]]
 repo        = 'mtth/scratch.vim'
-on_cmd      = ['ScratchPreview']
-on_map      = ['gs', 'gS']
+on_cmd      = ['Scratch', 'ScratchInsert', 'ScratchSelection', 'ScratchPreview']
 hook_add    = '''
+    let g:scratch_no_mappings = 1
     nnoremap <silent> <Leader>s :<C-u>ScratchPreview<CR>
 '''
 hook_source = '''
