@@ -299,7 +299,11 @@ hook_add    = '''
     source $VIMDIR/config/plugins/hook_add/gina.vim
 '''
 hook_source = '''
-    autocmd! FileType gina-status nnoremap <buffer><silent> q :<C-u>q<CR>
+    augroup MyCmdGroup
+        autocmd FileType gina-status nnoremap <buffer><silent> q :<C-u>q<CR>
+        autocmd FileType gina-status nnoremap <buffer><silent> c :<C-u>Gina commit<CR>
+        autocmd FileType gina-commit execute "normal! G"
+    augroup END
 '''
 
 [[plugins]]
