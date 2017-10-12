@@ -45,3 +45,5 @@ endif
 
 call dein#end()
 call dein#save_state()
+
+let $VIM_PLUGIN_DIR = s:plugin_dir
