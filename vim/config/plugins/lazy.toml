@@ -372,16 +372,17 @@ repo        = 'Yggdroot/indentLine'
 on_ft       = ['c', 'cpp', 'scala', 'python', 'vim', 'json', 'toml']
 on_cmd      = ['IndentLinesToggle', 'IndentLinesReset']
 hook_add    = '''
-    set conceallevel=1
+    let g:indentLine_enabled = 1
 
-    let g:indentLine_enabled = 0
+    let g:indentLine_setConceal = 0
     let g:indentLine_conceallevel = 1
+    let g:indentLine_concealcursor = 'inc'
 
-    nnoremap <silent> <Leader>it :<C-u>IndentLinesToggle<CR>
-    nnoremap <silent> <Leader>ir :<C-u>IndentLinesReset<CR>
-'''
-hook_source = '''
-    hi Conceal ctermfg=111 ctermbg=NONE guifg=#708090 guibg=NONE
+    let g:indentLine_setColors = 0
+    let g:indentLine_color_term = 111
+    let g:indentLine_bgcolor_term = 240
+    let g:indentLine_color_gui = '#708090'
+    let g:indentLine_bgcolor_gui = 'NONE'
 '''
 
 [[plugins]]
