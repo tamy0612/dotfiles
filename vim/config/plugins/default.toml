@@ -7,20 +7,6 @@ repo    = 'Shougo/vimproc'
 build   = 'make'
 
 
-# Terminal
-[[plugins]]
-repo        = 'kassio/neoterm'
-if          = 'has("nvim")'
-on_source   = 'vim-test'
-on_cmd      = ['Tnew', 'Topen', 'Ttoggle', 'Tmap', 'TREPLSendSelection']
-hook_add    = '''
-    nnoremap <silent> <Leader>t :<C-u>Ttoggle<CR>
-    nnoremap <silent> <Leader>T :<C-u>Tnew<CR>
-    vnoremap <silent> <Leader>t :<C-u>TREPLSendSelection<CR>
-    source $VIMDIR/config/plugins/hook_source/neoterm.nvim
-'''
-
-
 # Visual
 [[plugins]]
 repo    = 'tamy0612/clone.vim'

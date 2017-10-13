@@ -206,16 +206,21 @@ hook_add   = '''
 
 # Terminal  #{{{
 [[plugins]]
-repo        = 'mklabs/split-term.vim'
-on_cmd      = ['Term', 'VTerm']
+repo        = 'kassio/neoterm'
+if          = 'has("nvim")'
+on_source   = 'vim-test'
+on_cmd      = ['T', 'Tnew', 'Ttoggle']
 hook_add    = '''
+    source $VIMDIR/config/plugins/hook_add/neoterm.nvim
 '''
-hook_suorce = '''
+hook_source = '''
+    source $VIMDIR/config/plugins/hook_source/neoterm.nvim
 '''
 
 [[plugins]]
 repo        = 'Shougo/deol.nvim'
 on_cmd      = ['Deol', 'DeolEdit']
+on_source   = 'denite.nvim'
 hook_source = '''
     let g:deol#prompt_pattern = '% \|%$'
 '''
