@@ -491,8 +491,15 @@ on_ft       = ['c', 'cpp']
 
 # Dlang  #{{{
 [[plugins]]
-repo      = 'JesseKPhillips/d.vim'
-on_ft     = 'd'
+repo        = 'JesseKPhillips/d.vim'
+on_ft       = 'd'
+
+[[plugins]]
+repo        = 'landaire/deoplete-d'
+on_ft       = 'd'
+on_if       = 'executable("dcd-server") && executable("dcd-client")'
+on_event    = 'InsertEnter'
+depends     = ['deoplete.nvim']
 #}}}
 
 # Java  #{{{

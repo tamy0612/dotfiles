@@ -26,6 +26,15 @@ let g:ale_linters.cpp = g:ale_linters.c
 "}}}
 
 
+" Dlang  "{{{
+let g:ale_d_dscanner_executable = 'dscanner'
+let g:ale_d_dscanner_options = '--styleCheck'
+if executable(g:ale_d_dscanner_executable)
+    let g:ale_linters.d = ['dmd', 'dscanner']
+endif
+"}}}
+
+
 " Python  "{{{
 let g:ale_python_flake8_executable = s:find_exe('flake8', s:pip_bin . 'flake8')
 let g:ale_python_flake8_options = '--ignore=E221,E241,E272,E251,W702,E203,E201,E202 --format=default'
