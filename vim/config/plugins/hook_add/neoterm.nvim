@@ -1,0 +1,3 @@
+nnoremap <silent> <Leader>t :<C-u>Ttoggle<CR>
+nnoremap <silent> <Leader>T :<C-u>Tnew<CR>
+cabbrev ! T
