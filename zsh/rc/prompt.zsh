@@ -26,6 +26,7 @@ case "${TERM}" in
                 local prompt_fail_color='%{${bg[red]}${fg_bold[white]}%}'
                 local prompt_path_color='%{${GRAY}${fg[black]}%}'
                 local prompt_date_color='%{${GRAY}%}'
+                local prompt_correct_color='%{${fg_bold[red]}%}'
                 ;;
             256)
                 local prompt_success_color='%{%K{28}%F{255}%}'
@@ -33,6 +34,7 @@ case "${TERM}" in
                 local prompt_path_color='%{%K{240}%F{255}%}'
                 local prompt_vcs_color='%{%K{237}%F{255}%}'
                 local prompt_date_color='%{%F{245}%}'
+                local prompt_correct_color='%{${fg_bold[red]}%}'
                 ;;
             *)
                 ;;
@@ -49,8 +51,8 @@ case "${TERM}" in
         [[ ${is-at-least 4.3.10} ]] && zstyle ':vcs_info:*' check-for-changes true
         zstyle ':vcs_info:*' stagedstr '%{${fg_bold[yellow]}%}!%{${reset_color}${prompt_vcs_color}%}'
         zstyle ':vcs_info:*' unstagedstr '%{${fg_bold[red]}%}+%{${reset_color}${prompt_vcs_color}%}'
-        zstyle ':vcs_info:*' formats '%s:%u%c%b'
-        zstyle ':vcs_info:*' actionformats '%s:%u%c%b | %a'
+        zstyle ':vcs_info:*' formats '%s:%u%c%b://%S'
+        zstyle ':vcs_info:*' actionformats '%s:%u%c%b://%S | %a'
         update_prompt(){
             local prompt_vcs_info=""
             LANG=en_US.UTF-8 vcs_info
@@ -66,8 +68,8 @@ ${prompt_last_status}${prompt_path}${prompt_vcs_info}
         add-zsh-hook precmd update_prompt
         # Others
         PROMPT2="|%(!.#.>) "
-        RPROMPT="${prompt_date_color}[%D{%d/%m/%y %H:%M:%S}]%{${reset_color}%}"
-        SPROMPT="${prompt_fail_color} correct: ${prompt_success_color} %R -> %r [nyae]? %{${reset_color}%} "
+        RPROMPT="${prompt_date_color}[%D{%d/%m/%y %H:%M:%S}]%{${reset_color}%k%f%b%}"
+        SPROMPT="${prompt_correct_color}[correct] %{${reset_color}%k%f%b%} %R -> %r [nyae]? "
         ;;
 esac
 if [ -n "${SSH_CLIENT}${SSH_CONNECTION}" ]; then
