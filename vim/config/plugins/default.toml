@@ -33,6 +33,19 @@ hook_add = '''
 '''
 
 
+# Terminal
+[[plugins]]
+# repo        = 'kassio/neoterm'
+repo        = 'tamy0612/neoterm'
+rev         = 'autojump'
+if          = 'has("nvim")'
+on_source   = 'vim-test'
+on_cmd      = ['T', 'Tnew', 'Ttoggle']
+hook_add = '''
+    source $VIMDIR/config/plugins/hook_add/neoterm.nvim
+'''
+
+
 # Utility
 [[plugins]]
 repo     = 'thinca/vim-operator-sequence'

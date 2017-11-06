@@ -12,6 +12,7 @@ nmap <silent> [denite]o :<C-u>Denite -auto-preview -vertical-preview outline tag
 nmap <silent> [denite]l :<C-u>Denite -auto-preview -vertical-preview location_list quickfix<CR>
 nmap <silent> [denite]f :<C-u>Denite `finddir('.git', ';') != '' ? 'file_rec/git' : ''` file_rec file_mru file_old<CR>
 nmap <silent> [denite]d :<C-u>Denite directory_rec<CR>
+nmap <silent> [denite]c :<C-u>Denite command_history command<CR>
 nmap <silent> [denite]y :<C-u>Denite register neoyank<CR>
 xmap <silent> [denite]y :<C-u>Denite -default-action=replace register neoyunk<CR>
 nmap <silent> [denite]m :<C-u>Denite menu<CR>
