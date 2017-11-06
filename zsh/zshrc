@@ -25,15 +25,6 @@ case "${TERM}" in
 esac
 
 # colors
-local DEFAULT='%{[m%}'
-local RED='%{[31m%}'
-local GREEN='%{[32m%}'
-local YELLOW='%{[33m%}'
-local BLUE='%{[34m%}'
-local MAGENTA='%{[35m%}'
-local CYAN='%{[36m%}'
-local WHITE='%{[37m%}'
-local GRAY='%{[90m%}'
 case "${OSTYPE}" in
   darwin*)
     export CLICOLOR=1
@@ -44,51 +35,7 @@ export LS_COLORS='rs=0:di=36;40:ln=35;40:mh=00:pi=40;33:so=37;44:do=01;35:bd=34;
 export ZLS_COLORS=$LS_COLORS
 
 # prompt
-setopt prompt_subst
-setopt prompt_percent
-setopt transient_rprompt
-unsetopt promptcr
-case "${TERM}" in
-  dumb)
-    PROMPT='%m:%c %n%(!.#.$) '
-    ;;
-  *)
-    autoload -Uz vcs_info
-    zstyle ':vcs_info:*' enable git hg svn
-    if is-at-least 4.3.10; then
-      zstyle ':vcs_info:*' check-for-changes true
-    fi
-    zstyle ':vcs_info:*' stagedstr '%{${fg[yellow]}%}!%{${reset_color}%}'
-    zstyle ':vcs_info:*' unstagedstr '%{${fg[red]}%}+%{${reset_color}%}'
-    zstyle ':vcs_info:*' formats '%{${fg[green]}%}(%s)-[%c%u%{${fg[green]}%}%r:%b/%S]'
-    zstyle ':vcs_info:*' actionformats '%{${fg[red]}%}(%s)-[%r:%b/%S|%a]'
-    autoload -Uz colors && colors
-    local prompt_main_color='%{${fg[green]}%}'
-    local prompt_sub_color='%{${fg[yellow]}%}'
-    local prompt_fail_color='%{${fg[red]}%}'
-    local prompt_ssh_color='%{${fg[cyan]}%}'
-    local prompt_date_color='${GRAY}'
-    PROMPT="%(?.${prompt_main_color}.${prompt_fail_color})%n@%M:${prompt_sub_color}%~
-${prompt_date_color}[%D{%d/%m/%y %H:%M:%S}] %(?.${prompt_main_color}.${prompt_fail_color})%(!.#.>) %{${reset_color}%}"
-    PROMPT2="${prompt_main_color}%_ > %{${reset_color}%}"
-    SPROMPT="${prompt_fail_color}correct: ${prompt_sub_color}%R ${prompt_fail_color}-> ${prompt_main_color}%r ${prompt_fail_color}[nyae]? %{${reset_color}%}"
-    init_vcs_info(){
-      LANG=en_US.UTF-8 vcs_info
-      if [ -z ${vcs_info_msg_0_} ]; then
-        RPROMPT=""
-        #"${prompt_main_color}[%~]%{${reset_color}%}"
-      else
-        RPROMPT="${vcs_info_msg_0_}%{${reset_color}%}"
-      fi
-    }
-    add-zsh-hook precmd init_vcs_info
-    ;;
-esac
-if [ -n "${SSH_CLIENT}${SSH_CONNECTION}" ]; then
-  PROMPT=$CYAN"[ssh] "$PROMPT$DEFAULT
-fi
-PROMPT="
-$PROMPT"
+source $ZDIR/rc/prompt.zsh
 
 ## options
 # completion
