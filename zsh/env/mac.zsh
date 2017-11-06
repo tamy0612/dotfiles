@@ -14,20 +14,14 @@ path=(
 # Editor
 if type nvim > /dev/null 2>&1 ; then
     export EDITOR="nvim"
-    alias vim="${EDITOR} -c Project"
 elif [ -x "/usr/local/bin/vim" ] ; then
     export EDITOR='/usr/local/bin/vim'
-    alias vim=$EDITOR
 elif [ -d "/Applications/MacVim.app" ] ; then
     export EDITOR='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim'
     alias vim=$EDITOR
-    alias gvim='/Applications/MacVim.app/Contents/MacOS/MacVim'
-    alias vimdiff='/Applications/MacVim.app/Contents/MacOS/vimdiff'
 else
     export EDITOR='/usr/bin/vim'
-    alias vim=$EDITOR
 fi
-alias vi=$EDITOR
 
 # homebrew
 export BREW_HOME=/usr/local/Cellar
