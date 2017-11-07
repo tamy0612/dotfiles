@@ -35,9 +35,7 @@ hook_add = '''
 
 # Terminal
 [[plugins]]
-# repo        = 'kassio/neoterm'
-repo        = 'tamy0612/neoterm'
-rev         = 'autojump'
+repo        = 'kassio/neoterm'
 if          = 'has("nvim")'
 on_source   = 'vim-test'
 on_cmd      = ['T', 'Tnew', 'Ttoggle']
