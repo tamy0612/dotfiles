@@ -14,7 +14,7 @@ hook_source = '''
 [[plugins]]
 repo        = 'Shougo/deoplete.nvim'
 depends     = 'context_filetype.vim'
-on_source   = ['deoplete-clang', 'deoplete-jedi', 'deoplete-zsh']
+on_source   = ['deoplete-clang', 'deoplete-jedi', 'deoplete-zsh', 'deoplete-d']
 if          = "has('nvim') && has('python')"
 on_event    = 'InsertEnter'
 hook_source = '''
@@ -205,18 +205,6 @@ hook_add   = '''
 
 
 # Terminal  #{{{
-[[plugins]]
-repo        = 'kassio/neoterm'
-if          = 'has("nvim")'
-on_source   = 'vim-test'
-on_cmd      = ['T', 'Tnew', 'Ttoggle']
-hook_add    = '''
-    source $VIMDIR/config/plugins/hook_add/neoterm.nvim
-'''
-hook_source = '''
-    source $VIMDIR/config/plugins/hook_source/neoterm.nvim
-'''
-
 [[plugins]]
 repo        = 'Shougo/deol.nvim'
 on_cmd      = ['Deol', 'DeolEdit']
@@ -423,6 +411,16 @@ on_cmd      = 'TemplateLoad'
 hook_add    = '''
     source $VIMDIR/config/plugins/hook_add/template.vim
 '''
+
+[[plugins]]
+repo        = 'sbdchd/neoformat'
+on_cmd      = 'Neoformat'
+hook_add    = '''
+    source $VIMDIR/config/plugins/hook_add/neoformat.nvim
+'''
+hook_source = '''
+    let g:neoformat_basic_format_trim = 1
+'''
 #}}}
 
 # Filetypes  #{{{
@@ -450,21 +448,21 @@ on_ft     = ['c', 'cpp']
 #     source $VIMDIR/config/plugins/hook_source/clang.vim
 # '''
 
-[[plugins]]
-repo        = 'rhysd/vim-clang-format'
-if          = "executable('clang-format')"
-on_ft       = ['c', 'cpp']
-depends     = ['vimproc', 'vim-operator-user']
-on_source   = 'vim-clang'
-hook_add    = '''
-    autocmd MyCmdGroup FileType c,cpp nnoremap <buffer> = :<C-u>ClangFormat<CR>
-    autocmd MyCmdGroup FileType c,cpp vnoremap <buffer> = :ClangFormat<CR>
-'''
-hook_source = '''
-    " source $VIMDIR/config/plugins/hook_source/clang_format.vim
-    let g:clang_format#detect_style_file = 1
-    let g:clang_format#auto_format_on_insert_leave = 1
-'''
+# [[plugins]]
+# repo        = 'rhysd/vim-clang-format'
+# if          = "executable('clang-format')"
+# on_ft       = ['c', 'cpp']
+# depends     = ['vimproc', 'vim-operator-user']
+# on_source   = 'vim-clang'
+# hook_add    = '''
+#     autocmd MyCmdGroup FileType c,cpp nnoremap <buffer> = :<C-u>ClangFormat<CR>
+#     autocmd MyCmdGroup FileType c,cpp vnoremap <buffer> = :ClangFormat<CR>
+# '''
+# hook_source = '''
+#     " source $VIMDIR/config/plugins/hook_source/clang_format.vim
+#     let g:clang_format#detect_style_file = 1
+#     let g:clang_format#auto_format_on_insert_leave = 1
+# '''
 
 [[plugins]]
 repo        = 'zchee/deoplete-clang'
