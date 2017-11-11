@@ -1,0 +1,10 @@
+" C/C++
+let g:neoformat_cpp_clangformat.args = ['-style=file']
+let g:neoformat_enabled_cpp = ['clang-format']
+
+" Dlang
+let g:neoformat_d_dfmt = {}
+let g:neoformat_enebaled_d = ['dfmt']
+
+" Python
+let g:neoformat_enabled_python = ['autopep8']

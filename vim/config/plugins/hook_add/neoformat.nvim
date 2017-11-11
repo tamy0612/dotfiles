@@ -1,0 +1,12 @@
+augroup MyFormat
+    autocmd!
+    " C/C++
+    autocmd InsertLeave *.c,*.cc,*.cpp,*.h,*.hpp undojoin|Neoformat! cpp
+    autocmd FileType c,cpp nnoremap = :<C-u>Neoformat! cpp<CR>
+    " Dlang
+    autocmd InsertLeave *.d undojoin|Neoformat! d
+    autocmd FileType d nnoremap = :<C-u>Neoformat! d<CR>
+    " Python
+    autocmd InsertLeave *.py undojoin|Neoformat! python
+    autocmd FileType python nnoremap = :<C-u>Neoformat! python<CR>
+augroup END
