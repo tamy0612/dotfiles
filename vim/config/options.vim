@@ -66,3 +66,4 @@ set wildignore=*.o,*.class,*.beam,*.dvi,*.pdf
 set showmatch
 set wildmenu
 set clipboard=unnamed
+set spelllang=en,cjk
