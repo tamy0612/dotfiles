@@ -685,6 +685,15 @@ hook_source = '''
 '''
 
 [[plugins]]
+repo        = 'vim-scripts/autodate.vim'
+on_event    = 'InsertEnter'
+hook_add    = '''
+    let autodate_keyword_pre  = "Last Change:"
+    let autodate_keyword_post = "."
+    let autodate_format       = "%d %b. %Y"
+'''
+
+[[plugins]]
 repo        = 'thinca/vim-guicolorscheme'
 if          = "!has('gui_running') || has('nvim')"
 
