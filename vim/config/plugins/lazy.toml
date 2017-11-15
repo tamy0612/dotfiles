@@ -433,6 +433,10 @@ on_source = 'vim-vimlint'
 repo      = 'syngan/vim-vimlint'
 depends   = 'vim-vimlparser'
 on_func   = 'vimlint#vimlint'
+
+[[plugins]]
+repo      = 'thinca/vim-themis'
+on_func   = 'themis#'
 #}}}
 
 # C/C++  #{{{
