@@ -5,4 +5,5 @@ augroup MyTemplates
     autocmd BufNewFile *.java    execute 'TemplateLoad /init.java'
     autocmd BufNewFile build.sbt execute 'TemplateLoad /init.sbt.scala'
     autocmd BufNewFile *.vim     execute 'TemplateLoad /init.vim'
+    autocmd BufNewFile *.tikz    execute 'TemplateLoad /init.tikz'
 augroup END
