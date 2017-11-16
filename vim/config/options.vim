@@ -28,7 +28,6 @@ set modeline
 set foldmethod=marker
 set foldlevelstart=0
 set foldopen=all
-set foldclose=all
 
 " Indent
 set autoindent
