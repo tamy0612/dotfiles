@@ -2,18 +2,34 @@
 BasedOnStyle: LLVM
 IndentWidth: 4
 AlignConsecutiveAssignments: true
+# AlignConsecutiveDeclarations: true
 AlignEscapedNewlinesLeft: true
+AlignTrailingComments: true
 AllowAllParametersOfDeclarationOnNextLine: false
-AllowShortFunctionsOnASingleLine: true
-BraceWrapping: {AfterControlStatement: false, AfterEnum: true, AfterFunction: true}
-BreakBeforeBraces: Stroustrup
+AllowShortFunctionsOnASingleLine: Empty
+BraceWrapping:
+    AfterControlStatement: false
+    AfterEnum: true
+    AfterFunction: true
+BreakBeforeBinaryOperators: None
+BreakBeforeBraces: Attach
 SpacesBeforeTrailingComments: 2
 ---
 Language: Cpp
 AccessModifierOffset: 0
 AlwaysBreakTemplateDeclarations: true
 BreakConstructorInitializersBeforeComma: true
-CommentPragmas: \*
+CommentPragmas: '\*'
+Cpp11BracedListStyle: true
+IncludeCategories:
+  - Regex:           '^<.*\.h>'
+    Priority:        1
+  - Regex:           '^<.*'
+    Priority:        2
+  - Regex:           '.*'
+    Priority:        3
+NamespaceIndentation: All
+PointerAlignment: Left
 Standard: Auto
 ...
 
