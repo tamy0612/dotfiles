@@ -180,19 +180,6 @@ hook_source = '''
 '''
 
 [[plugins]]
-repo        = 'osyo-manga/vim-operator-highlighter'
-on_map      = '<Plug>'
-hook_add    = '''
-    let g:operator#highlighter#config = {
-        \  'group': 'Search',
-        \  'clear_time' : 3000
-        \}
-
-    noremap <Plug>(yank) y
-    xnoremap <expr> y operator#sequence#map("\<Plug>(operator-highlighter-once)", "\<Plug>(yank)")
-'''
-
-[[plugins]]
 repo       = 'haya14busa/vim-asterisk'
 on_map     = '<Plug>'
 hook_add   = '''
@@ -370,16 +357,17 @@ on_ft       = ['c', 'cpp', 'scala', 'python', 'vim', 'json', 'toml']
 on_cmd      = ['IndentLinesToggle', 'IndentLinesReset']
 hook_add    = '''
     let g:indentLine_enabled = 1
+    let g:indentLine_leadingSpaceEnabled = 1
 
-    let g:indentLine_setConceal = 0
+    let g:indentLine_setConceal = 1
     let g:indentLine_conceallevel = 1
-    let g:indentLine_concealcursor = 'inc'
+    let g:indentLine_concealcursor = ''
 
-    let g:indentLine_setColors = 0
-    let g:indentLine_color_term = 111
-    let g:indentLine_bgcolor_term = 240
-    let g:indentLine_color_gui = '#708090'
-    let g:indentLine_bgcolor_gui = 'NONE'
+    let g:indentLine_char = '|'
+    let g:indentLine_leadingSpaceChar = '.'
+
+    let g:indentLine_setColors = 1
+    let g:indentLine_color_term = 243
 '''
 
 [[plugins]]
@@ -419,7 +407,7 @@ hook_add    = '''
     source $VIMDIR/config/plugins/hook_add/neoformat.nvim
 '''
 hook_source = '''
-    let g:neoformat_basic_format_trim = 1
+    source $VIMDIR/config/plugins/hook_source/neoformat.nvim
 '''
 #}}}
 
@@ -443,30 +431,6 @@ on_func   = 'themis#'
 [[plugins]]
 repo      = 'vim-jp/cpp-vim'
 on_ft     = ['c', 'cpp']
-
-# [[plugins]]
-# repo        = 'justmao945/vim-clang'
-# if          = "executable('clang')"
-# on_ft       = ['c', 'cpp']
-# hook_source = '''
-#     source $VIMDIR/config/plugins/hook_source/clang.vim
-# '''
-
-# [[plugins]]
-# repo        = 'rhysd/vim-clang-format'
-# if          = "executable('clang-format')"
-# on_ft       = ['c', 'cpp']
-# depends     = ['vimproc', 'vim-operator-user']
-# on_source   = 'vim-clang'
-# hook_add    = '''
-#     autocmd MyCmdGroup FileType c,cpp nnoremap <buffer> = :<C-u>ClangFormat<CR>
-#     autocmd MyCmdGroup FileType c,cpp vnoremap <buffer> = :ClangFormat<CR>
-# '''
-# hook_source = '''
-#     " source $VIMDIR/config/plugins/hook_source/clang_format.vim
-#     let g:clang_format#detect_style_file = 1
-#     let g:clang_format#auto_format_on_insert_leave = 1
-# '''
 
 [[plugins]]
 repo        = 'zchee/deoplete-clang'
@@ -686,6 +650,13 @@ hook_add    = '''
 hook_source = '''
     let g:scratch_insert_autohide = 0
     autocmd! FileType scratch nnoremap <buffer><silent> q :<C-u>ScratchPreview<CR>
+'''
+
+[[plugins]]
+repo        = 'thinca/vim-partedit'
+on_cmd      = ["Partedit"]
+hook_source = '''
+    let g:partedit#opener = 'split'
 '''
 
 [[plugins]]
