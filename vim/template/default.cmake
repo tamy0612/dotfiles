@@ -1,0 +1,13 @@
+set(CMAKE_C_FLAGS "-std=c11")
+set(CMAKE_C_FLAGS_DEBUG "-g -O0 -Wall")
+set(CMAKE_C_FLAGS_RELEASE "-O3")
+
+set(CMAKE_CXX_FLAGS "-std=c++1z")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG}")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE}")
+
+set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Build type" FORCE)
+
+if(not CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Use default build type." FORCE)
+endif()
