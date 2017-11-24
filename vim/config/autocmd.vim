@@ -17,6 +17,9 @@ augroup MyCmdGroup
     autocmd FileType help nnoremap <silent> q :<C-u>q<CR>
     autocmd FileType gitcommit execute "normal! gg"
 
+    " Commands
+    autocmd FileType c,cpp command! UpdateIncludeGuard call commands#c#update_include_guard()
+
     " omnifunc
     " autocmd FileType ada setlocal omnifunc=adacomplete#Complete
     " autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
