@@ -673,6 +673,10 @@ repo        = 'thinca/vim-guicolorscheme'
 if          = "!has('gui_running') || has('nvim')"
 
 [[plugins]]
+repo       = 'tamy0612/highlighter.vim'
+on_func    = 'highlighter#'
+
+[[plugins]]
 repo        = 'itchyny/calendar.vim'
 on_cmd      = 'Calendar'
 #}}}
