@@ -16,11 +16,11 @@ endfunction
 
 
 " C/C++  "{{{
-let g:ale_c_clang_options = '-std=c11 -Wall -c -O0 -I. -I./src -I./include'
+let g:ale_c_clang_options = '-std=c11 -Wall -I. -I./src -I./include'
 let g:ale_c_gcc_options = g:ale_c_clang_options
 let g:ale_linters.c = ['clang', 'gcc']
 
-let g:ale_cpp_clagn_options = '-std=c++1z -Wall -c -O0 -I. -I./src -I./include'
+let g:ale_cpp_clagn_options = '-std=c++1z -Wall -I. -I./src -I./include'
 let g:ale_cpp_gcc_options = g:ale_cpp_clagn_options
 let g:ale_linters.cpp = g:ale_linters.c
 "}}}

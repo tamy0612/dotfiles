@@ -18,8 +18,10 @@ SpacesBeforeTrailingComments: 2
 Language: Cpp
 AccessModifierOffset: 0
 AlwaysBreakTemplateDeclarations: true
-BreakConstructorInitializersBeforeComma: true
+BreakConstructorInitializersBeforeComma: false
+BreakConstructorInitializers: BeforeColon
 CommentPragmas: '\*'
+ConstructorInitializerAllOnOneLineOrOnePerLine: false
 Cpp11BracedListStyle: true
 IncludeCategories:
   - Regex:           '^<.*\.h>'
