@@ -1,7 +1,7 @@
 # Completion  #{{{
 [[plugins]]
 repo        = 'Shougo/context_filetype.vim'
-on_source   = ['deoplete.nvim', 'neocomplete.vim', 'neosnippet.vim']
+on_source   = ['deoplete.nvim', 'neosnippet.vim']
 hook_add    = '''
     if !exists('g:context_filetype#filetypes')
         let g:context_filetype#filetypes = {}
@@ -15,7 +15,7 @@ hook_source = '''
 repo        = 'Shougo/deoplete.nvim'
 depends     = 'context_filetype.vim'
 on_source   = ['deoplete-clang', 'deoplete-jedi', 'deoplete-zsh', 'deoplete-d']
-if          = "has('nvim') && has('python')"
+if          = "has('python3')"
 on_event    = 'InsertEnter'
 hook_source = '''
     source $VIMDIR/config/plugins/hook_source/deoplete.config.nvim
@@ -23,18 +23,8 @@ hook_source = '''
 '''
 
 [[plugins]]
-repo        = 'Shougo/neocomplete.vim'
-depends     = 'context_filetype.vim'
-if          = "!has('nvim') && has('lua')"
-on_event    = 'InsertEnter'
-hook_source = '''
-    source $VIMDIR/config/plugins/extension/neocomplete.vim
-    inoremap <expr><TAB> pumvisible() ? "\<Down>" : "\<Tab>"
-'''
-
-[[plugins]]
 repo        = 'Shougo/neosnippet.vim'
-on_source   = ['neocomplete.vim', 'deoplete.nvim']
+on_source   = ['deoplete.nvim']
 hook_source = '''
     let g:neosnippet#enable_snipmate_compatibility = 1
     let g:neosnippet#snippets_directory = $VIMDIR.'/snippets'
@@ -48,15 +38,15 @@ on_source   = 'neosnippet.vim'
 
 [[plugins]]
 repo        = 'Shougo/neoinclude.vim'
-on_source   = ['neocomplete.vim', 'deoplete.nvim']
+on_source   = ['deoplete.nvim']
 
 [[plugins]]
 repo        = 'ujihisa/neco-look'
-on_source   = ['neocomplete.vim', 'deoplete.nvim']
+on_source   = ['deoplete.nvim']
 
 [[plugins]]
 repo        = 'Shougo/neco-syntax'
-on_source   = ['neocomplete.vim', 'deoplete.nvim']
+on_source   = ['deoplete.nvim']
 
 [[plugins]]
 repo        = 'Shougo/neco-vim'
@@ -197,7 +187,7 @@ repo        = 'Shougo/deol.nvim'
 on_cmd      = ['Deol', 'DeolEdit']
 on_source   = 'denite.nvim'
 hook_source = '''
-    let g:deol#prompt_pattern = '% \|%$'
+    let g:deol#prompt_pattern = '> \|# '
 '''
 #}}}
 
