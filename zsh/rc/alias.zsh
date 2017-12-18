@@ -35,6 +35,10 @@ else
 fi
 
 
+# cd with ls
+function chpwd() { ls }
+
+
 # clear
 alias cl='clear'
 alias cls='clear; echo "Location: `pwd`";ls'
