@@ -51,8 +51,12 @@ function! LightlineFilename()
         return '[Quickfix]'
     endif
     if &buftype =~ 'terminal'
-        let l:process = split(expand('%:t'), ':')
-        return printf("[%s] %s", l:process[0], l:process[1])
+        if IsNVim()
+            let l:process = split(expand('%:t'), ':')
+            return printf("[%s] %s", l:process[0], l:process[1])
+        else
+            return printf('[terminal] %s', expand('%:h'))
+        end
     endif
     if &ft =~ 'denite'
         return denite#get_status_sources()
@@ -140,7 +144,7 @@ endfunction
 
 
 function! LightlineLineinfo()
-    if &ft =~ 'nerdtree'
+    if &ft =~ 'nerdtree' || &buftype =~ 'terminal'
         return ''
     endif
     if &ft =~ 'denite'

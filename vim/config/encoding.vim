@@ -3,7 +3,9 @@ if has('vim_starting')
 endif
 set fencs=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,cp20932
 let &fenc = &encoding
-set termencoding=&encoding
+if v:version < 704
+    set termencoding=&encoding
+endif
 
 
 set fileformat=unix

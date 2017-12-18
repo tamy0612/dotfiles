@@ -66,3 +66,6 @@ set showmatch
 set wildmenu
 set clipboard=unnamed
 set spelllang=en,cjk
+if has('mouse')
+    set mouse+=a
+endif

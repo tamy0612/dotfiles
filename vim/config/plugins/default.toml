@@ -2,9 +2,17 @@
 [[plugins]]
 repo    = 'Shougo/dein.vim'
 
+# [[plugins]]
+# repo    = 'Shougo/vimproc'
+# build   = 'make'
+
 [[plugins]]
-repo    = 'Shougo/vimproc'
-build   = 'make'
+repo      = 'roxma/nvim-yarp'
+if        = '!has("nvim")'
+
+[[plugins]]
+repo      = 'roxma/vim-hug-neovim-rpc'
+if        = '!has("nvim")'
 
 
 # Visual

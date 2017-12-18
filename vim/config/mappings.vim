@@ -43,3 +43,4 @@ nnoremap <expr> K (&filetype is# 'vim' ? (':help ' . fnameescape(expand('<cword>
 
 " count characters
 map <C-c> g<C-g>
+tnoremap <ESC> <C-\><C-n>
