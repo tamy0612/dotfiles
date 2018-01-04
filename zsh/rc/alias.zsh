@@ -44,6 +44,20 @@ alias cls='clear; echo "Location: `pwd`";ls'
 alias hist='history'
 alias datef='date "+%Y%m%d_%H%M%S"'
 alias q='exit'
+alias colormap='
+for c in {000..255}
+do
+    echo -n "\e[38;5;${c}m $c"; [ $(($c%16)) -eq 15 ] && echo
+done; echo;
+for c in {000..255}
+do
+    echo -n "\e[1;38;5;${c}m $c"; [ $(($c%16)) -eq 15 ] && echo;
+done; echo;
+for c in {000..255}
+do
+    echo -n "\e[30;48;5;${c}m $c"; [ $(($c%16)) -eq 15 ] && echo;
+done; echo -n "\e[0m"
+'
 
 
 # applications
