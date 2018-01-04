@@ -3,23 +3,14 @@ setopt prompt_percent
 setopt transient_rprompt
 unsetopt promptcr
 
-local DEFAULT='%{[m%}'
-local RED='%{[31m%}'
-local GREEN='%{[32m%}'
-local YELLOW='%{[33m%}'
-local BLUE='%{[34m%}'
-local MAGENTA='%{[35m%}'
-local CYAN='%{[36m%}'
-local WHITE='%{[37m%}'
-local GRAY='%{[90m%}'
-
 case "${TERM}" in
     dumb)
-        PROMPT='%m:%c %n%(!.#.$) '
+        PROMPT='%~ %(!.#.>) '
         ;;
     *)
         # Color configuration
         autoload -Uz colors && colors
+        local reset_style=${reset_color}'%{[0m%}'
         case "`tput colors`" in
             8)
                 local prompt_success_color='%{${bg[green]}${fg_bold[white]}%}'
@@ -29,49 +20,39 @@ case "${TERM}" in
                 local prompt_correct_color='%{${fg_bold[red]}%}'
                 ;;
             256)
-                local prompt_success_color='%{%K{28}%F{255}%}'
-                local prompt_fail_color='%{${bg[red]}%F{255}%}'
-                local prompt_path_color='%{%K{240}%F{255}%}'
-                local prompt_vcs_color='%{%K{237}%F{255}%}'
-                local prompt_date_color='%{%F{245}%}'
-                local prompt_correct_color='%{${fg_bold[red]}%}'
+                local ssh_style='%{[1;38;5;45m%}'
+                local status_style='%(?.[30;48;5;28m.[30;48;5;9m)%}'
+                local path_style='%{[1;38;5;250m%}'
+                local track_style='%{[1;38;5;45m%}'
+                local track_stagestr_style='%{[1;38;5;11m%}'
+                local track_unstagestr_style='%{[1;38;5;9m%}'
                 ;;
             *)
                 ;;
         esac
-        # VCS info.
-        # PROMPT
-        ## Head
-        local prompt_last_status="%(?.${prompt_success_color}.${prompt_fail_color}) %n@%M ${reset_color}"
-        ## Path
-        local prompt_path="${prompt_path_color} %~ ${reset_color}"
-        ## VCS info.
+        local prompt_status='${status_style} ${reset_style} '
+        local prompt_ssh=''
+        if [ -n "${SSH_CLIENT}${SSH_CONNECTION}" ]; then
+            prompt_ssh='${ssh_style}[ssh://%n@%M] ${reset_style}'
+        fi
+        local prompt_path='${path_style}%~ ${reset_style}'
         autoload -Uz vcs_info
         zstyle ':vcs_info:*' enable git hg svn
         [[ ${is-at-least 4.3.10} ]] && zstyle ':vcs_info:*' check-for-changes true
-        zstyle ':vcs_info:*' stagedstr '%{${fg_bold[yellow]}%}!%{${reset_color}${prompt_vcs_color}%}'
-        zstyle ':vcs_info:*' unstagedstr '%{${fg_bold[red]}%}+%{${reset_color}${prompt_vcs_color}%}'
-        zstyle ':vcs_info:*' formats '%s:%u%c%b://%S'
-        zstyle ':vcs_info:*' actionformats '%s:%u%c%b://%S | %a'
+        zstyle ':vcs_info:*' stagedstr '${track_stagestr_style}!%{${reset_style}${track_style}%}'
+        zstyle ':vcs_info:*' unstagedstr '${track_unstagestr_style}+%{${reset_style}${track_style}%}'
+        zstyle ':vcs_info:*' formats '${track_style}%s::%b%u%c'
+        zstyle ':vcs_info:*' actionformats '${track_style}%s::%b%u%c-%a'
         update_prompt(){
             local prompt_vcs_info=""
             LANG=en_US.UTF-8 vcs_info
-            if [ -z ${vcs_info_msg_0_} ]; then
-                prompt_vcs_info="${prompt_vcs_color} [untracked] %{${reset_color}%}"
-            else
-                prompt_vcs_info="${prompt_vcs_color} ${vcs_info_msg_0_} %{${reset_color}%}"
-            fi
+            # if [ ! -z ${vcs_info_msg_0_} ]; then
+            #     prompt_vcs_info="${track_style}${vcs_info_msg_0_}"
+            # fi
             PROMPT="
-${prompt_last_status}${prompt_path}${prompt_vcs_info}
-%(!.#.>) %{%k%f%b%}"
+${prompt_status}${prompt_ssh}${prompt_path}${vcs_info_msg_0_}${reset_style}
+%(!.#.>) "
         }
         add-zsh-hook precmd update_prompt
-        # Others
-        PROMPT2="|%(!.#.>) "
-        RPROMPT="${prompt_date_color}[%D{%d/%m/%y %H:%M:%S}]%{${reset_color}%k%f%b%}"
-        SPROMPT="${prompt_correct_color}[correct] %{${reset_color}%k%f%b%} %R -> %r [nyae]? "
-        ;;
+        PROMPT2="| "
 esac
-if [ -n "${SSH_CLIENT}${SSH_CONNECTION}" ]; then
-    PROMPT=$CYAN"[ssh] "$PROMPT$DEFAULT
-fi
