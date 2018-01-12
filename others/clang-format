@@ -11,7 +11,7 @@ BraceWrapping:
     AfterControlStatement: false
     AfterEnum: true
     AfterFunction: true
-BreakBeforeBinaryOperators: None
+BreakBeforeBinaryOperators: All
 BreakBeforeBraces: Attach
 SpacesBeforeTrailingComments: 2
 ---
