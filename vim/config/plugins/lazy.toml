@@ -669,4 +669,19 @@ on_func    = 'highlighter#'
 [[plugins]]
 repo        = 'itchyny/calendar.vim'
 on_cmd      = 'Calendar'
+
+[[plugins]]
+repo        = 'glidenote/memolist.vim'
+on_cmd      = ['MemoNew', 'MemoList', 'MemoGrep']
+hook_source    = '''
+    let s:memolist_path_candidate = expand('$HOME/Dropbox/Share/memolist')
+    if isdirectory(s:memolist_path_candidate)
+        let g:memolist_path = s:memolist_path_candidate . '/memo'
+        let g:memolist_template_dir_path = s:memolist_path_candidate . '/template'
+    endif
+    let g:memolist_memo_suffix = 'md'
+    let g:memolist_memo_date = "%Y-%m-%d"
+    let g:memolist_denite = 1
+    let g:memolist_denite_option = '-auto-preview -vertical-preview'
+'''
 #}}}
