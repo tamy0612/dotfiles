@@ -2,9 +2,9 @@
 [[plugins]]
 repo    = 'Shougo/dein.vim'
 
-# [[plugins]]
-# repo    = 'Shougo/vimproc'
-# build   = 'make'
+[[plugins]]
+repo    = 'Shougo/vimproc'
+build   = 'make'
 
 [[plugins]]
 repo      = 'roxma/nvim-yarp'

@@ -35,7 +35,7 @@ let s:toml_path = expand(s:toml_dir . 'default.toml')
 let s:toml_lazy_path = expand(s:toml_dir . 'lazy.toml')
 let s:toml_nyaovim_path = expand(s:toml_dir . 'nyaovim.toml')
 
-call dein#begin(s:plugin_dir)
+call dein#begin(s:plugin_dir, expand('<sfile>'))
 
 call dein#load_toml(s:toml_path, {'lazy': 0 })
 call dein#load_toml(s:toml_lazy_path, {'lazy': 1})

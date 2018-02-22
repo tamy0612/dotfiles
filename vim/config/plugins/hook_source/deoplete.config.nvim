@@ -8,6 +8,7 @@ let g:deoplete#auto_completion_start_length = 2
 let g:deoplete#enable_reflesh_always        = 1
 let g:deoplete#enable_camel_case            = 1
 let g:deoplete#text_mode_filetypes          = {'_': 1}
+let g:deoplete#auto_complete_delay          = 0
 
 if !exists('g:deoplete#omni_patterns')
     let g:deoplete#omni_patterns = {}
