@@ -112,6 +112,10 @@ setopt auto_cd
 setopt auto_pushd
 setopt pushd_ignore_dups
 
+# init anyenv
+if type anyenv > /dev/null 2>&1 ; then
+    eval "$(anyenv init - --no-rehash)"
+fi
 
 # Options
 setopt print_eight_bit
