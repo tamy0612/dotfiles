@@ -1,0 +1,15 @@
+#! /usr/bin/env python
+from __future__ import print_function
+
+
+def col(color, back=False):
+    return "\033[{1}38;5;{0}m{0:03d}\033[m".format(color, '7;' if back else '')
+
+
+def cr(c):
+    return '\n' if c % 16 == 0 else ' | '
+
+
+print("256-color mode:")
+for color in range(1, 256):
+    print("{0} {1}".format(col(color), col(color, True)), end=cr(color))
