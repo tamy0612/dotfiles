@@ -52,7 +52,6 @@ call s:source_config('autocmd.vim')
 " Colorscheme
 set background=dark
 colorscheme mono
-set cursorline
 " if dein#tap('clone.vim')
 "   set t_Co=256
 "   colorscheme clone
