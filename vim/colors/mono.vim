@@ -85,6 +85,11 @@ call s:hi('Pmenu', s:grad[1], s:grad[4], s:none)
 call s:hi('PmenuSel', s:grad[1], s:grad[3], s:bold)
 call s:hiLink('PmenuSbar', 'Pmenu')
 call s:hi('PmenuThumb', s:inherit, s:grad[2], s:none)
+call s:hiLink('WildMenu', 'IncSearch')
+call s:hiLink('SpellBad', 'Error')
+call s:hi('SpellCap', s:emps['blue'], s:inherit, s:bold)
+call s:hiLink('SpellRare', 'WarningMsg')
+call s:hi('SpellLocal', s:emps['green'], s:inherit, s:bold)
 
 " ---- Terminal ----
 call s:hi('TermCursor', s:grad[1], s:grad[3], s:none)
@@ -101,10 +106,11 @@ call s:hi('IncSearch', s:grad[1], s:emps['blue'], s:none)
 call s:hi('Underlined', s:grad[5], s:inherit, s:attr(s:underline, s:bold))
 call s:hi('Conceal', s:grad[2], s:inherit, s:none)
 call s:hi('Todo', s:emps['red'], s:inherit, s:attr(s:bold, s:italic))
-call s:hi('ErrorMsg', s:grad[6], s:emps[s:mono_error_bg], s:bold)
-call s:hi('SpellBad', s:emps['red'], s:inherit, s:bold)
+call s:hi('Error', s:grad[6], s:emps[s:mono_error_bg], s:bold)
+call s:hi('WarningMsg', s:emps['red'], s:inherit, s:bold)
+call s:hiLink('ErrorMsg', 'Error')
 
-" ---- Unvisible ----
+" ---- Invisible ----
 call s:hiLink('SpecialKey', 'Comment')
 
 " ---- Programming ----
