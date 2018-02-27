@@ -1,5 +1,5 @@
 OS          = $(shell uname)
-PWD    	    = $(shell pwd)
+PWD         = $(shell pwd)
 
 XDG_CONFIG  = $(HOME)/.config
 XDG_CACHE   = $(HOME)/.cache
@@ -7,6 +7,7 @@ ANYENV_HOME = $(HOME)/.anyenv
 ZSH_HOME    = $(HOME)/.zsh
 VIM_HOME    = $(HOME)/.vim
 NVIM_HOME   = $(XDG_CONFIG)/nvim
+ONI_HOME    = $(HOME)/.oni
 
 PYENV_HOME  = $(ANYENV_HOME)/envs/pyenv
 PYTHON2_VER = 2.7.9
@@ -14,7 +15,7 @@ PYTHON3_VER = 3.5.2
 
 
 # commands
-.PHONY: zsh anyenv vim nvim gnuplot ctags clang-format homebrew
+.PHONY: zsh anyenv vim nvim gnuplot ctags clang-format homebrew oni
 all:
 	@echo "Usage:"
 	@echo "  make <zsh|anyenv|pyenv|vim|nvim|gnuplot|homebrew>"
@@ -29,6 +30,9 @@ pyenv: $(PYENV_HOME) $(PYENV_HOME)/plugins/pyenv-virtualenv
 vim: $(VIM_HOME) $(XDG_CACHE)
 
 nvim: $(NVIM_HOME) $(XDG_CACHE) $(PYENV_HOME) $(PYENV_HOME)/versions/neovim2 $(PYENV_HOME)/versions/neovim3
+
+oni: $(ONI_HOME)
+	@ln -s $(PWD)/vim/gui/oni/config.js $(ONI_HOME)/config.js
 
 gnuplot: $(HOME)/.gnuplot
 
@@ -128,3 +132,6 @@ $(HOME)/.ctags:
 
 $(HOME)/.clang-format:
 	@ln -s $(PWD)/others/clang-format $@
+
+$(ONI_HOME):
+	@mkdir -p $@
