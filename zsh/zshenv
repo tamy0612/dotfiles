@@ -10,6 +10,7 @@ done
 # path
 typeset -U PATH path
 path=(
+  $HOME/.cargo/bin(N-/)
   $HOME/bin(N-/)
   /usr/local/bin(N-/)
   /usr/bin(N-/)
