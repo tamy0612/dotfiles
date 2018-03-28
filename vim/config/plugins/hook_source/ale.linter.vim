@@ -35,6 +35,14 @@ endif
 "}}}
 
 
+" Rust  "{{{
+let g:ale_rust_racer_executable = 'racer'
+if executable(g:ale_rust_racer_executable)
+    let g:ale_linters.rust = [g:ale_rust_racer_executable]
+endif
+"}}}
+
+
 " Python  "{{{
 let g:ale_python_flake8_executable = s:find_exe('flake8', s:pip_bin . 'flake8')
 let g:ale_python_flake8_options = '--ignore=E221,E241,E272,E251,W702,E203,E201,E202 --format=default'
