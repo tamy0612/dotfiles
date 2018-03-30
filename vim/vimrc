@@ -1,6 +1,11 @@
+"==========================================================
+" vim/vimrc
+"
+" Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
+" Last Change: 29 Mar. 2018.
+"==========================================================
 if 1
-  let $VIMDIR = fnamemodify(expand('<sfile>'), ':h:p')
-  execute 'source' $VIMDIR . '/config/vimrc'
+  if &compatible | set nocompatible | endif
+  execute 'source' fnamemodify(expand('<sfile>'), ':h:p') . '/init.vim'
 endif
-
-" vim:ft=vim:ts=2:sw=2
+" vim:ft=vim:ts=2:sw=2:fdm=marker

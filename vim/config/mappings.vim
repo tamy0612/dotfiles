@@ -1,6 +1,9 @@
+"==========================================================
+" vim/config/mappings.vim
 "
-let mapleader = "\<Space>"
-
+" Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
+" Last Change: 02 Apr. 2018.
+"==========================================================
 " cursor
 imap OA <UP>
 imap OB <Down>
@@ -40,6 +43,8 @@ nmap # "zyiw:let @/ = '\<' . @z . '\>'<CR>:%s/<C-r>///gc<Left><Left><Left>
 " quick help
 nnoremap <expr> K (&filetype is# 'vim' ? (':help ' . fnameescape(expand('<cword>')) . '<CR>') : 'K')
 
-" count characters
 map <C-c> g<C-g>
 tnoremap <ESC> <C-\><C-n>
+
+autocmd FileType help,diff nnoremap <silent><buffer> q :<C-u>q<CR>
+" vim:ft=vim:ts=2:sw=2:fdm=marker

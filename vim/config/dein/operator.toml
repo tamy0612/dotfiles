@@ -1,0 +1,124 @@
+#================================================
+# vim/config/dein/operator.toml
+#================================================
+[[plugins]]
+repo        = 'terryma/vim-expand-region'
+on_map      = '<Plug>'
+hook_add    = '''
+    vmap v <Plug>(expand_region_expand)
+    vmap <C-v> <Plug>(expand_region_shrink)
+
+  let g:expand_region_text_objects = {
+      \ 'iw': 1,
+      \ 'iW': 0,
+      \ 'i"': 1,
+      \ "i'": 0,
+      \ 'i]': 1,
+      \ 'ib': 1,
+      \ 'iB': 1,
+      \ 'il': 1,
+      \ 'ip': 1,
+      \ 'ie': 0
+      \}
+'''
+hook_post_source = '''
+  call expand_refion#custom_text_objects({
+      \ 'a]': 1,
+      \ 'ab': 1,
+      \ 'aB': 1
+      \})
+'''
+
+[[plugins]]
+repo        = 'easymotion/vim-easymotion'
+on_map      = '<Plug>'
+hook_add    = '''
+  noremap [easy-motion] <Nop>
+  nmap m [easy-motion]
+
+  nmap [easy-motion]f <Plug>(easymotion-fn)
+  nmap [easy-motion]m <Plug>(easymotion-sn)
+  nmap [easy-motion]h <Plug>(easymotion-linebackward)
+  nmap [easy-motion]j <Plug>(easymotion-j)
+  nmap [easy-motion]k <Plug>(easymotion-k)
+  nmap [easy-motion]l <Plug>(easymotion-lineforward)
+  nmap [easy-motion]w <Plug>(easymotion-bd-w)
+  nmap [easy-motion]e <Plug>(easymotion-bd-e)
+'''
+hook_source = '''
+  let g:EasyMotion_do_mapping = 0         " Disable default mappings
+  let g:EasyMotion_smartcase = 1          " Turn on case insensitive feature
+  let g:EasyMotion_use_upper = 0          " Use uppercase target labels and type as a lower case
+  let g:EasyMotion_smartcase = 1          " type `l` and match `l`&`L`
+  let g:EasyMotion_use_smartsign_us = 1   " Smartsign (type `3` and match `3`&`#`)
+  let g:EasyMotion_startofline = 0        " keep cursor column when JK motion
+'''
+
+[[plugins]]
+repo        = 'kana/vim-operator-user'
+on_source   = ['vim-operator-replace', 'vim-operator-surround', 'vim-clang-format']
+on_path     = '.*'
+
+[[plugins]]
+repo        = 'kana/vim-operator-replace'
+depends     = 'vim-operator-user'
+on_map      = [['nx', '<Plug>']]
+hook_add    = '''
+  xmap p <Plug>(operator-replace)
+'''
+
+[[plugins]]
+repo        = 'rhysd/vim-operator-surround'
+depends     = ['vim-operator-user', 'vim-textobj-anyblock']
+on_map      = '<Plug>'
+hook_add    = '''
+  noremap [op-surround] <Nop>
+  nmap <silent><C-s> [op-surround]
+  nmap [op-surround]a <Plug>(operator-surround-append)iw
+  nmap [op-surround]d <Plug>(operator-surround-delete)ab
+  nmap [op-surround]r <Plug>(operator-surround-replace)ab
+
+  xmap [op-surround]a <Plug>(operator-surround-append)
+  xmap [op-surround]d <Plug>(operator-surround-delete)
+  xmap [op-surround]r <Plug>(operator-surround-replace)
+'''
+
+[[plugins]]
+repo     = 'thinca/vim-operator-sequence'
+on_func  = ['operator#sequence#']
+
+[[plugins]]
+repo        = 'chikatoike/concealedyank.vim'
+on_map      = [['x', '<Plug>(operator-concealedyank)']]
+
+[[plugins]]
+repo        = 'kana/vim-textobj-user'
+on_source   = 'vim-textobj-line'
+
+[[plugins]]
+repo        = 'kana/vim-textobj-line'
+on_source   = 'vim-expand-region'
+depends     = 'vim-textobj-user'
+
+[[plugins]]
+repo        = 'rhysd/vim-textobj-anyblock'
+depends     = ['vim-textobj-user']
+on_source   = 'vim-operator-surround'
+
+[[plugins]]
+repo        = 'AndrewRadev/switch.vim'
+on_cmd      = ['Switch', 'SwitchReverse']
+hook_source = '''
+    let g:switch_mapping = ""
+'''
+
+[[plugins]]
+repo       = 'haya14busa/vim-asterisk'
+on_map     = '<Plug>'
+hook_add   = '''
+    map * <Plug>(asterisk-z*)
+    map g* <Plug>(asterisk-gz*)
+    map # <Plug>(asterisk-z#)
+    map g# <Plug>(asterisk-gz#)
+'''
+# vim:ft=toml:ts=2:sw=2:fdm=marker:et

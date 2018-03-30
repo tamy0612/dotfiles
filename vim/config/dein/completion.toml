@@ -1,0 +1,70 @@
+#================================================
+# vim/config/dein/completion.toml
+#================================================
+[[plugins]]
+repo        = 'Shougo/deoplete.nvim'
+depends     = 'context_filetype.vim'
+if          = "vimrc#is_nvim() || has('python3')"
+on_event    = 'InsertEnter'
+hook_source = '''
+  source $VIMDIR/config/dein/rc/deoplete.vim
+'''
+
+[[plugins]]
+repo        = 'Shougo/neosnippet.vim'
+on_source   = ['deoplete.nvim']
+hook_source = '''
+  let g:neosnippet#enable_snipmate_compatibility = 1
+  let g:neosnippet#snippets_directory = expand($VIMDIR.'/snippets')
+
+  imap <silent><C-k> <Plug>(neosnippet_expand_or_jump)
+  smap <silent><C-k> <Plug>(neosnippet_expand_or_jump)
+  xmap <silent><C-k> <Plug>(neosnippet_expand_target)
+
+  autocmd MyCmdGroup CompleteDone * call neosnippet#complete_done()
+'''
+
+[[plugins]]
+repo        = 'Shougo/echodoc.vim'
+on_event    = 'CompleteDone'
+hook_source = '''
+  set noshowmode
+  call echodoc#enable()
+'''
+
+# Dependencies
+[[plugins]]
+repo        = 'Shougo/context_filetype.vim'
+on_source   = ['deoplete.nvim', 'neosnippet.vim', 'vim-precious']
+hook_add    = '''
+  let g:context_filetype#filetypes = get(g:, 'context_filetype#filetypes', {})
+  let g:context_filetype#filetypes.toml = [
+      \   {
+      \     'filetype': 'vim',
+      \     'start': '^\s*hook_\(add\|source\|post_source\)\s*=\s*'."'"."''",
+      \     'end': "'"."''"
+      \   },
+      \   {
+      \     'filetype': 'vim',
+      \     'start': '^\s*hook_\(add\|source\|post_source\)\s*=\s*'.'"""',
+      \     'end': '"""'
+      \   }
+      \ ]
+'''
+
+[[plugins]]
+repo        = 'Shougo/neosnippet-snippets'
+on_source   = 'neosnippet.vim'
+
+[[plugins]]
+repo        = 'Shougo/neoinclude.vim'
+on_source   = ['deoplete.nvim']
+
+[[plugins]]
+repo        = 'ujihisa/neco-look'
+on_source   = ['deoplete.nvim']
+
+[[plugins]]
+repo        = 'Shougo/neco-syntax'
+on_source   = ['deoplete.nvim']
+# vim:ft=toml:ts=2:sw=2:fdm=marker:et

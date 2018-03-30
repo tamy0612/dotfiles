@@ -1,0 +1,24 @@
+#================================================
+# vim/config/dein/fundamental.toml
+#================================================
+# Core
+[[plugins]]
+repo     = 'Shougo/dein.vim'
+
+[[plugins]]
+repo     = 'Shougo/vimproc'
+if       = 'vimrc#is_obsolete_vim()'
+build    = 'make'
+
+
+# Visual
+[[plugins]]
+repo     = 'tamy0612/clone.vim'
+
+[[plugins]]
+repo     = 'joshdick/onedark.vim'
+
+[[plugins]]
+repo     = 'itchyny/lightline.vim'
+hook_add = 'source $VIMDIR/config/dein/rc/lightline.vim'
+# vim:ft=toml:ts=2:sw=2:fdm=marker:et

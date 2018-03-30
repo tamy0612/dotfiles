@@ -1,8 +1,9 @@
 "==========================================================
-" vim/gvimrc
+" vim/config/colorscheme.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 02 Apr. 2018.
+" Last Change: 03 Apr. 2018.
 "==========================================================
-execute 'source' fnamemodify(expand('<sfile>'), ':h:p') . '/ginit.vim'
+setglobal background=dark
+colorscheme clone
 " vim:ft=vim:ts=2:sw=2:fdm=marker

@@ -1,0 +1,92 @@
+#================================================
+# vim/config/dein/command.toml
+#================================================
+# Denite  #{{{
+[[plugins]]
+repo             = 'Shougo/denite.nvim'
+on_cmd           = 'Denite'
+if               = "vimrc#is_nvim() || (vimrc#is_vim8() && has('python3'))"
+hook_add         = '''
+  source $VIMDIR/config/dein/rc/denite.mapping.vim
+'''
+hook_post_source = '''
+  source $VIMDIR/config/dein/rc/denite.custom.vim
+'''
+
+[[plugins]]
+repo        = 'Shougo/neoyank.vim'
+on_source   = ['denite.nvim']
+
+[[plugins]]
+repo        = 'chemzqm/unite-location'
+depends     = 'denite.nvim'
+on_cmd      = ['Denite']
+
+[[plugins]]
+repo        = 'Shougo/neomru.vim'
+on_path     = '.*'
+on_source   = ['denite.nvim']
+#}}}
+
+
+# Filer  #{{{
+[[plugins]]
+repo        = 'scrooloose/nerdtree'
+on_cmd      = ['NERDTree', 'NERDTreeFind', 'NERDTreeToggle']
+hook_add    = '''
+  nmap <silent> <Leader>f :<C-u>NERDTreeToggle<CR>
+'''
+hook_source = '''
+  let g:NERDTreeMinimalUI = 1
+  let g:NERDTreeQuitOnOpen = 0
+  let g:NERDTreeShowHidden = 1
+'''
+#}}}
+
+
+# Terminal  #{{{
+[[plugins]]
+repo        = 'Shougo/deol.nvim'
+on_cmd      = ['Deol', 'DeolEdit']
+on_source   = 'denite.nvim'
+hook_add    = '''
+  nmap <silent> <Leader>t  :<C-u>Deol -split -no-start-insert<CR>
+'''
+hook_source = '''
+  let g:deol#prompt_pattern = '> \|# '
+'''
+#}}}
+
+
+# Utils  #{{{
+[[plugins]]
+repo        = 'koron/codic-vim'
+on_cmd      = 'Codic'
+
+[[plugins]]
+repo        = 'thinca/vim-partedit'
+on_cmd      = ["Partedit"]
+hook_source = '''
+  let g:partedit#opener = 'split'
+'''
+
+[[plugins]]
+repo        = 'thinca/vim-template'
+on_cmd      = 'TemplateLoad'
+hook_add    = 'source $VIMDIR/config/dein/rc/template.vim'
+
+[[plugins]]
+repo        = 'ntpeters/vim-better-whitespace'
+on_event    = 'InsertLeave'
+hook_add    = '''
+  let g:strip_whitespace_on_save = 1
+  let g:strip_whitelines_at_eof = 1
+'''
+
+[[plugins]]
+repo        = 'skywind3000/asyncrun.vim'
+if          = 'vimrc#is_nvim() || vimrc#is_vim8()'
+on_cmd      = 'AsyncRun'
+on_source   = 'vim-test'
+#}}}
+# vim:ft=toml:ts=2:sw=2:fdm=marker:et

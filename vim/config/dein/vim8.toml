@@ -1,0 +1,11 @@
+#================================================
+# vim/config/dein/vim8.toml
+#================================================
+[[plugins]]
+repo      = 'roxma/nvim-yarp'
+if        = '!has("nvim")'
+
+[[plugins]]
+repo      = 'roxma/vim-hug-neovim-rpc'
+if        = '!has("nvim")'
+# vim:ft=toml:ts=2:sw=2:fdm=marker:et

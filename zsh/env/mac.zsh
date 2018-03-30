@@ -38,10 +38,10 @@ fi
 
 ## Alias
 # rm
-if type rmtrash > /dev/null 2>&1 ; then
-    alias rm='rmtrash'
-    alias sysrm='/bin/rm'
-fi
+# if type rmtrash > /dev/null 2>&1 ; then
+#     alias rm='rmtrash'
+#     alias sysrm='/bin/rm'
+# fi
 
 # Gnu core-utils
 if type gls > /dev/null 2>&1 ; then

@@ -1,71 +1,49 @@
-" Set title the file path
-let &titleold = ""
-let &titlestring = "%f"
+"==========================================================
+" vim/config/options.vim
+"
+" Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
+" Last Change: 02-Apr-2018.
+"==========================================================
+" Swap file
+set noswapfile undofile
+let &undodir = &backupdir
 
-" Show row number
-set number
-augroup numberwidth
-  autocmd!
-  autocmd BufEnter,WinEnter,BufWinEnter * let &l:numberwidth = len(line("$")) + 1
-augroup END
 
-" Show escape chars
-set list
-set listchars=tab:>\ ,trail:~
-
-" Status line
-set laststatus=2
-set cmdheight=1
-
-" window
-set splitright
-set splitbelow
-set scrolloff=10
-set lazyredraw
-set modeline
-
-" Folding
-set foldmethod=marker
-set foldlevelstart=0
-set foldopen=all
-
-" Indent
-set autoindent
-set smartindent
-set cindent
-set cinoptions&
-set cinoptions+=h0,(4,Us,p0
-
-" Tab
-set tabstop=4
-set shiftwidth=4
-set softtabstop=0
-set smarttab
-set expandtab
-
-" wrapping
-set whichwrap=b,s,h,l,<,>,[,]
-set backspace=indent,eol,start
-
-" Enable hiden buffer
-set hidden
-
-" Deny auto CR
-set textwidth=0
-
-" search
-set hlsearch
-set nowrapscan
-set ignorecase
-set smartcase
-set incsearch
-set wildignore=*.o,*.class,*.beam,*.dvi,*.pdf
-
-" misc.
-set showmatch
-set wildmenu
-set clipboard=unnamed
-set spelllang=en,cjk
-if has('mouse')
-    set mouse+=a
+" File formats
+let &fileencoding = &encoding
+set fileformat=unix
+if has('multi_byte_ime')
+  set iminsert=0 imsearch=0
 endif
+
+set formatoptions& formatoptions+=mM
+if exists('*autofmt#japanese#formatexpr')
+  set formatexpr=autofmt#japanese#formatexpr()
+endif
+
+
+" Globals
+setglobal laststatus=2 cmdheight=1
+setglobal clipboard=unnamed
+setglobal showmatch matchpairs& matchpairs+=<:>
+setglobal hlsearch incsearch nowrapscan ignorecase smartcase
+setglobal wildignore=*.o,*.class,*.beam,*.dvi,*.pdf
+setglobal whichwrap=b,s,h,l,<,>,[,] backspace=indent,eol,start
+setglobal wildmenu
+setglobal lazyredraw
+setglobal hidden
+if has('mouse')
+    setglobal mouse+=a
+endif
+
+
+" Locals
+set splitright splitbelow
+set list listchars=tab:>\ ,trail:~
+set foldmethod=marker foldlevelstart=0 foldopen=all
+set autoindent smartindent tabstop=4 shiftwidth=4 softtabstop=0 smarttab expandtab
+set cindent cinoptions& cinoptions+=h0,(4,Us,p0
+set modeline
+set spelllang=en,cjk
+set number scrolloff=10 textwidth=0
+" vim:ft=vim:ts=2:sw=2:fdm=marker
