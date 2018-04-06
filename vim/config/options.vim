@@ -2,7 +2,7 @@
 " vim/config/options.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 02-Apr-2018.
+" Last Change: 06 Apr. 2018.
 "==========================================================
 " Swap file
 set noswapfile undofile
@@ -45,5 +45,5 @@ set autoindent smartindent tabstop=4 shiftwidth=4 softtabstop=0 smarttab expandt
 set cindent cinoptions& cinoptions+=h0,(4,Us,p0
 set modeline
 set spelllang=en,cjk
-set number scrolloff=10 textwidth=0
+set number relativenumber scrolloff=10 textwidth=0
 " vim:ft=vim:ts=2:sw=2:fdm=marker

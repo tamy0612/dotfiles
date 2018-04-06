@@ -2,10 +2,9 @@
 " vim/config/dein/rc/lightline.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 05 Apr. 2018.
+" Last Change: 06 Apr. 2018.
 "==========================================================
 let g:lightline = {
-      \ 'colorscheme': 'onedark',
       \ 'active': {
       \   'left': [['mode', 'paste', 'modifiable'], ['modified', 'filename'], ['lint', 'gitstatus']],
       \   'right': [['lineinfo'], ['fileformat', 'fileencoding', 'filetype'], ['gitinfo']]

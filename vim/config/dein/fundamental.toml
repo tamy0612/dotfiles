@@ -19,6 +19,9 @@ repo     = 'tamy0612/clone.vim'
 repo     = 'joshdick/onedark.vim'
 
 [[plugins]]
+repo     = 'cocopon/iceberg.vim'
+
+[[plugins]]
 repo     = 'itchyny/lightline.vim'
 hook_add = 'source $VIMDIR/config/dein/rc/lightline.vim'
-# vim:ft=toml:ts=2:sw=2:fdm=marker:et
+# vim:ft=toml:ts=2:sw=2:fdm=marker

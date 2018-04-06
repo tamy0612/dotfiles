@@ -2,7 +2,7 @@
 " vim/autoload/vimrc.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 02 Apr. 2018.
+" Last Change: 06 Apr. 2018.
 "==========================================================
 " Flags
 function! vimrc#is_windows() abort
@@ -83,5 +83,9 @@ function! vimrc#auto_mkdir_on_write(dir, cmdbang) abort
         \ )
     call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
   endif
+endfunction
+
+function! vimrc#toggle_variable(var) abort
+  execute "let " . a:var . " = !" . a:var
 endfunction
 " vim:ft=vim:ts=2:sw=2
