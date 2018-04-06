@@ -60,14 +60,12 @@ on_ft     = 'rust'
 
 [[plugins]]
 repo      = 'sebastianmarkow/deoplete-rust'
-if        = 'executable("racer")'
 depends   = ['deoplete.nvim']
 on_ft     = 'rust'
 on_event  = 'InsertEnter'
 
 [[plugins]]
 repo      = 'racer-rust/vim-racer'
-if        = 'executable("racer")'
 on_ft     = 'rust'
 #}}}
 
