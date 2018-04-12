@@ -2,13 +2,23 @@
 " vim/config/dein/rc/quickrun.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 02 Apr. 2018.
+" Last Change: 10 Apr. 2018.
 "==========================================================
 " global setting
 let g:quickrun_config._ = {
-      \ 'runner' : 'vimproc',
-      \ 'hook/time/enable' : 1,
-      \ 'outputter/buffer/split' : 'botright 15sp',
+      \ 'runner': vimrc#is_nvim() ? 'nvim_job' : 'job',
+      \ 'outputter': 'multi:buffer:quickfix',
+      \ 'outputter/buffer/split': 'botright 15sp',
+      \ 'hook/close_quickfix/enable_success': 1,
+      \ 'hook_close_quickfix/enable_hook_loaded': 1,
+      \ 'hook/time': 1
+      \}
+
+" for Rust
+let g:quickrun_config.rust = {
+      \ 'outputter/': 'multi:buffer:quickfix',
+      \ 'outputter/buffer/split': 'botright 15sp',
+      \ 'command': filereadable(expand('./Cargo.toml')) ? 'cargo build' : 'rustc'
       \}
 
 " for D-lang

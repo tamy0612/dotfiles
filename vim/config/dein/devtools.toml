@@ -112,8 +112,16 @@ hook_add    = '''
 '''
 hook_source = '''
   let g:quickrun_config = get(g:, 'quickrun_config', {})
-  sourve $VIMDIR/config/dein/rc/quickrun.vim
+  source $VIMDIR/config/dein/rc/quickrun.vim
 '''
+
+[[plugins]]
+repo        = 'tamy0612/quickrun-job-runner.nvim'
+on_source   = 'vim-quickrun'
+
+[[plugins]]
+repo        = 'osyo-manga/shabadou.vim'
+on_source   = 'vim-quickrun'
 
 [[plugins]]
 repo        = 'janko-m/vim-test'
