@@ -2,7 +2,7 @@
 " vim/config/dein/rc/denite.mapping.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 02 Apr. 2018.
+" Last Change: 07 Apr. 2018.
 "==========================================================
 " Shortcut
 nnoremap <silent> / :<C-u>Denite line<CR>
@@ -12,10 +12,10 @@ nnoremap [denite] <Nop>
 nmap <Leader>d [denite]
 
 nmap <silent> [denite]b :<C-u>Denite buffer<CR>
-nmap <silent> [denite]j :<C-u>Denite -auto-preview -vertical-preview jump<CR>
-nmap <silent> [denite]g :<C-u>Denite -auto-preview -vertical-preview grep<CR>
-nmap <silent> [denite]o :<C-u>Denite -auto-preview -vertical-preview outline tag<CR>
-nmap <silent> [denite]l :<C-u>Denite -auto-preview -vertical-preview location_list quickfix<CR>
+nmap <silent> [denite]j :<C-u>Denite -no-auto-preview -vertical-preview jump<CR>
+nmap <silent> [denite]g :<C-u>Denite -no-auto-preview -vertical-preview grep<CR>
+nmap <silent> [denite]o :<C-u>Denite -no-auto-preview -vertical-preview outline tag<CR>
+nmap <silent> [denite]l :<C-u>Denite -no-auto-preview -vertical-preview location_list quickfix<CR>
 nmap <silent> [denite]f :<C-u>Denite `finddir('.git', ';') != '' ? 'file_rec/git' : ''` file_rec file_mru file_old<CR>
 nmap <silent> [denite]d :<C-u>Denite directory_rec<CR>
 nmap <silent> [denite]c :<C-u>Denite command_history command<CR>

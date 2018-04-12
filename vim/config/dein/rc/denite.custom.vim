@@ -2,7 +2,7 @@
 " vim/config/dein/rc/denite.custom.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 02 Apr. 2018.
+" Last Change: 07 Apr. 2018.
 "==========================================================
 " Options
 call denite#custom#option('_', {
@@ -60,10 +60,11 @@ call denite#custom#map('insert', '<C-a>', '<denite:choose_action>')
 call denite#custom#map('insert', '<C-v>', '<denite:do_action:vsplit>')
 call denite#custom#map('insert', '<C-s>', '<denite:do_action:split>')
 call denite#custom#map('insert', '<C-d>', '<denite:do_action:delete>')
+call denite#custom#map('insert', '<C-p>', '<denite:do_action:preview>')
 
 "" History
-call denite#custom#map('insert', '<C-n>', '<denite:assign_next_text>')
-call denite#custom#map('insert', '<C-p>', '<denite:assign_previous_text>')
+call denite#custom#map('insert', '<C-S-h>', '<denite:assign_next_text>')
+call denite#custom#map('insert', '<C-h>', '<denite:assign_previous_text>')
 
 
 " Menu

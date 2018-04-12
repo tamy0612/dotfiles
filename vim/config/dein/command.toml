@@ -3,13 +3,14 @@
 #================================================
 # Denite  #{{{
 [[plugins]]
-repo             = 'Shougo/denite.nvim'
-on_cmd           = 'Denite'
-if               = "vimrc#is_nvim() || (vimrc#is_vim8() && has('python3'))"
-hook_add         = '''
+repo        = 'Shougo/denite.nvim'
+on_cmd      = 'Denite'
+on_func     = 'denite#'
+if          = "vimrc#is_nvim() || (vimrc#is_vim8() && has('python3'))"
+hook_add    = '''
   source $VIMDIR/config/dein/rc/denite.mapping.vim
 '''
-hook_post_source = '''
+hook_source = '''
   source $VIMDIR/config/dein/rc/denite.custom.vim
 '''
 
