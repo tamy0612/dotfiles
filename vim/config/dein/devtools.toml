@@ -71,6 +71,31 @@ hook_source = '''
     set cscopequickfix=s-,c-,d-,i-,t-,e-
   endif
 '''
+
+[[plugins]]
+repo        = 'vim-scripts/gtags.vim'
+on_cmd      = 'Gtags'
+hook_add    = '''
+  let g:Gtags_Auto_Map = 0
+  let g:Gtags_OpenQuickfixWindow = 1
+
+  nnoremap <silent> <C-j> :<C-u>exe("Gtags ".expand('<cword>'))<CR>
+  nnoremap <silent> <C-r> :<C-u>exe("Gtags -r ".expand('<cword>'))<CR>
+'''
+
+[[plugins]]
+repo        = 'jsfaint/gen_tags.vim'
+on_event    = 'InsertEnter'
+hook_add    = '''
+  let g:gen_tags#gtags_auto_gen = 1
+'''
+
+[[plugins]]
+repo        = 'ozelentok/denite-gtags'
+depends     = ['denite.nvim']
+hook_add    = '''
+  nnoremap [denite]t :Denite -no-auto-preview -vertical-preview gtags_completion<CR>
+'''
 #}}}
 
 
