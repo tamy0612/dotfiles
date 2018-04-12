@@ -2,7 +2,7 @@
 " vim/config/dein/rc/template.init.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 30 Mar. 2018.
+" Last Change: 12 Apr. 2018.
 "==========================================================
 augroup MyInitialTemplates
     autocmd!
@@ -16,5 +16,6 @@ augroup MyInitialTemplates
     autocmd BufNewFile *.tikz         execute 'TemplateLoad /init.tikz'
     autocmd BufNewFile CMakeLists.txt execute 'TemplateLoad /init.cmake'
     autocmd BufNewFile *.toml         execute 'TemplateLoad /init.toml'
+    autocmd BufNewFile *.py           execute 'TemplateLoad /init.py'
 augroup END
 " vim:ft=vim:ts=2:sw=2:fdm=marker
