@@ -2,7 +2,7 @@
 " vim/config/dein/rc/ale.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 05 Apr. 2018.
+" Last Change: 13 Apr. 2018.
 "==========================================================
 " Locals  "{{{
 let s:default_errorformat = '%f:%l:%c: %m'
@@ -40,9 +40,15 @@ endif
 
 
 " Rust  "{{{
-let g:ale_rust_racer_executable = 'racer'
-if executable(g:ale_rust_racer_executable)
-    let g:ale_linters.rust = [g:ale_rust_racer_executable]
+let g:ale_linters.rust = []
+let g:ale_rust_clippy_executable = 'cargo +nightly clippy'
+let g:ale_rust_rustc_executable = 'rustc'
+if filereadable(expand("./Cargo.toml"))
+  let g:ale_linters.rust = extend(g:ale_linters.rust, ['clippy'])
+endif
+if executable(g:ale_rust_rustc_executable)
+  let g:ale_rust_rustc_options = '-W warnings -W bad-style'
+  let g:ale_linters.rust = extend(g:ale_linters.rust, ['rustc'])
 endif
 "}}}
 
