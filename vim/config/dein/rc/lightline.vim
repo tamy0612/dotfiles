@@ -2,7 +2,7 @@
 " vim/config/dein/rc/lightline.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 06 Apr. 2018.
+" Last Change: 16 Apr. 2018.
 "==========================================================
 let g:lightline = {
       \ 'active': {
@@ -68,12 +68,7 @@ function! LightlineFilename()
     return '[quickfix]'
   endif
   if &buftype =~ 'terminal'
-    if vimrc#is_nvim()
-      let l:process = split(expand('%:t'), ':')
-      return printf("[%s] %s", l:process[0], l:process[1])
-    else
-      return printf('[terminal] %s', expand('%:h'))
-    end
+    return printf('[terminal] %s', expand('%:t'))
   endif
 
   let l:filename = expand('%')
