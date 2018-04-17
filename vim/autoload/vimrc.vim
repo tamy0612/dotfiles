@@ -2,7 +2,7 @@
 " vim/autoload/vimrc.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 06 Apr. 2018.
+" Last Change: 17 Apr. 2018.
 "==========================================================
 " Flags
 function! vimrc#is_windows() abort
@@ -87,5 +87,16 @@ endfunction
 
 function! vimrc#toggle_variable(var) abort
   execute "let " . a:var . " = !" . a:var
+endfunction
+
+function! vimrc#open_qf_or_loclist() abort
+  if !empty(getqflist())
+    execute "copen"
+    return
+  endif
+  if !empty(getloclist(winnr()))
+    execute "lopen"
+    return
+  endif
 endfunction
 " vim:ft=vim:ts=2:sw=2

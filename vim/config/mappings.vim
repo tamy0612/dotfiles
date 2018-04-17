@@ -2,7 +2,7 @@
 " vim/config/mappings.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 06 Apr. 2018.
+" Last Change: 17 Apr. 2018.
 "==========================================================
 " cursor
 imap OA <UP>
@@ -46,8 +46,9 @@ nnoremap <expr> K (&filetype is# 'vim' ? (':help ' . fnameescape(expand('<cword>
 map <C-c> g<C-g>
 tnoremap <ESC> <C-\><C-n>
 
-autocmd FileType help,diff nnoremap <silent><buffer> q :<C-u>q<CR>
+autocmd FileType help,diff,qf nnoremap <silent><buffer> q :<C-u>q<CR>
 
 " misc.
 nnoremap <silent> <Leader>n :<C-u>call vimrc#toggle_variable("&relativenumber")<CR>
+nnoremap <silent> <Leader>q :<C-u>call vimrc#open_qf_or_loclist()<CR>
 " vim:ft=vim:ts=2:sw=2:fdm=marker
