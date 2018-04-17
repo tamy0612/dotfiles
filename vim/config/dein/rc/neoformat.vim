@@ -2,7 +2,7 @@
 " vim/config/dein/rc/neoformat.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 02 Apr. 2018.
+" Last Change: 17 Apr. 2018.
 "==========================================================
 let g:neoformat_basic_format_trim = 1
 let g:neoformat_only_msg_on_error = 1
@@ -26,6 +26,19 @@ let g:neoformat_rules.d = {
       \ 'filetype': 'd',
       \ 'pattern': '*.d',
       \}
+
+" Rust
+if executable('rustfmt')
+  let g:neoformat_rust_rustfmt = {
+        \ 'exe': 'rustfmt',
+        \ 'args': ['--skip-children', '--single-line-if-else']
+        \}
+  let g:neoformat_enabled_rust = ['rustfmt']
+  let g:neoformat_rules.rust = {
+        \ 'filetype': 'rust',
+        \ 'pattern': '*.rs',
+        \}
+endif
 
 " Python
 let g:neoformat_enabled_python = ['autopep8']

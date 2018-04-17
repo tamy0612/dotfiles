@@ -104,7 +104,7 @@ hook_add    = '''
 repo        = 'w0rp/ale'
 on_map      = '<Plug>'
 on_cmd      = ['ALEEnable', 'ALEToggle']
-on_ft       = ['c', 'cpp', 'd', 'scala', 'rust', 'python']
+on_ft       = ['c', 'cpp', 'd', 'rust', 'python', 'php']
 hook_add    = '''
   let g:ale_lint_on_save          = 1
   let g:ale_lint_on_text_changed  = 'normal'
@@ -133,7 +133,7 @@ hook_source = '''
 repo        = 'thinca/vim-quickrun'
 on_map      = '<Plug>'
 hook_add    = '''
-  nmap <silent> <Leader>q <Plug>(quickrun)
+  nmap <silent> <Leader>r <Plug>(quickrun)
 '''
 hook_source = '''
   let g:quickrun_config = get(g:, 'quickrun_config', {})

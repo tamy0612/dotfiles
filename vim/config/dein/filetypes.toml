@@ -57,6 +57,26 @@ on_ft       = ['c', 'cpp']
 [[plugins]]
 repo      = 'rust-lang/rust.vim'
 on_ft     = 'rust'
+hook_source = '''
+  let g:rustfmt_autosave = 1
+'''
+
+[[plugins]]
+repo        = 'autozimu/LanguageClient-neovim'
+rev         = 'next'
+on_ft       = ['rust']
+build       = 'bash install.sh'
+hook_add    = '''
+  set hidden
+  let g:LanguageClient_autoStart = 1
+  let g:LanguageClient_serverCommands = {}
+  let g:LanguageClient_serverCommands.rust = ['rls']
+'''
+hook_source = '''
+  nnoremap <silent> <C-k> :<C-u>call LanguageClient_textDocument_hover()<CR>
+  nnoremap <silent> gd :<C-u>call LanguageClient_textDocument_definition()<CR>
+  command! -nargs=0 Rename call LanguageClient_textDocument_rename()
+'''
 
 [[plugins]]
 repo      = 'sebastianmarkow/deoplete-rust'

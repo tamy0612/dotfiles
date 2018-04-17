@@ -2,7 +2,7 @@
 " vim/config/dein/rc/denite.mapping.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 07 Apr. 2018.
+" Last Change: 16 Apr. 2018.
 "==========================================================
 " Shortcut
 nnoremap <silent> / :<C-u>Denite line<CR>
