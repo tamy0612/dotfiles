@@ -2,7 +2,7 @@
 " vim/config/dein/rc/ale.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 16 Apr. 2018.
+" Last Change: 26 Apr. 2018.
 "==========================================================
 " Locals  "{{{
 let s:default_errorformat = '%f:%l:%c: %m'
@@ -49,6 +49,17 @@ endif
 if executable('rustc')
   let g:ale_rust_rustc_options = '-W warnings -W bad-style'
   let g:ale_linters.rust = extend(g:ale_linters.rust, ['rustc'])
+endif
+"}}}
+
+
+" Typescript  "{{{
+let s:tsc = vimrc#find_executable('tsc',
+      \ [getcwd() . '/node_modules/typescript/bin', '$VIMDIR/../node_modules/typescript/bin'])
+if s:tsc != ''
+  let g:ale_typescript_tsc_executable = s:tsc
+  " let g:ale_typescript_tsc_options = ""
+  let g:ale_linters.typescript = ['tsc']
 endif
 "}}}
 

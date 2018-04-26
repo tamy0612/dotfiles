@@ -99,12 +99,32 @@ hook_add    = '''
 #}}}
 
 
+# LSP  #{{{
+[[plugins]]
+repo        = 'autozimu/LanguageClient-neovim'
+rev         = 'next'
+on_ft       = ['rust', 'javascript', 'typescript']
+build       = 'bash install.sh'
+hook_add    = '''
+  set hidden
+  let g:LanguageClient_autoStart = 1
+  let g:LanguageClient_serverCommands = get(g:, 'LanguageClient_serverCommands', {})
+'''
+hook_source = '''
+  source $VIMDIR/config/dein/rc/lsp.vim
+  nnoremap <silent> <C-k> :<C-u>call LanguageClient_textDocument_hover()<CR>
+  nnoremap <silent> gd :<C-u>call LanguageClient_textDocument_definition()<CR>
+  command! -nargs=0 Rename call LanguageClient_textDocument_rename()
+'''
+#}}}
+
+
 # linter  #{{{
 [[plugins]]
 repo        = 'w0rp/ale'
 on_map      = '<Plug>'
 on_cmd      = ['ALEEnable', 'ALEToggle']
-on_ft       = ['c', 'cpp', 'd', 'rust', 'python', 'php']
+on_ft       = ['c', 'cpp', 'd', 'rust', 'typescript', 'python', 'php']
 hook_add    = '''
   let g:ale_lint_on_save          = 1
   let g:ale_lint_on_text_changed  = 'normal'

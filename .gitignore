@@ -5,3 +5,6 @@ vim/spell/
 
 zsh/.zcompdump
 .python-version
+
+node_modules/
+package-lock.json
