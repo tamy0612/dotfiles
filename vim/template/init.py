@@ -1,4 +1,5 @@
 :%s/<+MODULE+>/\=expand("%:s?^src\/??:p:.")/g
+:3
 # -*- coding:utf-8 -*-
 # <+MODULE+>
 
