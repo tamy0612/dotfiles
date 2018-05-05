@@ -11,7 +11,6 @@ done
 # path
 typeset -U PATH path
 path=(
-  $HOME/.cargo/bin(N-/)
   $HOME/bin(N-/)
   /usr/local/bin(N-/)
   /usr/bin(N-/)
@@ -28,6 +27,14 @@ sudo_path=(
   /sbin(N-/)
 )
 
+# local node modules
+if [ -d $HOME/dotfiles/node_modules ] ; then
+  path=(
+    $HOME/dotfiles/node_modules/.bin(N-/)
+    ${path}
+  )
+fi
+
 # anybenv
 if [ -d $HOME/.anyenv ] ; then
   typeset -Tx ANYENV_ROOT anyenv_root
@@ -35,6 +42,17 @@ if [ -d $HOME/.anyenv ] ; then
   anyenv_root=($HOME/.anyenv)
   path=(
     ${anyenv_root}/bin(N-/)
+    ${path}
+  )
+fi
+
+# Rust
+if [ -d $HOME/.cargo ] ; then
+  typeset -Tx RUST_HOME rust_home
+  typeset -U rust_home
+  rust_home=($HOME/.cargo)
+  path=(
+    ${rust_home}/bin(N-/)
     ${path}
   )
 fi
@@ -47,13 +65,15 @@ if type R > /dev/null 2>&1 ; then
 fi
 
 # D lang
-typeset -Tx D_IMPORT_DIR d_import_dir
-typeset -U d_import_dir
-d_import_dir=(
-  /usr/local/include/d2(N-/)
-  /usr/include/dmd/druntime/import(N-/)
-  /usr/include/dmd/phobos(N-/)
-)
+if type dmd > /dev/null 2>&1 ; then
+  typeset -Tx D_IMPORT_DIR d_import_dir
+  typeset -U d_import_dir
+  d_import_dir=(
+    /usr/local/include/d2(N-/)
+    /usr/include/dmd/druntime/import(N-/)
+    /usr/include/dmd/phobos(N-/)
+  )
+fi
 
 
 ## load settings depend on OSTYPE
