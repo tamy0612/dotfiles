@@ -2,7 +2,7 @@
 " vim/autoload/vimrc.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 17 Apr. 2018.
+" Last Change: 05 May. 2018.
 "==========================================================
 " Flags
 function! vimrc#is_windows() abort
@@ -64,7 +64,7 @@ function! vimrc#find_executable(cmd, ...) abort
   if executable(a:cmd)
     return a:cmd
   endif
-  vimrc#error('Command not found: ' . a:cmd)
+  call vimrc#error('Command not found: ' . a:cmd)
   return ''
 endfunction
 
