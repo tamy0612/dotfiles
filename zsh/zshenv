@@ -1,96 +1,27 @@
-# dir
-export ZDIR=$HOME/dotfiles/zsh
-export XDG_CONFIG_HOME=$HOME/.config
-export XDG_CACHE_HOME=$HOME/.cache
-export XDG_DATA_HOME=$HOME/.local/share
-for dir in $XDG_CONFIG_HOME $XDG_CACHE_HOME $XDG_DATA_HOME
-do
-  [[ -d $dir ]] || mkdir -p $dir
-done
+# dirs
+export DOTFILES_DIR=$HOME/dotfiles
+export ZDIR=${DOTFILES_DIR}/zsh
+source $ZDIR/env/xdg.zsh
 
-# path
-typeset -U PATH path
-path=(
-  $HOME/bin(N-/)
-  /usr/local/bin(N-/)
-  /usr/bin(N-/)
-  /sbin(N-/)
-  ${path}
-)
-
-# sudo path
-typeset -xT SUDO_PATH sudo_path
-typeset -U sudo_path
-sudo_path=(
-  /usr/local/bin(N-/)
-  /usr/bin(N-/)
-  /sbin(N-/)
-)
-
-# local node modules
-if [ -d $HOME/dotfiles/node_modules ] ; then
-  path=(
-    $HOME/dotfiles/node_modules/.bin(N-/)
-    ${path}
-  )
-fi
-
-# anybenv
-if [ -d $HOME/.anyenv ] ; then
-  typeset -Tx ANYENV_ROOT anyenv_root
-  typeset -U anyenv_root
-  anyenv_root=($HOME/.anyenv)
-  path=(
-    ${anyenv_root}/bin(N-/)
-    ${path}
-  )
-fi
-
-# Rust
-if [ -d $HOME/.cargo ] ; then
-  typeset -Tx RUST_HOME rust_home
-  typeset -U rust_home
-  rust_home=($HOME/.cargo)
-  path=(
-    ${rust_home}/bin(N-/)
-    ${path}
-  )
-fi
-
-# R
-if type R > /dev/null 2>&1 ; then
-  typeset -Tx R_HOME r_home
-  typeset -U r_home
-  rhome=(`R RHOME`)
-fi
-
-# D lang
-if type dmd > /dev/null 2>&1 ; then
-  typeset -Tx D_IMPORT_DIR d_import_dir
-  typeset -U d_import_dir
-  d_import_dir=(
-    /usr/local/include/d2(N-/)
-    /usr/include/dmd/druntime/import(N-/)
-    /usr/include/dmd/phobos(N-/)
-  )
-fi
-
-
-## load settings depend on OSTYPE
+# base config
+source $ZDIR/env/basic_path.zsh
+source $ZDIR/env/brew.zsh
 case ${OSTYPE} in
   darwin*)
-    source $ZDIR/env/mac.zsh
+    source $ZDIR/env/osx.zsh
     ;;
   linux*)
     source $ZDIR/env/linux.zsh
     ;;
 esac
 
-## load aliases
-source $ZDIR/rc/alias.zsh
+# Misc.
+source $ZDIR/env/misc.zsh
 
+# aliases
+source $ZDIR/env/alias.zsh
 
-## auto compile
+# auto compile
 if [ ! -f $HOME/.zshenv.zwc -o $HOME/.zshenv -nt $HOME/.zshenv.zwc ]; then
   zcompile $HOME/.zshenv
 fi
