@@ -1,3 +1,10 @@
+# additional path
+path=(
+    $HOME/bin(N-/)
+    $HOME/.local/bin(N-/)
+    ${path}
+)
+
 # Anyenv
 if [ -d $HOME/.anyenv ] ; then
   typeset -Tx ANYENV_ROOT anyenv_root
