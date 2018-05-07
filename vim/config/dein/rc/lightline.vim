@@ -2,39 +2,31 @@
 " vim/config/dein/rc/lightline.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 16 Apr. 2018.
+" Last Change: 08 May. 2018.
 "==========================================================
 let g:lightline = {
       \ 'active': {
-      \   'left': [['mode', 'paste', 'modifiable'], ['modified', 'filename'], ['lint', 'gitstatus']],
-      \   'right': [['lineinfo'], ['fileformat', 'fileencoding', 'filetype'], ['gitinfo']]
+      \   'left': [['mode', 'paste'], ['filestatus', 'filename']],
+      \   'right': [['lineinfo'], ['gitinfo', 'gitstatus'], ['lint']]
       \ },
       \ 'inactive': {
-      \   'left': [['modified', 'filename', 'gitstatus']],
-      \   'right': [['filetype']]
+      \   'left': [['filestatus', 'filename']],
+      \   'right': [['gitinfo', 'gitstatus']]
       \ },
       \ 'component_function': {
       \   'mode': 'LightlineMode',
-      \   'modifiable': 'LightlineModifiable',
-      \   'modified': 'LightlineModified',
+      \   'paste': 'LightlinePaste',
+      \   'filestatus': 'LightlineFileStatus',
       \   'filename': 'LightlineFilename',
       \   'lint': 'ALEGetStatusLine',
       \   'gitstatus': 'LightlineGitStatus',
       \   'gitinfo': 'LightlineGitinfo',
-      \   'fileformat': 'LightlineFileformat',
-      \   'fileencoding': 'LightlineFileencoding',
-      \   'filetype': 'LightlineFiletype',
-      \   'percent': 'LightlinePercent',
       \   'lineinfo': 'LightlineLineinfo'
       \ }
       \}
 
 
-function! LightlineMode()
-  if &ft =~ 'nerdtree'
-    return ''
-  endif
-
+function! LightlineMode() abort
   let l:mode = lightline#mode()
   if &ft =~ 'denite'
     let l:mode = substitute(denite#get_status_mode(), '-\|\s', '', 'g')
@@ -43,26 +35,28 @@ function! LightlineMode()
 endfunction
 
 
-function! LightlineModifiable()
-  return &ro ? 'RO' : &modifiable ? '' : '-'
+function! LightlinePaste() abort
+  return &paste ? 'paste' : ''
 endfunction
 
 
-function! LightlineModified()
-  return &modified ? '+' : ''
+function! LightlineFileStatus() abort
+  if &ft =~ 'nerdtree'
+    return ''
+  endif
+  return &ro ? 'RO' : !&modifiable ? 'UM' : &modified ? '+' : ''
 endfunction
 
 
-function! LightlineFilename()
+function! LightlineFilename() abort
+  if &ft =~ 'nerdtree'
+    return ''
+  endif
   if &ft =~ 'denite'
     return denite#get_status_sources()
   endif
   if &ft =~ 'deol'
     return '[deol]'
-  endif
-  if &ft =~ 'nerdtree'
-    let l:dirname = fnamemodify(getcwd(), ':~')
-    return fnamemodify(l:dirname, (strlen(l:dirname) > 20 ? ':t' : ':~'))
   endif
   if &buftype =~ 'quickfix'
     return '[quickfix]'
@@ -86,44 +80,7 @@ function! LightlineFilename()
 endfunction
 
 
-function! LightlineFileformat()
-  if &ft =~ 'denite\|unite\|nerdtree'
-    return ''
-  endif
-  return &fileformat
-endfunction
-
-
-function! LightlineFileencoding()
-  if &ft =~ 'denite\|unite\|nerdtree'
-    return ''
-  endif
-  return &fileencoding
-endfunction
-
-
-function! LightlineFiletype()
-  if &buftype == 'terminal'
-    return 'terminal'
-  endif
-  if &ft =~ 'denite\|unite\|nerdtree'
-    return ''
-  endif
-  return &filetype
-endfunction
-
-
-function! LightlinePercent()
-  if &ft =~ 'nerdtree'
-    return ''
-  endif
-  let l:cline = line('.')
-  let l:eline = line('$')
-  return printf("%3d%%", l:eline > 0 ? l:cline * 100 / l:eline : 0)
-endfunction
-
-
-function! LightlineLineinfo()
+function! LightlineLineinfo() abort
   if &ft =~ 'nerdtree' || &buftype =~ 'terminal'
     return ''
   endif
@@ -135,7 +92,7 @@ function! LightlineLineinfo()
 endfunction
 
 
-function! LightlineGitinfo()
+function! LightlineGitinfo() abort
   if &ft =~ 'nerdtree'
     return ''
   endif
@@ -147,7 +104,7 @@ function! LightlineGitinfo()
 endfunction
 
 
-function! LightlineGitStatus()
+function! LightlineGitStatus() abort
   if &ft =~ 'help\|unite\|denite\|nerdtree'
     return ''
   endif
