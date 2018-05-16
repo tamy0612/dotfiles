@@ -8,3 +8,5 @@ zsh/.zcompdump
 
 node_modules/
 package-lock.json
+
+*.un~
