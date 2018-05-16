@@ -2,7 +2,7 @@
 " vim/config/options.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 06 Apr. 2018.
+" Last Change: 16 May. 2018.
 "==========================================================
 " Swap file
 set noswapfile undofile
@@ -32,6 +32,7 @@ setglobal whichwrap=b,s,h,l,<,>,[,] backspace=indent,eol,start
 setglobal wildmenu
 setglobal lazyredraw
 setglobal hidden
+setglobal updatetime=100
 if has('mouse')
     setglobal mouse+=a
 endif
