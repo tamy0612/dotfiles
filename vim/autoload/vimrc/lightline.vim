@@ -2,7 +2,7 @@
 " vim/autoload/vimrc/lightline.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 16 May. 2018.
+" Last Change: 18 May. 2018.
 "==========================================================
 function! vimrc#lightline#mode() abort
   return tolower(s:mode())
@@ -71,7 +71,7 @@ function! vimrc#lightline#lint_info() abort
   let l:errors = l:counts.error + l:counts.style_error
   let l:warnings = l:counts.warning + l:counts.style_warning
   if l:errors || l:warnings
-    return printf('%s%d %s%d', g:ale_sign_error, l:error, g:ale_sign_warning, l:warnings)
+    return printf('%s%d %s%d', g:ale_sign_error, l:errors, g:ale_sign_warning, l:warnings)
   endif
   return ''
 endfunction
