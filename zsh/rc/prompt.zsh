@@ -46,6 +46,11 @@ case "${TERM}" in
         zstyle ':vcs_info:*' actionformats '${track_style}%s::%b%u%c-%a'
         update_prompt(){
             LANG=en_US.UTF-8 vcs_info
+            if [ -n "${SSH_CLIENT}${SSH_CONNECTION}" ]; then
+                echo -ne "\033]0;ssh://${HOST}${PWD}\007"
+            else
+                echo -ne "\033]0;${PWD}\007"
+            fi
             PROMPT="
 ${prompt_status}${prompt_ssh}${prompt_path}${vcs_info_msg_0_}${reset_style}
 %(!.#.>) "
