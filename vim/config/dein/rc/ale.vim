@@ -2,7 +2,7 @@
 " vim/config/dein/rc/ale.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 26 Apr. 2018.
+" Last Change: 21 May. 2018.
 "==========================================================
 " Locals  "{{{
 let s:default_errorformat = '%f:%l:%c: %m'
@@ -24,9 +24,9 @@ let g:ale_c_clang_options = '-std=c11 -Wall -I. -I./src -I./include'
 let g:ale_c_gcc_options = g:ale_c_clang_options
 let g:ale_linters.c = ['clang', 'gcc']
 
-let g:ale_cpp_clagn_options = '-std=c++1z -Wall -I. -I./src -I./include'
+let g:ale_cpp_clagn_options = '-std=c++17 -Wall -I. -I./src -I./include'
 let g:ale_cpp_gcc_options = g:ale_cpp_clagn_options
-let g:ale_linters.cpp = g:ale_linters.c
+let g:ale_linters.cpp = ['clang++', 'g++']
 "}}}
 
 
