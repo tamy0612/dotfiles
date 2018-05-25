@@ -89,5 +89,13 @@ repo        = 'skywind3000/asyncrun.vim'
 if          = 'vimrc#is_nvim() || vimrc#is_vim8()'
 on_cmd      = 'AsyncRun'
 on_source   = 'vim-test'
+
+[[plugins]]
+repo        = 'AndrewRadev/switch.vim'
+on_cmd      = 'Switch'
+on_func     = 'switch#Switch'
+hook_add    = '''
+  let g:switch_mapping = ""
+'''
 #}}}
 # vim:ft=toml:ts=2:sw=2:fdm=marker:et
