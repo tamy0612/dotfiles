@@ -1,37 +1,69 @@
 ---
 BasedOnStyle: LLVM
 IndentWidth: 4
+AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: true
-# AlignConsecutiveDeclarations: true
-AlignEscapedNewlinesLeft: true
+AlignEscapedNewlines: Left
 AlignTrailingComments: true
 AllowAllParametersOfDeclarationOnNextLine: false
+AllowShortBlocksOnASingleLine: true
 AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: true
+AllowShortLoopsOnASingleLine: true
+AlwaysBreakAfterDefinitionReturnType: None
+AlwaysBreakAfterReturnType: None
+AlwaysBreakBeforeMultilineStrings: false
+BinPackArguments: true
+BinPackParameters: true
 BraceWrapping:
     AfterControlStatement: false
-    AfterEnum: true
-    AfterFunction: true
+    AfterClass: false
+    AfterEnum: false
+    AfterFunction: false
+    AfterStruct: false
+    AfterUnion: false
+    AfterExternBlock: true
+    BeforeCatch: false
+    BeforeElse: false
+    IndentBraces: false
+    SplitEmptyFunction: false
 BreakBeforeBinaryOperators: All
-BreakBeforeBraces: Attach
+BreakBeforeBraces: Custom
+IncludeBlocks: Regroup
+IncludeCategories:
+    - Regex:        '^".*'
+      Priority:     1
+    - Regex:        '^<.*\.h>'
+      Priority:     2
+    - Regex:        '^<.*'
+      Priority:     3
+PointerAlignment: Left
+SortIncludes: true
+SpaceAfterCStyleCast: false
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeParens: Never
+SpaceInEmptyParentheses: false
 SpacesBeforeTrailingComments: 2
+SpacesInCStyleCastParentheses: false
+SpacesInContainerLiterals: false
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
 ---
 Language: Cpp
 AccessModifierOffset: 0
 AlwaysBreakTemplateDeclarations: true
-BreakConstructorInitializersBeforeComma: false
-BreakConstructorInitializers: BeforeColon
+BreakBeforeInheritanceComma: false
+BreakConstructorInitializers: BeforeComma
 CommentPragmas: '\*'
 ConstructorInitializerAllOnOneLineOrOnePerLine: false
 Cpp11BracedListStyle: true
-IncludeCategories:
-  - Regex:           '^<.*\.h>'
-    Priority:        1
-  - Regex:           '^<.*'
-    Priority:        2
-  - Regex:           '.*'
-    Priority:        3
+FixNamespaceComments: true
 NamespaceIndentation: All
-PointerAlignment: Left
-Standard: Auto
+SortUsingDeclarations: true
+SpaceAfterTemplateKeyword: false
+SpaceBeforeCtorInitializerColon: true
+SpaceBeforeInheritanceColon: true
+SpaceBeforeRangeBasedForLoopColon: true
+SpacesInAngles: false
+Standard: Cpp11
 ...
-
