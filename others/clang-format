@@ -38,6 +38,7 @@ IncludeCategories:
       Priority:     2
     - Regex:        '^<.*'
       Priority:     3
+IndentPPDirectives: AfterHash
 PointerAlignment: Left
 SortIncludes: true
 SpaceAfterCStyleCast: false
