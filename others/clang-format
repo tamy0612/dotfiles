@@ -19,7 +19,7 @@ BraceWrapping:
     AfterControlStatement: false
     AfterClass: false
     AfterEnum: false
-    AfterFunction: false
+    AfterFunction: true
     AfterStruct: false
     AfterUnion: false
     AfterExternBlock: true
