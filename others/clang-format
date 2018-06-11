@@ -28,6 +28,7 @@ BraceWrapping:
     IndentBraces: false
     SplitEmptyFunction: false
 BreakBeforeBinaryOperators: All
+ColumnLimits: 100
 BreakBeforeBraces: Custom
 IncludeBlocks: Regroup
 IncludeCategories:

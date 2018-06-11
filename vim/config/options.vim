@@ -2,7 +2,7 @@
 " vim/config/options.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 16 May. 2018.
+" Last Change: 11 Jun. 2018.
 "==========================================================
 " Swap file
 set noswapfile undofile
@@ -47,4 +47,5 @@ set cindent cinoptions& cinoptions+=h0,(4,Us,p0
 set modeline
 set spelllang=en,cjk
 set number relativenumber scrolloff=10 textwidth=0
+set colorcolumn=100
 " vim:ft=vim:ts=2:sw=2:fdm=marker
