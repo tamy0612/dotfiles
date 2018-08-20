@@ -241,7 +241,7 @@ on_cmd      = 'Neoformat'
 hook_add    = '''
   source $VIMDIR/config/dein/rc/neoformat.vim
   for config in keys(g:neoformat_rules)
-    execute 'autocmd' 'MyCmdGroup BufWritePre ' . g:neoformat_rules[config].pattern . ' undojoin|Neoformat! ' . config
+    execute 'autocmd' 'MyCmdGroup BufWritePre ' . g:neoformat_rules[config].pattern . ' Neoformat! ' . config
     execute 'autocmd' 'MyCmdGroup FileType ' . g:neoformat_rules[config].filetype . ' nnoremap <buffer> = :<C-u>Neoformat! ' . config . '<CR>'
   endfor
 '''
