@@ -2,7 +2,7 @@
 " vim/config/dein/rc/deoplete.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 30 Mar. 2018.
+" Last Change: 04 Aug. 2018.
 "==========================================================
 " Config
 set completeopt=menuone,noselect,longest,preview
@@ -51,6 +51,8 @@ inoremap <expr>         <S-TAB>   pumvisible() ? "\<C-p>" : "\<C-h>"
 
 inoremap <expr>         <BS>      deoplete#smart_close_popup()."\<C-h>"
 inoremap <expr>         <C-h>     deoplete#smart_close_popup()."\<C-h>"
+
+command! DeopleteDisabled let b:deoplete_disable_auto_complete = 1
 
 " inoremap <silent><expr> <CR>      <C-r>=deoplete#cancel_popup() . "\<CR>"
 " vim:ft=vim:ts=2:sw=2:fdm=marker
