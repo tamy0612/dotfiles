@@ -2,7 +2,7 @@
 " vim/config/init.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 02 Apr. 2018.
+" Last Change: 20 Aug. 2018.
 "==========================================================
 " Encoding
 if &encoding !=? 'utf-8'
@@ -46,9 +46,9 @@ if vimrc#is_nvim()
         \ $PYENV_ROOT . "/versions/neovim3/bin",
         \ $PYENV_ROOT . "/shims"
         \])
-  let g:python_host_prog = vimrc#find_executable("python", [
-        \ $PYENV_ROOT . "/versions/neovim2/bin",
-        \ $PYENV_ROOT . "/shims",
-        \])
+  " let g:python_host_prog = vimrc#find_executable("python", [
+  "       \ $PYENV_ROOT . "/versions/neovim2/bin",
+  "       \ $PYENV_ROOT . "/shims",
+  "       \])
 endif
 " vim:ft=vim:ts=2:sw=2:fdm=marker
