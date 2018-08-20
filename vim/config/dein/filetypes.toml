@@ -109,6 +109,10 @@ on_ft       = ['scala']
 hook_source = '''
   autocmd MyCmdGroup BufWritePre *.scala SortScalaImports
 '''
+
+[[plugins]]
+repo        = 'ensime/ensime-vim'
+on_ft       = ['scala', 'java']
 #}}}
 
 
