@@ -27,8 +27,8 @@ window:
   # Blank space added around the window in pixels. This padding is not scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 2
-    y: 2
+    x: 0
+    y: 0
 
   # Window decorations
   #
@@ -119,7 +119,7 @@ font:
   #
   # Thin strokes are suitable for retina displays, but for non-retina screens
   # it is recommended to set `use_thin_strokes` to `false`
-  use_thin_strokes: false
+  use_thin_strokes: true
 
 # Display the time it takes to redraw each frame.
 render_timer: false
@@ -127,7 +127,7 @@ render_timer: false
 # Use custom cursor colors. If `true`, the `colors.cursor.foreground` and
 # `colors.cursor.background` colors will be used to display the cursor.
 # Otherwise the cell colors are inverted for the cursor.
-custom_cursor_colors: false
+custom_cursor_colors: true
 
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
@@ -136,7 +136,7 @@ draw_bold_text_with_bright_colors: true
 colors:
   # Default colors
   primary:
-    background: '0x000000'
+    background: '0x2e2e2e'
     foreground: '0xeaeaea'
 
     # Bright and dim foreground colors
@@ -152,44 +152,44 @@ colors:
   #
   # These will only be used when the `custom_cursor_colors` field is set to `true`.
   cursor:
-    text: '0x000000'
-    cursor: '0xffffff'
+    background: '0xa5a5a5'
+    foreground: '0x2e2e2e'
 
   # Normal colors
   normal:
-    black:   '0x000000'
-    red:     '0xd54e53'
-    green:   '0xb9ca4a'
-    yellow:  '0xe6c547'
-    blue:    '0x7aa6da'
-    magenta: '0xc397d8'
-    cyan:    '0x70c0ba'
-    white:   '0xffffff'
+    black:   '0x2e2e2e'
+    red:     '0xeb4129'
+    green:   '0x0adc20'
+    yellow:  '0xf6c744'
+    blue:    '0x155aff'
+    magenta: '0x7b5cb0'
+    cyan:    '0x64dbe0'
+    white:   '0xc7c7c7'
 
   # Bright colors
   bright:
-    black:   '0x666666'
-    red:     '0xff3334'
-    green:   '0x9ec400'
-    yellow:  '0xe7c547'
-    blue:    '0x7aa6da'
-    magenta: '0xb77ee0'
-    cyan:    '0x54ced6'
-    white:   '0xffffff'
+    black:   '0x676767'
+    red:     '0xff6d67'
+    green:   '0x7dfe73'
+    yellow:  '0xfefb67'
+    blue:    '0x80bfff'
+    magenta: '0xff76ff'
+    cyan:    '0x5ffdff'
+    white:   '0xfafafa'
 
   # Dim colors
   #
   # If the dim colors are not set, they will be calculated automatically based
   # on the `normal` colors.
-  dim:
-    black:   '0x333333'
-    red:     '0xf2777a'
-    green:   '0x99cc99'
-    yellow:  '0xffcc66'
-    blue:    '0x6699cc'
-    magenta: '0xcc99cc'
-    cyan:    '0x66cccc'
-    white:   '0xdddddd'
+  # dim:
+  #   black:   '0x333333'
+  #   red:     '0xf2777a'
+  #   green:   '0x99cc99'
+  #   yellow:  '0xffcc66'
+  #   blue:    '0x6699cc'
+  #   magenta: '0xcc99cc'
+  #   cyan:    '0x66cccc'
+  #   white:   '0xdddddd'
 
   # Indexed Colors
   #
@@ -228,7 +228,7 @@ visual_bell:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 1.0
+background_opacity: 0.9
 
 # Mouse bindings
 #
@@ -265,7 +265,7 @@ selection:
 
 dynamic_title: true
 
-hide_cursor_when_typing: false
+hide_cursor_when_typing: true
 
 # Cursor style
 #
@@ -376,7 +376,7 @@ key_bindings:
   - { key: End,                     chars: "\x1bOF",   mode: AppCursor   }
   - { key: End,                     chars: "\x1b[F",   mode: ~AppCursor  }
   - { key: Key0,     mods: Command, action: ResetFontSize                }
-  - { key: Equals,   mods: Command, action: IncreaseFontSize             }
+  - { key: Equals,   mods: Command|Shift, action: IncreaseFontSize       }
   - { key: Minus,    mods: Command, action: DecreaseFontSize             }
   - { key: K,        mods: Command, action: ClearHistory                 }
   - { key: K,        mods: Command, chars: "\x0c"                        }
