@@ -71,3 +71,13 @@ done; echo -n "\e[0m"
 if type R > /dev/null 2>&1 ; then
     alias R='R --no-save'
 fi
+
+
+# tmux
+if type tmux > /dev/null 2>&1; then
+    alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf"
+fi
+if [ -n "${TMUX}" ]; then
+    alias sp="tmux split-window -v -c ${PWD}"
+    alias vs="tmux split-window -h -c ${PWD}"
+fi
