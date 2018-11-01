@@ -21,3 +21,6 @@ bindkey '^k' autosuggest-accept
 
 # syntax highlighting
 _load_plugins $ZPLUGINDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# tmux
+_load_plugins $ZPLUGINDIR/tmux.zsh/tmux.zsh

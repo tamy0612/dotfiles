@@ -21,9 +21,6 @@ else
     export EDITOR='/usr/bin/vim'
 fi
 
-# homebrew
-export BREW_HOME=/usr/local/Cellar
-
 # java home
 if [ -x "/usr/libexec/java_home" ] ; then
     export JAVA_HOME=$(/usr/libexec/java_home)
