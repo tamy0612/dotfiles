@@ -147,4 +147,4 @@ fi
 
 
 # Start on tmux
-tmux_automatically_attach_session
+open_tmux

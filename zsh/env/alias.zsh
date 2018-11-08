@@ -80,4 +80,7 @@ fi
 if [ -n "${TMUX}" ]; then
     alias sp="tmux split-window -v -c ${PWD}"
     alias vs="tmux split-window -h -c ${PWD}"
+    alias detach="tmux detach"
+else
+    alias attach="open_tmux"
 fi
