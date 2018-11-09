@@ -28,11 +28,19 @@ function open_tmux() {
                     else
                         tmux attach-session -t "$REPLY"
                     fi
-                    if [ $? -eq 0 ]; then
-                        echo "$(tmux -V) attached session"
-                        return 0
-                    fi
                 fi
+            else
+                echo -n 'tmux: new session name > '
+                read
+                if [[ "$REPLY" == '' ]]; then
+                    tmux new -s default
+                else
+                    tmux new -s "$REPLY"
+                fi
+            fi
+            if [ $? -eq 0 ]; then
+                echo "$(tmux -V) attached session"
+                return 0
             fi
         fi
     fi
