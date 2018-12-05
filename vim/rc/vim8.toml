@@ -1,0 +1,11 @@
+#================================================
+# vim/rc/vim8.toml
+#
+# Plugins for compatibility with Vim8
+#================================================
+[[plugins]]
+repo = 'roxma/nvim-yarp'
+
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+# vim:ft=toml:ts=2:sw=2:fdm=marker
