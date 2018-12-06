@@ -2,7 +2,7 @@
 " vim/autoload/vimrc.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 05 May. 2018.
+" Last Change: 06 Dec. 2018.
 "==========================================================
 " Flags
 function! vimrc#is_windows() abort
@@ -44,7 +44,7 @@ function! vimrc#is_obsolete_vim() abort
 endfunction
 
 
-" Useful functions
+" Utility functions
 function! vimrc#log(...) abort
   echomsg '[vimrc] ' . join(a:000)
 endfunction
@@ -98,5 +98,10 @@ function! vimrc#open_qf_or_loclist() abort
     execute "lopen"
     return
   endif
+endfunction
+
+" Default values
+function! vimrc#default_colorscheme() abort
+  return 'pablo'
 endfunction
 " vim:ft=vim:ts=2:sw=2

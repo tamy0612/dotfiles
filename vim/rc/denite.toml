@@ -1,0 +1,20 @@
+#================================================
+# vim/rc/denite.toml
+#
+# Config for denite.nvim
+#================================================
+[[plugins]]
+repo        = 'Shougo/denite.nvim'
+on_func     = ['denite#']
+if          = 'vimrc#is_nvim() || (vimrc#is_vim8() && has("python3"))'
+hook_add    = 'call plugins#denite#mapping()'
+hook_source = 'call plugins#denite#option()'
+
+[[plugins]]
+repo        = 'chemzqm/unite-location'
+on_source   = ['denite.nvim']
+
+[[plugins]]
+repo        = 'Shougo/neomru.vim'
+on_source   = ['denite.nvim']
+# vim:ft=toml:ts=2:sw=2:fdm=marker

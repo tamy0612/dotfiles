@@ -1,10 +1,10 @@
 "==========================================================
-" vim/autoload/vimrc/lightline.vim
+" vim/autoload/plugins/lightline.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 18 May. 2018.
+" Last Change: 06 Dec. 2018.
 "==========================================================
-function! vimrc#lightline#mode() abort
+function! plugins#lightline#mode() abort
   return tolower(s:mode())
 endfunction
 
@@ -16,12 +16,12 @@ function! s:mode() abort
 endfunction
 
 
-function! vimrc#lightline#paste() abort
+function! plugins#lightline#paste() abort
   return &paste ? 'paste' : ''
 endfunction
 
 
-function! vimrc#lightline#file_status() abort
+function! plugins#lightline#file_status() abort
   if s:is_filetype('nerdtree')
     return ''
   endif
@@ -29,7 +29,7 @@ function! vimrc#lightline#file_status() abort
 endfunction
 
 
-function! vimrc#lightline#filename() abort
+function! plugins#lightline#filename() abort
   if s:is_filetype('nerdtree')
     return ''
   endif
@@ -62,7 +62,7 @@ function! vimrc#lightline#filename() abort
 endfunction
 
 
-function! vimrc#lightline#lint_info() abort
+function! plugins#lightline#lint_info() abort
   try
     let l:counts = ale#statusline#Count(bufnr(''))
   catch
@@ -77,7 +77,7 @@ function! vimrc#lightline#lint_info() abort
 endfunction
 
 
-function! vimrc#lightline#git_branch() abort
+function! plugins#lightline#git_branch() abort
   try
     let l:branch = gina#component#repo#branch()
   catch
@@ -90,7 +90,7 @@ function! vimrc#lightline#git_branch() abort
 endfunction
 
 
-function! vimrc#lightline#git_status() abort
+function! plugins#lightline#git_status() abort
   if s:is_filetype('help', 'unite', 'denite', 'nerdtree')
     return ''
   endif
@@ -106,7 +106,7 @@ function! vimrc#lightline#git_status() abort
 endfunction
 
 
-function! vimrc#lightline#line() abort
+function! plugins#lightline#line() abort
   if s:is_filetype('nerdtree', 'help') || s:is_buffer('quickfix')
     return ''
   endif

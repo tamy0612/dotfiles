@@ -12,7 +12,47 @@ repo     = 'joshdick/onedark.vim'
 [[plugins]]
 repo     = 'cocopon/iceberg.vim'
 
+
 [[plugins]]
 repo     = 'itchyny/lightline.vim'
-hook_add = 'source $VIMDIR/config/dein/rc/lightline.vim'
+hook_add = '''
+  let g:lightline = {
+        \ 'active': {
+        \   'left': [['mode', 'paste'], ['filestatus', 'filename']],
+        \   'right': [['lineinfo'], ['gitinfo', 'gitstatus'], ['lint']]
+        \ },
+        \ 'inactive': {
+        \   'left': [['filestatus', 'filename']],
+        \   'right': [['gitinfo', 'gitstatus']]
+        \ },
+        \ 'component_function': {
+        \   'mode': 'plugins#lightline#mode',
+        \   'paste': 'plugins#lightline#paste',
+        \   'filestatus': 'plugins#lightline#file_status',
+        \   'filename': 'plugins#lightline#filename',
+        \   'lint': 'plugins#lightline#lint_info',
+        \   'gitinfo': 'plugins#lightline#git_branch',
+        \   'gitstatus': 'plugins#lightline#git_status',
+        \   'lineinfo': 'plugins#lightline#line'
+        \ }
+        \}
+'''
+
+
+[[plugins]]
+repo     = 'Yggdroot/indentLine'
+hook_add = '''
+  let g:indentLine_enabled = 1
+  let g:indentLine_leadingSpaceEnabled = 1
+
+  let g:indentLine_setConceal = 1
+  let g:indentLine_conceallevel = 1
+  let g:indentLine_concealcursor = ''
+
+  let g:indentLine_char = '|'
+  let g:indentLine_leadingSpaceChar = '.'
+
+  let g:indentLine_setColors = 1
+  let g:indentLine_color_term = 243
+'''
 # vim:ft=toml:ts=2:sw=2:fdm=marker

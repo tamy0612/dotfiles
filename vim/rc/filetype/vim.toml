@@ -1,0 +1,22 @@
+#================================================
+# vim/rc/filetype/vim.toml
+#
+# Plugins for Vim script
+#================================================
+# Completion
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-necovim.vim'
+depends = ['asyncomplete.vim']
+hook_source = '''
+  call asyncomplete#register_source({
+      \ 'name': 'necovim',
+      \ 'whitelist': ['vim'],
+      \ 'priority': 10,
+      \ 'completor': function('asyncomplete#sources#necovim#completor'),
+      \ })
+'''
+
+[[plugins]]
+repo    = 'Shougo/neco-vim'
+on_func = ['necosyntax#']
+# vim:ft=toml:ts=2:sw=2:fdm=marker:et

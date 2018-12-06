@@ -1,0 +1,89 @@
+#================================================
+# vim/rc/core.toml
+#
+# Core plugins
+#================================================
+[[plugins]]
+repo        = 'Shougo/dein.vim'
+
+
+# for Vim8
+[[plugins]]
+repo = 'roxma/nvim-yarp'
+if   = 'vimrc#is_vim8()'
+
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+if   = 'vimrc#is_vim8()'
+
+
+# Completion base
+[[plugins]]
+repo        = 'prabirshrestha/async.vim'
+
+[[plugins]]
+repo        = 'prabirshrestha/vim-lsp'
+lazy        = 1
+on_func     = ['lsp#']
+hook_source = '''
+  let g:lsp_signs_enabled = 1
+  let g:lsp_diagnostics_echo_cursor = 1
+
+  let g:lsp_signs_error = {'text': '✗'}
+  let g:lsp_signs_warning = {'text': '!'}
+'''
+
+[[plugins]]
+repo        = 'prabirshrestha/asyncomplete.vim'
+lazy        = 1
+on_func     = ['asyncomplete#']
+hook_source = '''
+  let g:asyncomplete_smart_completion = 0" vimrc#is_nvim() || has("lua")
+
+  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+'''
+
+[[plugins]]
+repo        = 'prabirshrestha/asyncomplete-buffer.vim'
+lazy        = 1
+depends     = ['asyncomplete.vim']
+on_event    = ['InsertEnter']
+hook_source = '''
+  call asyncomplete#register_source({
+        \ 'name': 'buffer',
+        \ 'priority': 5,
+        \ 'whitelist': ['*'],
+        \ 'completor': function('asyncomplete#sources#buffer#completor'),
+        \ })
+'''
+
+[[plugins]]
+repo        = 'prabirshrestha/asyncomplete-file.vim'
+lazy        = 1
+depends     = ['asyncomplete.vim']
+on_event    = ['InsertEnter']
+hook_source = '''
+  call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+        \ 'name': 'file',
+        \ 'priority': 11,
+        \ 'whitelist': ['*'],
+        \ 'completor': function('asyncomplete#sources#file#completor'),
+        \ }))
+'''
+
+[[plugins]]
+repo     = 'prabirshrestha/asyncomplete-lsp.vim'
+lazy     = 1
+on_event = ['InsertEnter']
+depends  = ['asyncomplete.vim', 'vim-lsp']
+
+[[plugins]]
+repo        = 'Shougo/echodoc.vim'
+on_event    = 'CompleteDone'
+hook_source = '''
+  set noshowmode
+  call echodoc#enable()
+'''
+# vim:ft=toml:ts=2:sw=2:fdm=marker

@@ -2,14 +2,13 @@
 " vim/init.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 05 Dec. 2018.
+" Last Change: 06 Dec. 2018.
 "==========================================================
 if !1 | finish | endif
 
 augroup MyCmdGroup
   autocmd!
 augroup END
-
 
 function! s:source_config(filename, ...) abort
   let l:parent = get(a:000, 0, 'config')
@@ -64,15 +63,9 @@ if has('vim_starting')
           \ $PYENV_ROOT . '/shims'
           \])
   endif
-
 endif
 
 let mapleader = "\<Space>"
-
-
-" Default colorscheme
-setglobal background=dark
-colorscheme pablo
 
 
 " Plugins
@@ -108,7 +101,6 @@ else
   let g:dein#install_log_filename = expand('')
 
   if dein#load_state(s:dein_cache_dir)
-
     function! s:load_toml(file, ...)
       let l:option = get(a:000, 0, {})
       let l:config_dir = expand('$VIMDIR/rc')
@@ -116,19 +108,17 @@ else
     endfunction
 
     let s:dein_dependencies = [$VIMDIR . '/init.vim']
-    let s:dein_dependencies += split(glob($VIMDIR . '/config/*.vim'), '\n')
+    let s:dein_dependencies += split(glob($VIMDIR . '/vim/autoload/vimrc/*.vim'), '\n')
     let s:dein_dependencies += split(glob($VIMDIR . '/rc/*.toml'), '\n')
 
     call dein#begin(s:dein_cache_dir, s:dein_dependencies)
-
-      " Core plugins
-      call dein#add('Shougo/dein.vim')
-      if vimrc#is_vim8()
-        call s:load_toml('vim8.toml')
-      endif
-
+      call s:load_toml('core.toml')
+      call s:load_toml('git.toml')
       call s:load_toml('appearance.toml')
-
+      call s:load_toml('utility.toml', {'lazy': 1})
+      call s:load_toml('denite.toml', {'lazy': 1, 'on_cmd': ['Denite']})
+      call s:load_toml('filetype/toml.toml', {'lazy': 1, 'on_ft': ['toml']})
+      call s:load_toml('filetype/vim.toml', {'lazy': 1, 'on_ft': ['vim']})
     call dein#end()
     call dein#save_state()
   endif
@@ -137,9 +127,14 @@ else
     call dein#install()
   endif
 
+  " Enable colorscheme
+  setglobal background=dark
   if dein#tap('iceberg.vim')
     colorscheme iceberg
+  else
+    execute 'colorscheme' vimrc#default_colorscheme()
   endif
+  " call dein#call_hook('post_source')
 endif
 
 filetype plugin indent on
@@ -230,7 +225,6 @@ set colorcolumn=100
 
 autocmd MyCmdGroup BufEnter,WinEnter,BufWinEnter * let &l:numberwidth = len(line("$")) + 1
 autocmd MyCmdGroup BufWritePre * call vimrc#auto_mkdir_on_write(expand('<afile>:p:h'), v:cmdbang)
-autocmd MyCmdGroup BufWritePost $MYVIMRC source $MYVIMRC
 autocmd MyCmdGroup FileType gitcommit execute "normal! gg"
 
 if vimrc#is_nvim()

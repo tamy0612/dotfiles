@@ -1,0 +1,61 @@
+#================================================
+# vim/rc/utility.toml
+#
+# Utility plugins
+#================================================
+[[plugins]]
+repo        = 'tpope/vim-commentary'
+on_cmd      = 'Commentary'
+hook_add    = '''
+  map <silent> <Leader>c :Commentary<CR>
+'''
+
+[[plugins]]
+repo        = 'h1mesuke/vim-alignta'
+on_cmd      = 'Align'
+
+[[plugins]]
+repo        = 'thinca/vim-template'
+on_cmd      = 'TemplateLoad'
+hook_add    = 'source $VIMDIR/config/dein/rc/template.vim'
+
+[[plugins]]
+repo        = 'ntpeters/vim-better-whitespace'
+on_event    = 'InsertLeave'
+hook_source = '''
+  let g:strip_whitespace_on_save = 1
+  let g:strip_whitelines_at_eof = 1
+'''
+
+[[plugins]]
+repo        = 'AndrewRadev/switch.vim'
+on_cmd      = 'Switch'
+on_func     = 'switch#Switch'
+hook_source = '''
+  let g:switch_mapping = ""
+'''
+
+[[plugins]]
+repo        = 'cohama/lexima.vim'
+on_event    = 'InsertEnter'
+
+[[plugins]]
+repo        = 'sbdchd/neoformat'
+on_cmd      = 'Neoformat'
+hook_add    = '''
+  source $VIMDIR/config/dein/rc/neoformat.vim
+  for config in keys(g:neoformat_rules)
+    execute 'autocmd' 'MyCmdGroup BufWritePre ' . g:neoformat_rules[config].pattern . ' Neoformat! ' . config
+    execute 'autocmd' 'MyCmdGroup FileType ' . g:neoformat_rules[config].filetype . ' nnoremap <buffer> = :<C-u>Neoformat! ' . config . '<CR>'
+  endfor
+'''
+
+[[plugins]]
+repo        = 'vim-scripts/autodate.vim'
+on_event    = 'BufWritePre'
+hook_source = '''
+  let g:autodate_keyword_pre  = "Last Change:"
+  let g:autodate_keyword_post = "."
+  let g:autodate_format       = "%d %b. %Y"
+'''
+# vim:ft=toml:ts=2:sw=2:fdm=marker

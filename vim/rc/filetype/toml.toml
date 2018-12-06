@@ -1,11 +1,9 @@
 #================================================
-# vim/rc/vim8.toml
-#
-# Plugins for compatibility with Vim8
+# vim/rc/filetype/toml.toml
 #================================================
 [[plugins]]
-repo = 'roxma/nvim-yarp'
-
-[[plugins]]
-repo = 'roxma/vim-hug-neovim-rpc'
+repo      = 'cespare/vim-toml'
+hook_add  = '''
+  autocmd MyCmdGroup BufNewFile,BufRead *.toml set filetype=toml
+'''
 # vim:ft=toml:ts=2:sw=2:fdm=marker
