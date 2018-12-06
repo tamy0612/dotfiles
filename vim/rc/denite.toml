@@ -5,6 +5,7 @@
 #================================================
 [[plugins]]
 repo        = 'Shougo/denite.nvim'
+on_cmd      = ['Denite']
 on_func     = ['denite#']
 if          = 'vimrc#is_nvim() || (vimrc#is_vim8() && has("python3"))'
 hook_add    = 'call plugins#denite#mapping()'

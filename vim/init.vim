@@ -116,7 +116,7 @@ else
       call s:load_toml('git.toml')
       call s:load_toml('appearance.toml')
       call s:load_toml('utility.toml', {'lazy': 1})
-      call s:load_toml('denite.toml', {'lazy': 1, 'on_cmd': ['Denite']})
+      call s:load_toml('denite.toml', {'lazy': 1})
       call s:load_toml('filetype/toml.toml', {'lazy': 1, 'on_ft': ['toml']})
       call s:load_toml('filetype/vim.toml', {'lazy': 1, 'on_ft': ['vim']})
     call dein#end()
