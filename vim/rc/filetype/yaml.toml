@@ -1,0 +1,6 @@
+#================================================
+# vim/rc/filetype/yaml.toml
+#================================================
+[[plugins]]
+repo = 'stephpy/vim-yaml'
+# vim:ft=toml:ts=2:sw=2:fdm=marker:et

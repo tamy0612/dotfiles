@@ -3,10 +3,24 @@
 export LANG=en_US.UTF-8
 export KCODE=u
 
-# path
+# TeX
 path=(
-  /Library/TeX/texbin(N-/)
-  ${path}
+    /Library/TeX/texbin(N-/)
+    ${path}
+)
+
+# Clang
+path=(
+    ${BREW_HOME}/opt/llvm/bin(N-/)
+    ${path}
+)
+ld_library_path=(
+    ${BREW_HOME}/opt/llvm/lib(N-/)
+    ${ld_library_path}
+)
+manpath=(
+    ${BREW_HOME}/opt/llvm/share/man(N-/)
+    ${manpath}
 )
 
 # Editor
@@ -28,5 +42,10 @@ fi
 
 # curl setting
 if [ -f $HOME/.curl/ca-bundle.crt ]; then
-  export CURL_CA_BUNDLE=$HOME/.curl/ca-bundle.crt
+    export CURL_CA_BUNDLE=$HOME/.curl/ca-bundle.crt
+fi
+
+# FZF
+if [ -e $BREW_HOME/opt/fzf ]; then
+    export FZF_HOME=$BREW_HOME/opt/fzf
 fi

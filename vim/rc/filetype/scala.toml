@@ -1,0 +1,14 @@
+#================================================
+# vim/rc/filetype/scala.toml
+#================================================
+[[plugins]]
+repo        = 'derekwyatt/vim-scala'
+hook_add    = '''
+  au BufRead,BufNewFile *.scala set filetype=scala
+  au BufRead,BufNewFile *.sbt set filetype=sbt.scala commentstring=//\ %s
+'''
+hook_source = '''
+  let g:scala_scaladoc_indent = 1
+  setlocal tabstop=2 shiftwidth=2
+'''
+# vim:ft=toml:ts=2:sw=2:fdm=marker:et

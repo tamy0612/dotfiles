@@ -2,7 +2,7 @@
 " vim/init.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 06 Dec. 2018.
+" Last Change: 21 Jan. 2019.
 "==========================================================
 if !1 | finish | endif
 
@@ -101,24 +101,35 @@ else
   let g:dein#install_log_filename = expand('')
 
   if dein#load_state(s:dein_cache_dir)
-    function! s:load_toml(file, ...)
+    function! s:load_toml(file, ...) abort
       let l:option = get(a:000, 0, {})
       let l:config_dir = expand('$VIMDIR/rc')
       call dein#load_toml(join([l:config_dir, a:file], '/'), l:option)
     endfunction
 
-    let s:dein_dependencies = [$VIMDIR . '/init.vim']
-    let s:dein_dependencies += split(glob($VIMDIR . '/vim/autoload/vimrc/*.vim'), '\n')
+    function! s:load_toml_lazy(file, ...) abort
+      let l:option = extend(get(a:000, 0, {}), {'lazy': 1})
+      call s:load_toml(a:file, l:option)
+    endfunction
+
+    let s:dein_dependencies = [$VIMDIR . '/init.vim', $VIMDIR . '/autoload/vimrc.vim']
+    let s:dein_dependencies += split(glob($VIMDIR . '/autoload/plugins/*.vim'), '\n')
     let s:dein_dependencies += split(glob($VIMDIR . '/rc/*.toml'), '\n')
 
     call dein#begin(s:dein_cache_dir, s:dein_dependencies)
       call s:load_toml('core.toml')
       call s:load_toml('git.toml')
       call s:load_toml('appearance.toml')
-      call s:load_toml('utility.toml', {'lazy': 1})
-      call s:load_toml('denite.toml', {'lazy': 1})
-      call s:load_toml('filetype/toml.toml', {'lazy': 1, 'on_ft': ['toml']})
-      call s:load_toml('filetype/vim.toml', {'lazy': 1, 'on_ft': ['vim']})
+      call s:load_toml_lazy('completion.toml', {'on_event': ['InsertEnter']})
+      call s:load_toml_lazy('lsp.toml', {'on_ft': plugins#lsp#on_ft()})
+      call s:load_toml_lazy('fzf.toml', {'if': plugins#fzf#is_available()})
+      call s:load_toml_lazy('filetype/toml.toml', {'on_ft': ['toml']})
+      call s:load_toml_lazy('filetype/vim.toml', {'on_ft': ['vim']})
+      call s:load_toml_lazy('filetype/cpp.toml', {'on_ft': ['c', 'cpp']})
+      call s:load_toml_lazy('filetype/scala.toml', {'on_ft': ['sbt', 'scala']})
+      call s:load_toml_lazy('filetype/yaml.toml', {'on_ft': 'yaml'})
+      call s:load_toml_lazy('utility.toml')
+      " call s:load_toml_lazy('denite.toml')
     call dein#end()
     call dein#save_state()
   endif

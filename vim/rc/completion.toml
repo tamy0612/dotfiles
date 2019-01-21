@@ -1,0 +1,110 @@
+#================================================
+# vim/rc/completion.toml
+#================================================
+[[plugins]]
+# repo        = 'prabirshrestha/asyncomplete.vim'
+repo        = 'tamy0612/asyncomplete.vim'
+rev         = 'fixblinking'
+on_func     = ['asyncomplete#']
+hook_source = '''
+  let g:asyncomplete_auto_popup = 1
+  let g:asyncomplete_smart_completion = 1
+  let g:asyncomplete_smart_completion = vimrc#is_nvim() || has("lua")
+  let g:asyncomplete_log_file = expand("$VIMDIR/asyncomplete.log")
+
+  function! s:check_backspace() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+  endfunction
+
+  inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : <SID>check_backspace() ? "\<Tab>" : asyncomplete#force_refresh()
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  inoremap <expr> <CR>    pumvisible() ? "\<C-y>" : "\<CR>"
+'''
+hook_post_source = '''
+  setglobal completeopt+=noinsert,noselect
+'''
+
+[[plugins]]
+repo             = 'prabirshrestha/asyncomplete-buffer.vim'
+depends          = ['asyncomplete.vim']
+hook_post_source = '''
+  call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+        \ 'name': 'buffer',
+        \ 'priority': 0,
+        \ 'whitelist': ['*'],
+        \ 'completor': function('asyncomplete#sources#buffer#completor'),
+        \ }))
+'''
+
+[[plugins]]
+repo             = 'prabirshrestha/asyncomplete-file.vim'
+depends          = ['asyncomplete.vim']
+hook_post_source = '''
+  call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+        \ 'name': 'file',
+        \ 'priority': 0,
+        \ 'whitelist': ['*'],
+        \ 'completor': function('asyncomplete#sources#file#completor'),
+        \ }))
+'''
+
+[[plugins]]
+repo        = 'yami-beta/asyncomplete-omni.vim'
+depends     = ['asyncomplete.vim']
+hook_post_source = '''
+  call asyncomplete#register_source({
+      \ 'name': 'omni',
+      \ 'priority': 5,
+      \ 'whitelist': ['*'],
+      \ 'blacklist': ['c', 'cpp', 'html', 'ruby'],
+      \ 'completor': function('asyncomplete#sources#omni#completor')
+      \  })
+'''
+
+[[plugins]]
+repo        = 'prabirshrestha/asyncomplete-neosnippet.vim'
+depends     = ['asyncomplete.vim', 'neosnippet.vim']
+hook_post_source = '''
+  call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
+      \ 'name': 'neosnippet',
+      \ 'whitelist': ['*'],
+      \ 'priority': 6,
+      \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
+      \ }))
+'''
+
+[[plugins]]
+repo        = 'Shougo/neosnippet.vim'
+depends     = 'neosnippet-snippets'
+hook_source = '''
+  imap <C-k> <Plug>(neosnippet_expand_or_jump)
+  smap <C-k> <Plug>(neosnippet_expand_or_jump)
+
+  imap <expr> <TAB> neosnippet#jumpable() ? '<Plug>(neosnippet_expand_or_jump)' : pumvisible() ? "\<C-n>" : "\<Tab>"
+  smap <expr> <TAB> neosnippet#jumpable() ? '<Plug>(neosnippet_expand_or_jump)' : "\<Tab>"
+
+  let g:neosnippet#data_directory = expand('$VIM_CACHE_DIR/neosnippet')
+
+  let g:neosnippet#snippets_directory = [
+        \   '~/.cache/vim/dein/repos/github.com/honza/vim-snippets/snippets/',
+        \ ]
+'''
+
+[[plugins]]
+repo      = 'Shougo/neosnippet-snippets'
+on_source = 'neosnippet.vim'
+
+[[plugins]]
+repo = 'honza/vim-snippets'
+rtp  = ''
+
+# [[plugins]]
+# repo        = 'Shougo/echodoc.vim'
+# on_event    = 'CompleteDone'
+# hook_source = '''
+#   set noshowmode
+#   call echodoc#enable()
+# '''
+
+# vim:ft=toml:ts=2:sw=2:fdm=marker:et

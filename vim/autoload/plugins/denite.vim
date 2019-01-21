@@ -1,6 +1,6 @@
 function! plugins#denite#mapping() abort
   " Shortcut
-  nnoremap <silent> / :<C-u>Denite line<CR>
+  " nnoremap <silent> / :<C-u>Denite line<CR>
 
   " Denite mapping
   nnoremap [denite] <Nop>

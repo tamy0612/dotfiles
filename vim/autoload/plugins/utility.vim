@@ -1,10 +1,11 @@
 "==========================================================
-" vim/config/dein/rc/template.init.vim
+" vim/autoload/plugins/utility.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 12 Apr. 2018.
+" Last Change: 17 Dec. 2018.
 "==========================================================
-augroup MyInitialTemplates
+function! plugins#utility#register_template() abort
+  augroup MyTemplates
     autocmd!
     autocmd BufNewFile *.h            execute 'TemplateLoad /init.h'
     autocmd BufNewFile *.hpp          execute 'TemplateLoad /init.hpp'
@@ -17,5 +18,26 @@ augroup MyInitialTemplates
     autocmd BufNewFile CMakeLists.txt execute 'TemplateLoad /init.cmake'
     autocmd BufNewFile *.toml         execute 'TemplateLoad /init.toml'
     autocmd BufNewFile *.py           execute 'TemplateLoad /init.py'
-augroup END
+  augroup END
+endfunction
+
+function! plugins#utility#register_precious() abort
+  augroup Precious
+    autocmd!
+    autocmd FileType toml :PreciousSwitch
+  augroup END
+endfunction
+
+function! plugins#utility#is_fzf_available() abort
+  return exists('$FZF_HOME')
+endfunction
+
+function! plugins#utility#fzf_mapping() abort
+  nmap <silent> <Leader>b :Buffers<CR>
+  nmap <silent> <Leader>f :Files<CR>
+  nmap <silent> <Leader>F :GFiles?<CR>
+  nmap <Leader>g :Ag<Space>
+  nmap / :BLines<CR>
+  nmap q: :History:<CR>
+endfunction
 " vim:ft=vim:ts=2:sw=2:fdm=marker

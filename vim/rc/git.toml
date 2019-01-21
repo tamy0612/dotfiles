@@ -16,6 +16,8 @@ hook_source = '''
     call gina#custom#command#option(kind, '--opener', 'split')
     execute 'autocmd' 'MyCmdGroup Filetype gine-' . kind . ' nnoremap q :q<CR>'
   endfor
+
+  cabbrev git Gina
 '''
 
 [[plugins]]
@@ -36,4 +38,9 @@ hook_source = '''
   nmap <silent> [git]n :GitGutterNextHunk<CR>
   nmap <silent> [git]p :GitGutterPrevHunk<CR>
 '''
+
+# For FZF
+[[plugins]]
+repo   = 'tpope/vim-fugitive'
+on_cmd = ['FugitiveFind']
 # vim:ft=toml:ts=2:sw=2:fdm=marker

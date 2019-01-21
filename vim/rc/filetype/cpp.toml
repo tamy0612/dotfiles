@@ -1,0 +1,26 @@
+#================================================
+# vim/rc/filetype/cpp.toml
+#================================================
+[[plugins]]
+repo = 'vim-jp/cpp-vim'
+
+[[plugins]]
+repo = 'octol/vim-cpp-enhanced-highlight'
+
+[[plugins]]
+repo        = 'keremc/asyncomplete-clang.vim'
+depends     = ['asyncomplete.vim']
+hook_source = '''
+  call asyncomplete#register_source(
+      \ asyncomplete#sources#clang#get_source_options({
+      \     'priority': 10,
+      \     'config': {
+      \         'clang_path': '/opt/llvm/bin/clang',
+      \         'clang_args': {
+      \             'default': ['-I/opt/llvm/include'],
+      \             'cpp': ['-std=c++1z', '-I/opt/llvm/include']
+      \         }
+      \     }
+      \ }))
+'''
+# vim:ft=toml:ts=2:sw=2:fdm=marker:et

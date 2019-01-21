@@ -4,14 +4,22 @@
 # Plugins for appearance
 #================================================
 [[plugins]]
-repo     = 'tamy0612/clone.vim'
-
-[[plugins]]
 repo     = 'joshdick/onedark.vim'
 
 [[plugins]]
 repo     = 'cocopon/iceberg.vim'
 
+
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+hook_add = '''
+  let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+  if vimrc#is_linux()
+    set guifont=Hack\ Nerd\ Font\ 11
+  else
+    set guifont=Hack_Nerd_Font:h11
+  endif
+'''
 
 [[plugins]]
 repo     = 'itchyny/lightline.vim'
@@ -55,4 +63,11 @@ hook_add = '''
   let g:indentLine_setColors = 1
   let g:indentLine_color_term = 243
 '''
+
+[[plugins]]
+repo    = 'osyo-manga/vim-precious'
+lazy    = 1
+depends = ['context_filetype.vim']
+on_cmd  = ['PreciousSwitch', 'PreciousReset']
+hook_add = 'call plugins#utility#register_precious()'
 # vim:ft=toml:ts=2:sw=2:fdm=marker

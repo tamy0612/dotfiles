@@ -44,3 +44,23 @@ if type dmd > /dev/null 2>&1 ; then
     /usr/include/dmd/phobos(N-/)
   )
 fi
+
+# FZF
+if [ -e $FZF_HOME ] ; then
+    if type rg > /dev/null 2>&1 ; then
+        export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
+        export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+        export FZF_ALT_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    elif type ag > /dev/null 2>&1 ; then
+        export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
+        export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+        export FZF_ALT_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    fi
+    export FZF_DEFAULT_OPTS='
+        --reverse
+        --color info:108,prompt:109,spinner:108,pointer:168,marker:168
+    '
+    export FZF_COMPLETION_OPTS='
+        --preview "(head -n 50 {} || tree {}) 2> /dev/null"
+    '
+fi

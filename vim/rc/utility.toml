@@ -17,26 +17,11 @@ on_cmd      = 'Align'
 [[plugins]]
 repo        = 'thinca/vim-template'
 on_cmd      = 'TemplateLoad'
-hook_add    = '''
-  augroup MyInitialTemplates
-    autocmd!
-    autocmd BufNewFile *.h            execute 'TemplateLoad /init.h'
-    autocmd BufNewFile *.hpp          execute 'TemplateLoad /init.hpp'
-    autocmd BufNewFile *.d            execute 'TemplateLoad /init.d'
-    autocmd BufNewFile *.java         execute 'TemplateLoad /init.java'
-    autocmd BufNewFile build.sbt      execute 'TemplateLoad /init.sbt.scala'
-    autocmd BufNewFile *.scala        execute 'TemplateLoad /init.scala'
-    autocmd BufNewFile *.vim          execute 'TemplateLoad /init.vim'
-    autocmd BufNewFile *.tikz         execute 'TemplateLoad /init.tikz'
-    autocmd BufNewFile CMakeLists.txt execute 'TemplateLoad /init.cmake'
-    autocmd BufNewFile *.toml         execute 'TemplateLoad /init.toml'
-    autocmd BufNewFile *.py           execute 'TemplateLoad /init.py'
-  augroup END
-'''
+hook_add    = 'call plugins#utility#register_template()'
 
 [[plugins]]
 repo        = 'ntpeters/vim-better-whitespace'
-on_event    = 'InsertLeave'
+on_event    = 'InsertEnter'
 hook_source = '''
   let g:strip_whitespace_on_save = 1
   let g:strip_whitelines_at_eof = 1
@@ -75,14 +60,86 @@ hook_source = '''
 '''
 
 [[plugins]]
-repo        = 'scrooloose/nerdtree'
-on_cmd      = ['NERDTree', 'NERDTreeFind', 'NERDTreeToggle']
-hook_add    = '''
-  nmap <silent> <Leader>f :<C-u>NERDTreeToggle<CR>
+repo     = 'scrooloose/nerdtree'
+on_cmd   = ['NERDTree', 'NERDTreeFind', 'NERDTreeToggle']
+hook_add = '''
+  " nmap <silent> <Leader>f :<C-u>NERDTreeToggle<CR>
 '''
 hook_source = '''
   let g:NERDTreeMinimalUI = 1
   let g:NERDTreeQuitOnOpen = 0
   let g:NERDTreeShowHidden = 1
 '''
+
+[[plugins]]
+repo      = 'Xuyuanp/nerdtree-git-plugin'
+on_source = 'nerdtree'
+
+[[plugins]]
+repo        = 'terryma/vim-expand-region'
+on_map      = ['<Plug>(expand_region_expand)']
+hook_add    = '''
+  vmap v <Plug>(expand_region_expand)
+  vmap <C-v> <Plug>(expand_region_shrink)
+'''
+hook_source      = '''
+  let g:expand_region_text_objects = {
+      \ 'iw': 1,
+      \ 'iW': 0,
+      \ 'i"': 1,
+      \ "i'": 0,
+      \ 'i]': 1,
+      \ 'ib': 1,
+      \ 'iB': 1,
+      \ 'il': 1,
+      \ 'ip': 1,
+      \ 'ie': 0
+      \}
+'''
+hook_post_source = '''
+  call expand_refion#custom_text_objects({
+      \ 'a]': 1,
+      \ 'ab': 1,
+      \ 'aB': 1
+      \})
+'''
+
+[[plugins]]
+repo        = 'easymotion/vim-easymotion'
+on_map      = '<Plug>'
+hook_add    = '''
+  noremap [easy-motion] <Nop>
+  nmap m [easy-motion]
+
+  nmap [easy-motion]f <Plug>(easymotion-fn)
+  nmap [easy-motion]m <Plug>(easymotion-sn)
+  nmap [easy-motion]h <Plug>(easymotion-linebackward)
+  nmap [easy-motion]j <Plug>(easymotion-j)
+  nmap [easy-motion]k <Plug>(easymotion-k)
+  nmap [easy-motion]l <Plug>(easymotion-lineforward)
+  nmap [easy-motion]w <Plug>(easymotion-bd-w)
+  nmap [easy-motion]e <Plug>(easymotion-bd-e)
+'''
+hook_source = '''
+  let g:EasyMotion_do_mapping = 0         " Disable default mappings
+  let g:EasyMotion_smartcase = 1          " Turn on case insensitive feature
+  let g:EasyMotion_use_upper = 0          " Use uppercase target labels and type as a lower case
+  let g:EasyMotion_smartcase = 1          " type `l` and match `l`&`L`
+  let g:EasyMotion_use_smartsign_us = 1   " Smartsign (type `3` and match `3`&`#`)
+  let g:EasyMotion_startofline = 0        " keep cursor column when JK motion
+'''
+
+[[plugins]]
+repo       = 'haya14busa/vim-asterisk'
+on_map     = '<Plug>'
+hook_add   = '''
+  map * <Plug>(asterisk-z*)
+  map g* <Plug>(asterisk-gz*)
+  map # <Plug>(asterisk-z#)
+  map g# <Plug>(asterisk-gz#)
+'''
+
+[[plugins]]
+repo     = 'machakann/vim-sandwich'
+on_event = 'VimEnter'
 # vim:ft=toml:ts=2:sw=2:fdm=marker

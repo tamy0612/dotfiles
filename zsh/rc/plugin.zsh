@@ -24,3 +24,9 @@ _load_plugins $ZPLUGINDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # tmux
 _load_plugins $ZPLUGINDIR/tmux.zsh/tmux.zsh
+
+# fzf
+if [ -e $FZF_HOME ] ; then
+  source $FZF_HOME/shell/completion.zsh
+  source $FZF_HOME/shell/key-bindings.zsh
+fi
