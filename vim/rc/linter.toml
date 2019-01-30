@@ -1,0 +1,30 @@
+#================================================
+# vim/rc/linter.toml
+#================================================
+[[plugins]]
+repo        = 'w0rp/ale'
+on_map      = '<Plug>'
+on_cmd      = ['ALEEnable', 'ALEToggle']
+on_ft       = ['c', 'cpp', 'd', 'rust', 'typescript', 'python', 'php']
+hook_add    = '''
+  let g:ale_lint_on_save          = 1
+  let g:ale_lint_on_text_changed  = 'normal'
+  let g:ale_lint_on_enter         = 0
+  let g:ale_open_list             = 1
+  let g:ale_keep_list_window_open = 0
+  let g:ale_sign_error = '✗'
+  let g:ale_sign_warning = '!'
+  let g:ale_echo_msg_error_str    = g:ale_sign_error
+  let g:ale_echo_msg_warning_str  = g:ale_sign_warning
+  let g:ale_echo_msg_format       = '[%linter%] %s [%severity%]'
+
+  let g:ale_linters = get(g:, 'ale_linters', {})
+'''
+hook_source_pre = '''
+  call plugins#linter#register_linters()
+'''
+hook_source = '''
+  nmap <silent> <C-p> <Plug>(ale_previous_wrap)
+  nmap <silent> <C-n> <Plug>(ale_next_wrap)
+'''
+# vim:ft=toml:ts=2:sw=2:fdm=marker:et

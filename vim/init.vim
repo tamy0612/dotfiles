@@ -122,6 +122,7 @@ else
       call s:load_toml('appearance.toml')
       call s:load_toml_lazy('completion.toml', {'on_event': ['InsertEnter']})
       call s:load_toml_lazy('lsp.toml', {'on_ft': plugins#lsp#on_ft()})
+      call s:load_toml_lazy('linter.toml')
       call s:load_toml_lazy('fzf.toml', {'if': plugins#fzf#is_available()})
       call s:load_toml_lazy('filetype/toml.toml', {'on_ft': ['toml']})
       call s:load_toml_lazy('filetype/vim.toml', {'on_ft': ['vim']})
