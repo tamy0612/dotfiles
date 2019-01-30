@@ -6,7 +6,7 @@
 "==========================================================
 
 function! plugins#lsp#on_ft() abort
-  return ['c', 'cpp']
+  return ['c', 'cpp', 'typescript']
 endfunction
 
 function! plugins#lsp#register_lsp() abort
