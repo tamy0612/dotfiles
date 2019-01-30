@@ -49,3 +49,9 @@ fi
 if [ -e $BREW_HOME/opt/fzf ]; then
     export FZF_HOME=$BREW_HOME/opt/fzf
 fi
+
+# MySQL client
+path=(
+    ${BREW_HOME}/opt/mysql-client/bin(N-/)
+    ${path}
+)
