@@ -2,8 +2,7 @@
 # vim/rc/completion.toml
 #================================================
 [[plugins]]
-# repo        = 'prabirshrestha/asyncomplete.vim'
-repo        = 'tamy0612/asyncomplete.vim'
+repo        = 'prabirshrestha/asyncomplete.vim'
 rev         = 'fixblinking'
 on_func     = ['asyncomplete#']
 hook_source = '''

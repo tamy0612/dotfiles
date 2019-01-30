@@ -2,7 +2,7 @@
 " vim/init.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 21 Jan. 2019.
+" Last Change: 30 Jan. 2019.
 "==========================================================
 if !1 | finish | endif
 
@@ -128,6 +128,7 @@ else
       call s:load_toml_lazy('filetype/cpp.toml', {'on_ft': ['c', 'cpp']})
       call s:load_toml_lazy('filetype/scala.toml', {'on_ft': ['sbt', 'scala']})
       call s:load_toml_lazy('filetype/yaml.toml', {'on_ft': 'yaml'})
+      call s:load_toml_lazy('filetype/typescript.toml', {'on_ft': 'typescript'})
       call s:load_toml_lazy('utility.toml')
       " call s:load_toml_lazy('denite.toml')
     call dein#end()
