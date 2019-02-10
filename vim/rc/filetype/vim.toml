@@ -7,8 +7,8 @@
 [[plugins]]
 repo = 'prabirshrestha/asyncomplete-necovim.vim'
 depends = ['asyncomplete.vim']
-hook_post_source = '''
-  call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
+hook_source = '''
+  autocmd MyCmdGroup User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
       \ 'name': 'necovim',
       \ 'whitelist': ['vim'],
       \ 'priority': 10,
@@ -19,22 +19,6 @@ hook_post_source = '''
 [[plugins]]
 repo    = 'Shougo/neco-vim'
 on_func = ['necovim#']
-
-[[plugins]]
-repo        = 'prabirshrestha/asyncomplete-necosyntax.vim'
-depends     = ['asyncomplete.vim']
-hook_post_source = '''
-  call asyncomplete#register_source(asyncomplete#sources#necosyntax#get_source_options({
-      \ 'name': 'necosyntax',
-      \ 'priority': 5,
-      \ 'whitelist': ['*'],
-      \ 'completor': function('asyncomplete#sources#necosyntax#completor'),
-      \ }))
-'''
-
-[[plugins]]
-repo        = 'Shougo/neco-syntax'
-on_func     = ['necosyntax#']
 
 
 # Linter

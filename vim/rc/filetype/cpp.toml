@@ -11,7 +11,7 @@ repo = 'octol/vim-cpp-enhanced-highlight'
 repo        = 'keremc/asyncomplete-clang.vim'
 depends     = ['asyncomplete.vim']
 hook_source = '''
-  call asyncomplete#register_source(
+  autocmd MyCmdGroup User asyncomplete_setup call asyncomplete#register_source(
       \ asyncomplete#sources#clang#get_source_options({
       \     'priority': 10,
       \     'config': {
