@@ -147,4 +147,8 @@ fi
 
 
 # Start on tmux
-open_tmux
+if ! is_tmux_running; then
+    open_tmux
+else
+    on_login_tmux_session
+fi
