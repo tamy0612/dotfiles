@@ -19,8 +19,9 @@ hook_source = '''
   inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
   inoremap <expr> <CR>    pumvisible() ? "\<C-y>" : "\<CR>"
 '''
-hook_post_source = '''
-  setglobal completeopt+=noinsert,noselect
+hook_source = '''
+  setglobal completeopt+=noinsert,noselect,preview
+  autocmd MyCmdGroup CompleteDone * if pumvisible() == 0 | pclose |endif
 '''
 
 [[plugins]]
@@ -51,13 +52,13 @@ hook_source = '''
 repo        = 'yami-beta/asyncomplete-omni.vim'
 depends     = ['asyncomplete.vim']
 hook_source = '''
-  autocmd MyCmdGroup User asyncomplete_setup call asyncomplete#register_source({
+  autocmd MyCmdGroup User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
       \ 'name': 'omni',
       \ 'priority': 5,
       \ 'whitelist': ['*'],
       \ 'blacklist': ['c', 'cpp', 'html', 'ruby'],
       \ 'completor': function('asyncomplete#sources#omni#completor')
-      \  })
+      \  }))
 '''
 
 [[plugins]]
@@ -100,7 +101,7 @@ rtp  = ''
 [[plugins]]
 repo        = 'prabirshrestha/asyncomplete-necosyntax.vim'
 depends     = ['asyncomplete.vim']
-hook_post_source = '''
+hook_source = '''
   autocmd MyCmdGroup User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necosyntax#get_source_options({
       \ 'name': 'necosyntax',
       \ 'priority': 5,

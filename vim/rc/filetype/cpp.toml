@@ -23,4 +23,21 @@ hook_source = '''
       \     }
       \ }))
 '''
+
+[[plugins]]
+repo = 'kyouryuukunn/asyncomplete-neoinclude.vim'
+depends = ['asyncomplete.vim']
+hook_source = '''
+  autocmd MyCmdGroup User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#neoinclude#get_source_options({
+      \ 'name': 'neoinclude',
+      \ 'whitelist': ['c', 'cpp'],
+      \ 'reflesh_pattern': '\(<|"\|/\)$',
+      \ 'completor': function('asyncomplete#sources#neoinclude#completor')
+      \}))
+'''
+
+[[plugins]]
+repo = 'Shougo/neoinclude.vim'
+on_func = 'neoinclude#'
+
 # vim:ft=toml:ts=2:sw=2:fdm=marker:et
