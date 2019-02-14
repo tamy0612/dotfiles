@@ -8,10 +8,10 @@
 repo = 'prabirshrestha/asyncomplete-necovim.vim'
 depends = ['asyncomplete.vim']
 hook_source = '''
-  autocmd MyCmdGroup User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
+  call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
       \ 'name': 'necovim',
       \ 'whitelist': ['vim'],
-      \ 'priority': 10,
+      \ 'priority': 5,
       \ 'completor': function('asyncomplete#sources#necovim#completor'),
       \ }))
 '''

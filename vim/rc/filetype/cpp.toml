@@ -7,29 +7,37 @@ repo = 'vim-jp/cpp-vim'
 [[plugins]]
 repo = 'octol/vim-cpp-enhanced-highlight'
 
-[[plugins]]
-repo        = 'keremc/asyncomplete-clang.vim'
-depends     = ['asyncomplete.vim']
-hook_source = '''
-  autocmd MyCmdGroup User asyncomplete_setup call asyncomplete#register_source(
-      \ asyncomplete#sources#clang#get_source_options({
-      \     'priority': 10,
-      \     'config': {
-      \         'clang_path': '/opt/llvm/bin/clang',
-      \         'clang_args': {
-      \             'default': ['-I/opt/llvm/include'],
-      \             'cpp': ['-std=c++1z', '-I/opt/llvm/include']
-      \         }
-      \     }
-      \ }))
-'''
+# [[plugins]]
+# repo        = 'keremc/asyncomplete-clang.vim'
+# depends     = ['asyncomplete.vim']
+# hook_source = '''
+#   let s:clang_path = get(g:, 'clang_path', expand('$BREW_HOME/opt/llvm/bin/clang'))
+#   let s:clang_args = get(g:, 'clang_args', {
+#       \ 'default': ['-I$BREW_HOME/opt/llvm/include'],
+#       \ 'cpp': ['-std=c++1z', '-I$BREW_HOME//opt/llvm/include']
+#       \})
+#   call asyncomplete#register_source(
+#       \ asyncomplete#sources#clang#get_source_options({
+#       \   'priority': 3,
+#       \   'config': {
+#       \     'clang_path': s:clang_path,
+#       \     'clang_args': s:clang_args
+#       \   }
+#       \ }))
+# '''
 
 [[plugins]]
 repo = 'kyouryuukunn/asyncomplete-neoinclude.vim'
 depends = ['asyncomplete.vim']
+hook_add = '''
+  let g:neoinclude#ctags_commands = get(g:, 'neoinclude#ctags_commands', {})
+  let g:neoinclude#ctags_commands['c'] = 'rtags'
+  let g:neoinclude#ctags_commands['cpp'] = 'rtags'
+'''
 hook_source = '''
-  autocmd MyCmdGroup User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#neoinclude#get_source_options({
+  call asyncomplete#register_source(asyncomplete#sources#neoinclude#get_source_options({
       \ 'name': 'neoinclude',
+      \ 'priority': 5,
       \ 'whitelist': ['c', 'cpp'],
       \ 'reflesh_pattern': '\(<|"\|/\)$',
       \ 'completor': function('asyncomplete#sources#neoinclude#completor')
