@@ -1,14 +1,35 @@
 "==========================================================
-" vim/autoload/plugins/lightline.vim
+" vim/rc/lightline.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 06 Dec. 2018.
+" Last Change: 26 Feb. 2019.
 "==========================================================
-function! plugins#lightline#mode() abort
-  return tolower(s:mode())
+let g:lightline = {
+      \ 'active': {
+      \   'left': [['mode', 'paste'], ['filestatus', 'filename']],
+      \   'right': [['lineinfo'], ['gitinfo', 'gitstatus'], ['lint']]
+      \ },
+      \ 'inactive': {
+      \   'left': [['filestatus', 'filename']],
+      \   'right': [['gitinfo', 'gitstatus']]
+      \ },
+      \ 'component_function': {
+      \   'mode': 'rc#lightline#mode',
+      \   'paste': 'rc#lightline#paste',
+      \   'filestatus': 'rc#lightline#file_status',
+      \   'filename': 'rc#lightline#filename',
+      \   'lint': 'rc#lightline#lint_info',
+      \   'gitinfo': 'rc#lightline#git_branch',
+      \   'gitstatus': 'rc#lightline#git_status',
+      \   'lineinfo': 'rc#lightline#line'
+      \ }
+      \}
+
+function! rc#lightline#mode() abort
+  return tolower(s:mode_string())
 endfunction
 
-function! s:mode() abort
+function! s:mode_string() abort
   if s:is_filetype('denite')
     return substitute(denite#get_status_mode(), '-\|\s', '', 'g')
   endif
@@ -16,12 +37,12 @@ function! s:mode() abort
 endfunction
 
 
-function! plugins#lightline#paste() abort
+function! rc#lightline#paste() abort
   return &paste ? 'paste' : ''
 endfunction
 
 
-function! plugins#lightline#file_status() abort
+function! rc#lightline#file_status() abort
   if s:is_filetype('nerdtree')
     return ''
   endif
@@ -29,7 +50,7 @@ function! plugins#lightline#file_status() abort
 endfunction
 
 
-function! plugins#lightline#filename() abort
+function! rc#lightline#filename() abort
   if s:is_filetype('nerdtree')
     return ''
   endif
@@ -62,7 +83,7 @@ function! plugins#lightline#filename() abort
 endfunction
 
 
-function! plugins#lightline#lint_info() abort
+function! rc#lightline#lint_info() abort
   try
     let l:counts = ale#statusline#Count(bufnr(''))
   catch
@@ -77,7 +98,7 @@ function! plugins#lightline#lint_info() abort
 endfunction
 
 
-function! plugins#lightline#git_branch() abort
+function! rc#lightline#git_branch() abort
   try
     let l:branch = gina#component#repo#branch()
   catch
@@ -90,7 +111,7 @@ function! plugins#lightline#git_branch() abort
 endfunction
 
 
-function! plugins#lightline#git_status() abort
+function! rc#lightline#git_status() abort
   if s:is_filetype('help', 'unite', 'denite', 'nerdtree')
     return ''
   endif
@@ -106,7 +127,7 @@ function! plugins#lightline#git_status() abort
 endfunction
 
 
-function! plugins#lightline#line() abort
+function! rc#lightline#line() abort
   if s:is_filetype('nerdtree', 'help') || s:is_buffer('quickfix')
     return ''
   endif

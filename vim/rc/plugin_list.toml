@@ -1,0 +1,479 @@
+#================================================
+# vim/rc/plugin_list.toml
+#================================================
+
+# core plugins
+#------------------------------------------------
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+# view
+#------------------------------------------------
+[[plugins]]
+repo = 'joshdick/onedark.vim'
+
+[[plugins]]
+repo = 'cocopon/iceberg.vim'
+
+[[plugins]]
+repo        = 'ryanoasis/vim-devicons'
+lazy        = 1
+on_source   = ['lightline.vim', 'nerdtree']
+hook_source = '''
+  let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+  if vimrc#is_linux()
+    set guifont=Hack\ Nerd\ Font\ 11
+  else
+    set guifont=Hack_Nerd_Font:h11
+  endif
+'''
+
+[[plugins]]
+repo     = 'itchyny/lightline.vim'
+hook_add = 'source $VIMDIR/rc/lightline.vim'
+
+[[plugins]]
+repo     = 'Yggdroot/indentLine'
+lazy     = 1
+on_event = 'BufRead'
+hook_add = '''
+  let g:indentLine_enabled = 1
+  let g:indentLine_leadingSpaceEnabled = 1
+
+  let g:indentLine_setConceal = 1
+  let g:indentLine_conceallevel = 1
+  let g:indentLine_concealcursor = ''
+
+  let g:indentLine_char = '|'
+  let g:indentLine_leadingSpaceChar = '.'
+
+  let g:indentLine_setColors = 1
+  let g:indentLine_color_term = 243
+'''
+
+[[plugins]]
+repo     = 'osyo-manga/vim-precious'
+lazy     = 1
+depends  = ['context_filetype.vim']
+on_cmd   = ['PreciousSwitch', 'PreciousReset']
+hook_add = '''
+  augroup Precious
+    autocmd!
+    autocmd FileType toml :PreciousSwitch
+  augroup END
+'''
+
+# search
+#------------------------------------------------
+[[plugins]]
+repo        = 'easymotion/vim-easymotion'
+on_map      = '<Plug>'
+hook_add    = '''
+  let g:EasyMotion_do_mapping = 0
+  let g:EasyMotion_smartcase = 0
+  let g:EasyMotion_use_upper = 0
+  let g:EasyMotion_use_smartsign_us = 1
+  let g:EasyMotion_startofline = 0
+  let g:EasyMotion_enter_jump_first = 1
+  let g:EasyMotion_space_jump_first = 1
+
+  nmap f <Plug>(easymotion-sn)
+  nmap / <Plug>(easymotion-fn)
+  nmap ? <Plug>(easymotion-Fn)
+  nmap ; <Plug>(easymotion-bd-n)
+'''
+
+[[plugins]]
+repo       = 'haya14busa/vim-asterisk'
+on_map     = '<Plug>'
+hook_add   = '''
+  map * <Plug>(asterisk-z*)
+  map g* <Plug>(asterisk-gz*)
+  map # <Plug>(asterisk-z#)
+  map g# <Plug>(asterisk-gz#)
+'''
+
+# completion
+#------------------------------------------------
+[[plugins]]
+repo        = 'prabirshrestha/asyncomplete.vim'
+lazy        = 1
+on_func     = ['asyncomplete#']
+hook_add = '''
+  let g:asyncomplete_auto_popup = 1
+  let g:asyncomplete_remove_duplicate = 1
+  let g:asyncomplete_smart_completion = vimrc#is_nvim() || has("lua")
+  let g:asyncomplete_log_file = expand("$VIM_CACHE_DIR/asyncomplete.log")
+
+  inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <Down>  pumvisible() ? "\<C-n>" : "\<Down>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  inoremap <expr> <Up>    pumvisible() ? "\<C-p>" : "\<Up>"
+  imap <C-x><C-u> <Plug>(asyncomplete_force_refresh)
+'''
+hook_post_source = '''
+  set completeopt=menu,preview,noinsert,noselect
+  autocmd MyCmdGroup CompleteDone * if pumvisible() == 0 | pclose |endif
+'''
+
+[[plugins]]
+repo     = 'prabirshrestha/asyncomplete-lsp.vim'
+depends  = ['asyncomplete.vim', 'vim-lsp']
+
+[[plugins]]
+repo     = 'prabirshrestha/asyncomplete-file.vim'
+depends  = ['asyncomplete.vim']
+hook_add = '''
+  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+        \ 'name': 'file',
+        \ 'priority': 10,
+        \ 'whitelist': ['*'],
+        \ 'completor': function('asyncomplete#sources#file#completor'),
+        \ }))
+'''
+
+[[plugins]]
+repo     = 'yami-beta/asyncomplete-omni.vim'
+depends  = ['asyncomplete.vim']
+hook_add = '''
+  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
+      \ 'name': 'omni',
+      \ 'priority': 30,
+      \ 'whitelist': ['*'],
+      \ 'blacklist': ['c', 'cpp', 'html', 'ruby'],
+      \ 'completor': function('asyncomplete#sources#omni#completor')
+      \  }))
+'''
+
+[[plugins]]
+repo             = 'prabirshrestha/asyncomplete-buffer.vim'
+depends          = ['asyncomplete.vim']
+hook_add = '''
+  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+        \ 'name': 'buffer',
+        \ 'priority': 50,
+        \ 'whitelist': ['*'],
+        \ 'completor': function('asyncomplete#sources#buffer#completor'),
+        \ }))
+'''
+
+[[plugins]]
+repo     = 'prabirshrestha/asyncomplete-necosyntax.vim'
+depends  = ['asyncomplete.vim', 'neco-syntax']
+hook_add = '''
+  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necosyntax#get_source_options({
+      \ 'name': 'syntax',
+      \ 'priority': 100,
+      \ 'whitelist': ['*'],
+      \ 'completor': function('asyncomplete#sources#necosyntax#completor'),
+      \ }))
+'''
+
+[[plugins]]
+repo     = 'prabirshrestha/asyncomplete-emoji.vim'
+depends  = ['asyncomplete.vim']
+hook_add = '''
+  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#emoji#get_source_options({
+      \ 'name': 'emoji',
+      \ 'whitelist': ['txt', 'markdown', 'asciidoc', 'gitcommit'],
+      \ 'completor': function('asyncomplete#sources#emoji#completor')
+      \}))
+'''
+
+[[plugins]]
+repo     = 'prabirshrestha/asyncomplete-necovim.vim'
+depends  = ['asyncomplete.vim', 'necovim']
+hook_add = '''
+  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
+      \ 'name': 'vim',
+      \ 'whitelist': ['vim'],
+      \ 'completor': function('asyncomplete#sources#necovim#completor'),
+      \ }))
+'''
+
+[[plugins]]
+repo     = 'kyouryuukunn/asyncomplete-neoinclude.vim'
+depends  = ['asyncomplete.vim']
+hook_add = '''
+  if executable('rtags')
+    let g:neoinclude#ctags_commands = get(g:, 'neoinclude#ctags_commands', {})
+    let g:neoinclude#ctags_commands['c'] = 'rtags'
+    let g:neoinclude#ctags_commands['cpp'] = 'rtags'
+  endif
+
+  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#neoinclude#get_source_options({
+      \ 'name': 'include',
+      \ 'whitelist': ['c', 'cpp'],
+      \ 'reflesh_pattern': '\(<|"\|/\)$',
+      \ 'completor': function('asyncomplete#sources#neoinclude#completor')
+      \}))
+'''
+
+[[plugins]]
+repo     = 'keremc/asyncomplete-clang.vim'
+if       = '!executable("cquery") && !executable("clangd")'
+hook_add = '''
+  au User asyncomplet_setup call asyncomplete#register_source(asyncomplete#sources#clang#get_source_options({
+      \ 'name': 'clang',
+      \ 'whilelist': ['c', 'cpp'],
+      \ 'completor': function('asyncomplete#sources#clang#completor')
+      \}))
+'''
+
+# LSP
+#------------------------------------------------
+[[plugins]]
+repo    = 'prabirshrestha/async.vim'
+lazy    = 1
+on_func = 'async#'
+
+[[plugins]]
+repo     = 'prabirshrestha/vim-lsp'
+depends  = ['async.vim']
+hook_add = 'source $VIMDIR/rc/lsp.vim'
+
+# lint
+#------------------------------------------------
+[[plugins]]
+repo     = 'w0rp/ale'
+lazy     = 1
+on_map   = '<Plug>'
+on_cmd   = ['ALEEnable', 'ALEToggle']
+on_ft    = ['c', 'cpp', 'd', 'rust', 'typescript', 'python', 'php']
+hook_add = '''
+  let g:ale_lint_on_save          = 1
+  let g:ale_lint_on_text_changed  = 'normal'
+  let g:ale_lint_on_enter         = 0
+  let g:ale_open_list             = 1
+  let g:ale_keep_list_window_open = 0
+  let g:ale_sign_error = '✗'
+  let g:ale_sign_warning = '!'
+  let g:ale_echo_msg_error_str    = g:ale_sign_error
+  let g:ale_echo_msg_warning_str  = g:ale_sign_warning
+  let g:ale_echo_msg_format       = '[%linter%] %s [%severity%]'
+'''
+hook_source = 'source $VIMDIR/rc/ale.vim'
+
+## Vim
+[[plugins]]
+repo      = 'ynkdir/vim-vimlparser'
+lazy      = 1
+on_source = ['vim-vimlint']
+
+[[plugins]]
+repo    = 'syngan/vim-vimlint'
+lazy    = 1
+depends = ['vim-vimlparser']
+on_func = 'vimlint#vimlint'
+
+# utility
+#------------------------------------------------
+[[plugins]]
+repo     = 'tpope/vim-commentary'
+lazy     = 1
+on_cmd   = 'Commentary'
+hook_add = '''
+  map <silent> <Leader>c :Commentary<CR>
+'''
+
+[[plugins]]
+repo   = 'h1mesuke/vim-alignta'
+lazy   = 1
+on_cmd = 'Align'
+
+[[plugins]]
+repo     = 'thinca/vim-template'
+lazy     = 1
+on_cmd   = 'TemplateLoad'
+hook_add = 'source $VIMDIR/rc/template.vim'
+
+[[plugins]]
+repo     = 'ntpeters/vim-better-whitespace'
+lazy     = 1
+on_event = 'InsertEnter'
+hook_add = '''
+  let g:strip_whitespace_on_save = 1
+  let g:strip_whitelines_at_eof = 1
+'''
+
+[[plugins]]
+repo     = 'AndrewRadev/switch.vim'
+lazy     = 1
+on_cmd   = 'Switch'
+on_func  = 'switch#Switch'
+hook_add = '''
+  let g:switch_mapping = ""
+  nmap <silent> <Leader>s :Switch<CR>
+'''
+
+[[plugins]]
+repo     = 'cohama/lexima.vim'
+lazy     = 1
+on_event = 'InsertEnter'
+
+[[plugins]]
+repo        = 'sbdchd/neoformat'
+lazy        = 1
+on_cmd      = 'Neoformat'
+hook_source = 'source $VIMDIR/rc/neoformat.vim'
+
+[[plugins]]
+repo     = 'vim-scripts/autodate.vim'
+lazy     = 1
+on_event = 'BufWritePre'
+hook_add = '''
+  let g:autodate_keyword_pre  = "Last Change:"
+  let g:autodate_keyword_post = "."
+  let g:autodate_format       = "%d %b. %Y"
+'''
+
+[[plugins]]
+repo     = 'scrooloose/nerdtree'
+lazy     = 1
+on_cmd   = ['NERDTree', 'NERDTreeFind', 'NERDTreeToggle']
+hook_add = '''
+  let g:NERDTreeMinimalUI = 1
+  let g:NERDTreeQuitOnOpen = 0
+  let g:NERDTreeShowHidden = 1
+'''
+
+[[plugins]]
+repo      = 'Xuyuanp/nerdtree-git-plugin'
+lazy      = 1
+on_source = 'nerdtree'
+
+[[plugins]]
+repo     = 'machakann/vim-sandwich'
+lazy     = 1
+on_event = 'VimEnter'
+
+# syntax
+#------------------------------------------------
+## C/C++
+[[plugins]]
+repo  = 'vim-jp/cpp-vim'
+lazy  = 1
+on_ft = ['c', 'cpp']
+
+[[plugins]]
+repo  = 'octol/vim-cpp-enhanced-highlight'
+lazy  = 1
+on_ft = ['c', 'cpp']
+
+## Scala
+[[plugins]]
+repo     = 'derekwyatt/vim-scala'
+lazy     = 1
+on_ft    = ['scala', 'sbt.scala']
+hook_add = '''
+  let g:scala_scaladoc_indent = 1
+  autocmd! BufRead,BufNewFile *.scala set filetype=scala
+  autocmd! BufRead,BufNewFile *.sbt set filetype=sbt.scala commentstring=//\ %s
+  autocmd! FileType scala setlocal tabstop=2 shiftwidth=2
+'''
+
+## TypeScript
+[[plugins]]
+repo     = 'leafgarland/typescript-vim'
+lazy     = 1
+on_ft    = ['typescript']
+hook_add = '''
+  autocmd! BufNewFile,BufRead *.ts  set filetype=typescript
+  autocmd! BufNewFile,BufRead *.tsx set filetype=typescript
+  autocmd! FileType typescript setlocal tabstop=2 shiftwidth=2
+'''
+
+## TOML
+[[plugins]]
+repo      = 'cespare/vim-toml'
+lazy      = 1
+on_ft     = 'toml'
+hook_add  = '''
+  autocmd! BufNewFile,BufRead *.toml set filetype=toml
+'''
+
+## YAML
+[[plugins]]
+repo  = 'stephpy/vim-yaml'
+lazy  = 1
+on_ft = 'yaml'
+
+# external commands
+#------------------------------------------------
+## Git
+[[plugins]]
+repo        = 'lambdalisue/gina.vim'
+lazy        = 1
+on_cmd      = ['Gina']
+on_func     = 'gina#'
+hook_source = '''
+  autocmd! FileType gina-commit execute "normal! G"
+
+  for kind in ['log', 'status', 'diff']
+    call gina#custom#command#option(kind, '--opener', 'split')
+    execute 'autocmd' 'MyCmdGroup Filetype gine-' . kind . ' nnoremap q :q<CR>'
+  endfor
+
+  cabbrev git Gina
+'''
+
+[[plugins]]
+repo     = 'airblade/vim-gitgutter'
+hook_add = '''
+  let g:gitgutter_async   = 1
+  let g:gitgutter_highlight_lines = 0
+
+  let g:gitgutter_sign_added    = '+'
+  let g:gitgutter_sign_modified = '*'
+  let g:gitgutter_sign_removed  = '-'
+  let g:gitgutter_sign_modified_removed = '*'
+
+  noremap [git] <Nop>
+  map <C-g> [git]
+  nmap <silent> [git]h :GitGutterLineHighlightsToggle<CR>
+  nmap <silent> [git]n :GitGutterNextHunk<CR>
+  nmap <silent> [git]p :GitGutterPrevHunk<CR>
+'''
+
+[[plugins]]
+repo   = 'tpope/vim-fugitive'
+lazy   = 1
+on_cmd = ['FugitiveFind']
+
+## FZF
+[[plugins]]
+repo      = '$FZF_HOME'
+if        = 'exists("$FZF_HOME") && executable("fzf")'
+lazy      = 1
+on_source = ['fzf.vim']
+
+[[plugins]]
+repo     = 'junegunn/fzf.vim'
+if       = 'executable("fzf")'
+lazy     = 1
+on_func  = 'fzf#'
+on_cmd   = ['BLines', 'Buffers', 'History:']
+hook_add = 'source $VIMDIR/rc/fzf.vim'
+
+# dependencies
+#------------------------------------------------
+[[plugins]]
+repo      = 'Shougo/context_filetype.vim'
+lazy      = 1
+on_source = ['neosnippet.vim', 'vim-precious']
+hook_add  = 'source $VIMDIR/rc/content_filetype.vim'
+
+[[plugins]]
+repo    = 'Shougo/neco-syntax'
+lazy    = 1
+on_func = ['necosyntax#']
+
+[[plugins]]
+repo    = 'Shougo/neco-vim'
+lazy    = 1
+on_func = ['necovim#']
+
+[[plugins]]
+repo = 'Shougo/neoinclude.vim'
+on_func = ['neoinclude#']
+# vim:ft=toml:ts=2:sw=2:fdm=marker:et

@@ -1,30 +1,14 @@
 "==========================================================
-" vim/autoload/plugins/fzf.vim
+" vim/rc/fzf.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 30 Dec. 2018.
+" Last Change: 28 Feb. 2019.
 "==========================================================
-let s:fzf_available = exists('$FZF_HOME')
-
-
-function! plugins#fzf#is_available() abort
-  return s:fzf_available
-endfunction
-
-function! plugins#fzf#commands() abort
-  command! -bang -nargs=? -complete=dir Files     call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-  command!                              MFiles    call <sid>file_mru()
-  command! -bang                        Registers call <sid>registers(<bang>0)
-endfunction
-
-function! plugins#fzf#mapping() abort
-  nmap <Leader>f :Files<CR>
-  nmap <Leader>b :Buffers<CR>
-  nmap <Leader>g :call <sid>grep()<CR>
-  nmap /  :BLines<CR>
-  nmap q: :History:<CR>
-endfunction
-
+let g:fzf_layout = {'down': '~30%'}
+let g:fzf_action = {
+    \ 'ctrl-s': 'split',
+    \ 'ctrl-v': 'vsplit'
+    \}
 
 function! s:wrap(opt) abort
   return extend(a:opt, get(g:, 'fzf_layout', {}))
@@ -94,4 +78,15 @@ function! s:handle_register(bang, e) abort
     call setreg('"', l:oldreg.content, l:oldreg.type)
   endtry
 endfunction
+
+command! -bang -nargs=? -complete=dir Files     call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+command!                              MFiles    call <sid>file_mru()
+command! -bang                        Registers call <sid>registers(<bang>0)
+command!                              Grep      call <sid>grep()
+
+nmap <silent> <Leader>f :Files<CR>
+nmap <silent> <Leader>l :BLines<CR>
+nmap <silent> <Leader>L :Lines<CR>
+nmap <silent> <Leader>g :Grep<CR>
+nmap <silent> q: :History:<CR>
 " vim:ft=vim:ts=2:sw=2:fdm=marker

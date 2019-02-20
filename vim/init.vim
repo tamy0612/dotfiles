@@ -2,7 +2,7 @@
 " vim/init.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 30 Jan. 2019.
+" Last Change: 27 Feb. 2019.
 "==========================================================
 if !1 | finish | endif
 
@@ -101,38 +101,14 @@ else
   let g:dein#install_log_filename = expand('')
 
   if dein#load_state(s:dein_cache_dir)
-    function! s:load_toml(file, ...) abort
-      let l:option = get(a:000, 0, {})
-      let l:config_dir = expand('$VIMDIR/rc')
-      call dein#load_toml(join([l:config_dir, a:file], '/'), l:option)
-    endfunction
-
-    function! s:load_toml_lazy(file, ...) abort
-      let l:option = extend(get(a:000, 0, {}), {'lazy': 1})
-      call s:load_toml(a:file, l:option)
-    endfunction
-
-    let s:dein_dependencies = [$VIMDIR . '/init.vim', $VIMDIR . '/autoload/vimrc.vim']
-    let s:dein_dependencies += split(glob($VIMDIR . '/autoload/plugins/*.vim'), '\n')
-    let s:dein_dependencies += split(glob($VIMDIR . '/rc/*.toml'), '\n')
+    let s:dein_plugin_list = expand('$VIMDIR/rc/plugin_list.toml')
+    let s:dein_dependencies = [s:dein_plugin_list, $VIMDIR . '/init.vim', $VIMDIR . '/autoload/vimrc.vim']
+    let s:dein_dependencies += split(glob($VIMDIR . '/rc/*.vim'), '\n')
 
     call dein#begin(s:dein_cache_dir, s:dein_dependencies)
-      call s:load_toml('core.toml')
-      call s:load_toml('git.toml')
-      call s:load_toml('appearance.toml')
-      call s:load_toml_lazy('completion.toml', {'on_event': ['InsertEnter']})
-      call s:load_toml_lazy('lsp.toml', {'on_ft': plugins#lsp#on_ft()})
-      call s:load_toml_lazy('linter.toml')
-      call s:load_toml_lazy('fzf.toml', {'if': plugins#fzf#is_available()})
-      call s:load_toml_lazy('filetype/toml.toml', {'on_ft': ['toml']})
-      call s:load_toml_lazy('filetype/vim.toml', {'on_ft': ['vim']})
-      call s:load_toml_lazy('filetype/cpp.toml', {'on_ft': ['c', 'cpp']})
-      call s:load_toml_lazy('filetype/scala.toml', {'on_ft': ['sbt', 'scala']})
-      call s:load_toml_lazy('filetype/yaml.toml', {'on_ft': 'yaml'})
-      call s:load_toml_lazy('filetype/typescript.toml', {'on_ft': 'typescript'})
-      call s:load_toml_lazy('utility.toml')
-      " call s:load_toml_lazy('denite.toml')
+    call dein#load_toml(s:dein_plugin_list)
     call dein#end()
+
     call dein#save_state()
   endif
 
@@ -147,7 +123,6 @@ else
   else
     execute 'colorscheme' vimrc#default_colorscheme()
   endif
-  " call dein#call_hook('post_source')
 endif
 
 filetype plugin indent on
@@ -181,7 +156,7 @@ vnoremap <silent> p p`]
 nnoremap <silent> p p`]
 
 nmap <silent> <Esc><Esc> :<C-u>nohlsearch<CR><Esc>
-nmap # "zyiw:let @/ = '\<' . @z . '\>'<CR>:%s/<C-r>///gc<Left><Left><Left>
+nmap S "zyiw:let @/ = '\<' . @z . '\>'<CR>:%s/<C-r>///gc<Left><Left><Left>
 
 nnoremap <expr> K (&filetype is# 'vim' ? (':help ' . fnameescape(expand('<cword>')) . '<CR>') : 'K')
 
@@ -234,7 +209,7 @@ set modeline
 set spelllang=en,cjk
 set number relativenumber scrolloff=10 textwidth=0
 set colorcolumn=100
-
+set completeopt=menu,preview,noinsert,noselect
 
 autocmd MyCmdGroup BufEnter,WinEnter,BufWinEnter * let &l:numberwidth = len(line("$")) + 1
 autocmd MyCmdGroup BufWritePre * call vimrc#auto_mkdir_on_write(expand('<afile>:p:h'), v:cmdbang)
