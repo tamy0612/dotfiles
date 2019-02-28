@@ -2,7 +2,7 @@
 " vim/autoload/vimrc.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 06 Dec. 2018.
+" Last Change: 28 Feb. 2019.
 "==========================================================
 " Flags
 function! vimrc#is_windows() abort
@@ -98,6 +98,14 @@ function! vimrc#open_qf_or_loclist() abort
     execute "lopen"
     return
   endif
+endfunction
+
+function! vimrc#find_nearest_parent_dir(from, target) abort
+  let l:path = finddir(a:target, a:from . ';')
+  if empty(l:path)
+    return ''
+  endif
+  return fnamemodify(l:path, ':p')
 endfunction
 
 " Default values

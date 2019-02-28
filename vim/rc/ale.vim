@@ -2,7 +2,7 @@
 " vim/rc/ale.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 27 Feb. 2019.
+" Last Change: 28 Feb. 2019.
 "==========================================================
 function! s:find_exe(...)
   for l:path in a:000
@@ -48,11 +48,17 @@ if executable('rustc')
 endif
 
 " typescript
-let s:tsc = vimrc#find_executable('tsc',
-      \ [getcwd() . '/node_modules/typescript/bin', '$VIMDIR/../node_modules/typescript/bin'])
-if s:tsc != ''
-  let g:ale_typescript_tsc_executable = s:tsc
-  let g:ale_linters.typescript = ['tsc']
+let g:ale_linters.typescript = []
+let s:tslint_dir = vimrc#find_nearest_parent_dir(getcwd(), 'node_mosules/tslint/bin')
+if s:tslint_dir != ''
+  let g:ale_typescript_tslint_executable = s:tslint_dir . '/tslint'
+  let g:ale_linters.typescript += 'tslint'
+endif
+let s:typescript_dir = vimrc#find_nearest_parent_dir(getcwd(), 'node_mosules/typescript/bin')
+if s:typescript_dir != ''
+  let g:ale_typescript_tsc_executable = s:typescript_dir . '/tsc'
+  let g:ale_typescript_tsserver_executable = s:typescript_dir . '/tsserver'
+  let g:ale_linters.typescript += ['tsc', 'tsserver']
 endif
 
 " python
