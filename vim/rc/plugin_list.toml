@@ -257,8 +257,6 @@ hook_source = 'source $VIMDIR/rc/ale.vim'
 ## Vim
 [[plugins]]
 repo      = 'ynkdir/vim-vimlparser'
-lazy      = 1
-on_source = ['vim-vimlint']
 
 [[plugins]]
 repo    = 'syngan/vim-vimlint'
@@ -339,8 +337,6 @@ hook_add = '''
 
 [[plugins]]
 repo      = 'Xuyuanp/nerdtree-git-plugin'
-lazy      = 1
-on_source = 'nerdtree'
 
 [[plugins]]
 repo     = 'machakann/vim-sandwich'
@@ -352,13 +348,9 @@ on_event = 'VimEnter'
 ## C/C++
 [[plugins]]
 repo  = 'vim-jp/cpp-vim'
-lazy  = 1
-on_ft = ['c', 'cpp']
 
 [[plugins]]
 repo  = 'octol/vim-cpp-enhanced-highlight'
-lazy  = 1
-on_ft = ['c', 'cpp']
 
 ## Scala
 [[plugins]]
@@ -395,8 +387,6 @@ hook_add  = '''
 ## YAML
 [[plugins]]
 repo  = 'stephpy/vim-yaml'
-lazy  = 1
-on_ft = 'yaml'
 
 # external commands
 #------------------------------------------------
