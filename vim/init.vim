@@ -2,7 +2,7 @@
 " vim/init.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 27 Feb. 2019.
+" Last Change: 28 Feb. 2019.
 "==========================================================
 if !1 | finish | endif
 
@@ -154,6 +154,9 @@ xnoremap < <gv
 vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
+
+nnoremap x "_x
+nnoremap s "_s
 
 nmap <silent> <Esc><Esc> :<C-u>nohlsearch<CR><Esc>
 nmap S "zyiw:let @/ = '\<' . @z . '\>'<CR>:%s/<C-r>///gc<Left><Left><Left>

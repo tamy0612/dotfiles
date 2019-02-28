@@ -63,6 +63,25 @@ hook_add = '''
   augroup END
 '''
 
+[[plugins]]
+repo     = 'itchyny/vim-cursorword'
+hook_add = '''
+  let g:cursorword = 1
+
+  function! s:toggle_cursorword() abort
+    let g:cursorword = !g:cursorword
+    call cursorword#matchadd()
+  endfunction
+
+  command! ToggleCorsorword call s:toggle_cursorword()
+'''
+
+[[plugins]]
+repo     = 'itchyny/vim-parenmatch'
+hook_add = '''
+  let g:loaded_matchparen = 1
+'''
+
 # search
 #------------------------------------------------
 [[plugins]]
@@ -91,6 +110,17 @@ hook_add   = '''
   map g* <Plug>(asterisk-gz*)
   map # <Plug>(asterisk-z#)
   map g# <Plug>(asterisk-gz#)
+'''
+
+[[plugins]]
+repo = 't9md/vim-quickhl'
+lazy     = 1
+on_map   = '<Plug>'
+hook_add = '''
+  nmap <Leader>m <Plug>(quickhl-manual-this)
+  xmap <Leader>m <Plug>(quickhl-manual-this)
+  nmap <Leader>w <Plug>(quickhl-manual-this-whole-word)
+  xmap <Leader>w <Plug>(quickhl-manual-this-whole-word)
 '''
 
 # completion
@@ -340,8 +370,6 @@ repo      = 'Xuyuanp/nerdtree-git-plugin'
 
 [[plugins]]
 repo     = 'machakann/vim-sandwich'
-lazy     = 1
-on_event = 'VimEnter'
 
 # syntax
 #------------------------------------------------
