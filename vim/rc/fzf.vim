@@ -2,7 +2,7 @@
 " vim/rc/fzf.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 28 Feb. 2019.
+" Last Change: 03 Mar. 2019.
 "==========================================================
 let g:fzf_layout = {'down': '~30%'}
 let g:fzf_action = {
@@ -83,10 +83,12 @@ command! -bang -nargs=? -complete=dir Files     call fzf#vim#files(<q-args>, fzf
 command!                              MFiles    call <sid>file_mru()
 command! -bang                        Registers call <sid>registers(<bang>0)
 command!                              Grep      call <sid>grep()
+command!                              Buffers   call fzf#vim#buffers(fzf#vim#with_preview())
 
 nmap <silent> <Leader>f :Files<CR>
 nmap <silent> <Leader>l :BLines<CR>
 nmap <silent> <Leader>L :Lines<CR>
+nmap <silent> <Leader>b :Buffers<CR>
 nmap <silent> <Leader>g :Grep<CR>
 nmap <silent> q: :History:<CR>
 " vim:ft=vim:ts=2:sw=2:fdm=marker

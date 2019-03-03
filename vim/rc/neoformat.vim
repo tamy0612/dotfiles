@@ -2,7 +2,7 @@
 " vim/rc/neoformat.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 28 Feb. 2019.
+" Last Change: 03 Mar. 2019.
 "==========================================================
 let g:neoformat_basic_format_trim = 1
 let g:neoformat_only_msg_on_error = 1
@@ -58,6 +58,21 @@ if executable('scalafmt')
   let g:neoformat_rules.scala = {
         \ 'filetype': 'scala',
         \ 'pattern': '*.scala',
+        \}
+endif
+
+" TypeScript
+let s:tsfmt_dir = vimrc#find_nearest_parent_dir(getcwd(), "/node_modules/typescript-formatter/bin")
+if s:tsfmt_dir !=# ''
+  let g:neoformat_typescript_tsfmt = {
+        \ 'exe': s:tsfmt_dir . '/tsfmt',
+        \ 'args': [],
+        \ 'replace': 1
+        \}
+  let g:neoformat_enabled_typescript = ['tsfmt']
+  let g:neoformat_rules.typescript = {
+        \ 'filetype': 'typescript',
+        \ 'pattern': '*.ts,*.tsx'
         \}
 endif
 
