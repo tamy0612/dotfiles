@@ -2,7 +2,7 @@
 " vim/rc/lsp.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 27 Feb. 2019.
+" Last Change: 28 Feb. 2019.
 "==========================================================
 let g:lsp_signs_enabled = 0
 let g:lsp_diagnostics_echo_cursor = 0
@@ -29,10 +29,12 @@ elseif executable('clangd')
 endif
 
 " Typescript
-if executable('typescript-language-server')
+let s:typescript_lsp_dir = vimrc#find_nearest_parent_dir(getcwd(), 'node_modules/typescript-language-server/lib')
+if s:typescript_lsp_dir != ''
+  let s:typescript_lsp = s:typescript_lsp_dir . '/cli.js'
   autocmd MyCmdGroup User lsp_setup call lsp#register_server({
         \ 'name': 'typescript-language-server',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag,'typescript-language-server --stdio']},
+        \ 'cmd': {server_info->[&shell, &shellcmdflag,s:typescript_lsp . ' --stdio']},
         \ 'root_uri': {server_info->lsp#utils#path_to_uri(
         \   lsp#utils#find_nearest_parent_file_directory(
         \     lsp#utils#get_buffer_path(), 'tsconfig.json'))},
