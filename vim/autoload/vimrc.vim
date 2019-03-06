@@ -2,7 +2,7 @@
 " vim/autoload/vimrc.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 28 Feb. 2019.
+" Last Change: 06 Mar. 2019.
 "==========================================================
 " Flags
 function! vimrc#is_windows() abort
@@ -106,6 +106,12 @@ function! vimrc#find_nearest_parent_dir(from, target) abort
     return ''
   endif
   return fnamemodify(l:path, ':p')
+endfunction
+
+let s:is_executable = {}
+function! vimrc#is_executable(cmd) abort
+  let s:is_executable[a:cmd] = get(s:is_executable, a:cmd, executable(a:cmd))
+  return s:is_executable[a:cmd]
 endfunction
 
 " Default values

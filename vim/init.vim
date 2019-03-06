@@ -2,7 +2,7 @@
 " vim/init.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 28 Feb. 2019.
+" Last Change: 06 Mar. 2019.
 "==========================================================
 if !1 | finish | endif
 
@@ -201,6 +201,14 @@ setglobal hidden
 setglobal updatetime=100
 if has('mouse')
   setglobal mouse+=a
+endif
+
+if vimrc#is_executable('rg')
+  setglobal grepprg=rg\ --vimgrep\ --no-heading
+  setglobal grepformat=%f:%l:%c:%m,%f:%l:%m
+elseif vimrc#is_executable('ag')
+  setglobal grepprg=ag\ --vimgrep
+  setglobal grepformat=%f:%l:%c:%m
 endif
 
 set splitright splitbelow
