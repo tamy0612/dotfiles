@@ -2,7 +2,7 @@
 " vim/init.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 06 Mar. 2019.
+" Last Change: 15 Apr. 2019.
 "==========================================================
 if !1 | finish | endif
 
@@ -64,8 +64,6 @@ if has('vim_starting')
           \])
   endif
 endif
-
-let mapleader = "\<Space>"
 
 
 " Plugins
@@ -129,7 +127,84 @@ filetype plugin indent on
 syntax enable
 
 
+" Swap file
+set noswapfile undofile
+let &undodir = &backupdir
+
+
+" File formats
+let &fileencoding = &encoding
+set fileformat=unix
+set formatoptions& formatoptions+=mM
+if has('multi_byte_ime')
+  set iminsert=0 imsearch=0
+endif
+if exists('*autofmt#japanese#formatexpr')
+  set formatexpr=autofmt#japanese#formatexpr()
+endif
+
+
+" Window option
+setglobal modeline
+setglobal showcmd laststatus=2 cmdheight=1
+setglobal splitright splitbelow
+set number relativenumber scrolloff=5 textwidth=0
+
+setglobal showmatch matchpairs& matchpairs+=<:>
+setglobal list listchars=tab:>\ ,trail:~,extends:>,precedes:<
+setglobal nolinebreak
+setglobal whichwrap=b,s,h,l,<,>,[,] backspace=indent,eol,start
+
+setglobal hlsearch incsearch nowrapscan ignorecase smartcase
+
+setglobal autoread lazyredraw
+setglobal hidden
+setglobal updatetime=100
+if has('mouse')
+  setglobal mouse+=a
+endif
+setglobal clipboard=unnamed
+setglobal shortmess& shortmess+=I
+
+setglobal autoindent copyindent preserveindent smartindent
+setglobal cinoptions& cinoptions+=h0,(4,Us,p0
+setglobal cinkeys& cinkeys+=0=break
+setglobal foldmethod=marker foldlevelstart=0 foldopen=all
+setglobal tabstop=4 shiftwidth=4 softtabstop=0 smarttab expandtab
+setglobal colorcolumn=100
+
+" Completion
+setglobal complete& complete+=k
+setglobal completeopt=menu,preview,noinsert,noselect
+setglobal infercase
+setglobal wildmenu wildmode=longest,full
+setglobal wildignorecase wildignore=*.o,*.class,*.beam,*.dvi,*.pdf
+
+setglobal spelllang& spelllang+=cjk
+
+setglobal virtualedit& virtualedit+=block
+
+if vimrc#is_executable('rg')
+  setglobal grepprg=rg\ --vimgrep\ --no-heading
+  setglobal grepformat=%f:%l:%c:%m,%f:%l:%m
+elseif vimrc#is_executable('ag')
+  setglobal grepprg=ag\ --vimgrep
+  setglobal grepformat=%f:%l:%c:%m
+endif
+
+autocmd MyCmdGroup BufEnter,WinEnter,BufWinEnter * let &l:numberwidth = len(line("$")) + 1
+autocmd MyCmdGroup BufWritePre * call vimrc#auto_mkdir_on_write(expand('<afile>:p:h'), v:cmdbang)
+autocmd MyCmdGroup FileType gitcommit execute "normal! gg"
+
+if vimrc#is_nvim()
+  autocmd MyCmdGroup BufRead,BufNewFile *.nvim setlocal filetype=vim
+  autocmd MyCmdGroup CursorHold * if exists(':rshada') | rshada | wshada | endif
+endif
+
+
 " Mappings
+let mapleader = "\\"
+
 imap OA <UP>
 imap OB <Down>
 imap OC <Right>
@@ -168,68 +243,8 @@ tnoremap <ESC> <C-\><C-n>
 
 autocmd FileType help,diff,qf nnoremap <silent><buffer> q :<C-u>q<CR>
 
-nnoremap <silent> <Leader>n :<C-u>call vimrc#toggle_variable("&relativenumber")<CR>
-nnoremap <silent> <Leader>q :<C-u>call vimrc#open_qf_or_loclist()<CR>
-
-
-" Swap file
-set noswapfile undofile
-let &undodir = &backupdir
-
-
-" File formats
-let &fileencoding = &encoding
-set fileformat=unix
-set formatoptions& formatoptions+=mM
-if has('multi_byte_ime')
-  set iminsert=0 imsearch=0
-endif
-if exists('*autofmt#japanese#formatexpr')
-  set formatexpr=autofmt#japanese#formatexpr()
-endif
-
-
-setglobal laststatus=2 cmdheight=1
-setglobal clipboard=unnamed
-setglobal showmatch matchpairs& matchpairs+=<:>
-setglobal hlsearch incsearch nowrapscan ignorecase smartcase
-setglobal wildignore=*.o,*.class,*.beam,*.dvi,*.pdf
-setglobal whichwrap=b,s,h,l,<,>,[,] backspace=indent,eol,start
-setglobal wildmenu
-setglobal lazyredraw
-setglobal hidden
-setglobal updatetime=100
-if has('mouse')
-  setglobal mouse+=a
-endif
-
-if vimrc#is_executable('rg')
-  setglobal grepprg=rg\ --vimgrep\ --no-heading
-  setglobal grepformat=%f:%l:%c:%m,%f:%l:%m
-elseif vimrc#is_executable('ag')
-  setglobal grepprg=ag\ --vimgrep
-  setglobal grepformat=%f:%l:%c:%m
-endif
-
-set splitright splitbelow
-set list listchars=tab:>\ ,trail:~
-set foldmethod=marker foldlevelstart=0 foldopen=all
-set autoindent smartindent tabstop=4 shiftwidth=4 softtabstop=0 smarttab expandtab
-set cindent cinoptions& cinoptions+=h0,(4,Us,p0
-set modeline
-set spelllang=en,cjk
-set number relativenumber scrolloff=10 textwidth=0
-set colorcolumn=100
-set completeopt=menu,preview,noinsert,noselect
-
-autocmd MyCmdGroup BufEnter,WinEnter,BufWinEnter * let &l:numberwidth = len(line("$")) + 1
-autocmd MyCmdGroup BufWritePre * call vimrc#auto_mkdir_on_write(expand('<afile>:p:h'), v:cmdbang)
-autocmd MyCmdGroup FileType gitcommit execute "normal! gg"
-
-if vimrc#is_nvim()
-  autocmd MyCmdGroup BufRead,BufNewFile *.nvim setlocal filetype=vim
-  autocmd MyCmdGroup CursorHold * if exists(':rshada') | rshada | wshada | endif
-endif
+nnoremap <silent> <Space>n :<C-u>call vimrc#toggle_variable("&relativenumber")<CR>
+nnoremap <silent> <Space>q :<C-u>call vimrc#open_qf_or_loclist()<CR>
 
 
 " Load local vimrc
