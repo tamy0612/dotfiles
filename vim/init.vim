@@ -149,9 +149,10 @@ setglobal modeline
 setglobal showcmd laststatus=2 cmdheight=1
 setglobal splitright splitbelow
 setglobal switchbuf& switchbuf+=split
+setglobal display=lastline
 set number relativenumber scrolloff=5 textwidth=0
 
-setglobal showmatch matchpairs& matchpairs+=<:>
+setglobal showmatch matchtime=1 matchpairs& matchpairs+=<:>
 setglobal list listchars=tab:>\ ,trail:~,extends:>,precedes:<
 setglobal nolinebreak
 setglobal whichwrap=b,s,h,l,<,>,[,] backspace=indent,eol,start
@@ -182,6 +183,7 @@ setglobal completeopt=menu,preview,noinsert,noselect
 setglobal infercase
 setglobal wildmenu wildmode=longest,full
 setglobal wildignorecase wildignore=*.o,*.class,*.beam,*.dvi,*.pdf
+setglobal pumheight=10
 
 setglobal spelllang& spelllang+=cjk
 setglobal nrformats& nrformats-=octal
@@ -233,6 +235,7 @@ xnoremap < <gv
 vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
+nnoremap Y y$
 
 nnoremap x "_x
 nnoremap s "_s
