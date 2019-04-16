@@ -2,7 +2,7 @@
 " vim/init.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 15 Apr. 2019.
+" Last Change: 16 Apr. 2019.
 "==========================================================
 if !1 | finish | endif
 
@@ -148,6 +148,7 @@ endif
 setglobal modeline
 setglobal showcmd laststatus=2 cmdheight=1
 setglobal splitright splitbelow
+setglobal switchbuf& switchbuf+=split
 set number relativenumber scrolloff=5 textwidth=0
 
 setglobal showmatch matchpairs& matchpairs+=<:>
@@ -170,8 +171,10 @@ setglobal autoindent copyindent preserveindent smartindent
 setglobal cinoptions& cinoptions+=h0,(4,Us,p0
 setglobal cinkeys& cinkeys+=0=break
 setglobal foldmethod=marker foldlevelstart=0 foldopen=all
-setglobal tabstop=4 shiftwidth=4 softtabstop=0 smarttab expandtab
 setglobal colorcolumn=100
+setglobal smarttab
+set tabstop=4 shiftwidth=4 softtabstop=0 expandtab
+set breakindent showbreak=\|> nolinebreak
 
 " Completion
 setglobal complete& complete+=k
@@ -181,6 +184,7 @@ setglobal wildmenu wildmode=longest,full
 setglobal wildignorecase wildignore=*.o,*.class,*.beam,*.dvi,*.pdf
 
 setglobal spelllang& spelllang+=cjk
+setglobal nrformats& nrformats-=octal
 
 setglobal virtualedit& virtualedit+=block
 
