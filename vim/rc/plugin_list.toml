@@ -44,11 +44,11 @@ hook_add = '''
   let g:indentLine_conceallevel = 1
   let g:indentLine_concealcursor = ''
 
-  let g:indentLine_char = '|'
-  let g:indentLine_leadingSpaceChar = '.'
+  let g:indentLine_char = '¦'
+  let g:indentLine_leadingSpaceChar = ''
 
   let g:indentLine_setColors = 1
-  let g:indentLine_color_term = 243
+  let g:indentLine_color_term = 241
 '''
 
 [[plugins]]
