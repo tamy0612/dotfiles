@@ -2,7 +2,7 @@
 " vim/init.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 16 Apr. 2019.
+" Last Change: 17 May. 2019.
 "==========================================================
 if !1 | finish | endif
 
@@ -146,7 +146,8 @@ endif
 
 " Window option
 setglobal modeline
-setglobal showcmd laststatus=2 cmdheight=1
+setglobal showcmd laststatus=2
+set cmdheight=1
 setglobal splitright splitbelow
 setglobal switchbuf& switchbuf+=split
 setglobal display=lastline
