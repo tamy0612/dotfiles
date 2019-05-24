@@ -127,10 +127,8 @@ hook_add = '''
 #------------------------------------------------
 [[plugins]]
 repo        = 'prabirshrestha/asyncomplete.vim'
-lazy        = 1
-on_func     = ['asyncomplete#']
 hook_add = '''
-  let g:asyncomplete_auto_popup = 1
+  let g:asyncomplete_auto_popup = 0
   let g:asyncomplete_remove_duplicate = 1
   let g:asyncomplete_smart_completion = vimrc#is_nvim() || has("lua")
   let g:asyncomplete_log_file = expand("$VIM_CACHE_DIR/asyncomplete.log")
@@ -139,7 +137,7 @@ hook_add = '''
   inoremap <expr> <Down>  pumvisible() ? "\<C-n>" : "\<Down>"
   inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
   inoremap <expr> <Up>    pumvisible() ? "\<C-p>" : "\<Up>"
-  imap <C-x><C-u> <Plug>(asyncomplete_force_refresh)
+  imap <C-x><C-l> <Plug>(asyncomplete_force_refresh)
 '''
 hook_post_source = '''
   set completeopt=menu,preview,noinsert,noselect
@@ -151,104 +149,27 @@ repo     = 'prabirshrestha/asyncomplete-lsp.vim'
 depends  = ['asyncomplete.vim', 'vim-lsp']
 
 [[plugins]]
-repo     = 'prabirshrestha/asyncomplete-file.vim'
-depends  = ['asyncomplete.vim']
-hook_add = '''
-  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-        \ 'name': 'file',
-        \ 'priority': 10,
-        \ 'whitelist': ['*'],
-        \ 'completor': function('asyncomplete#sources#file#completor'),
-        \ }))
+repo     = 'prabirshrestha/asyncomplete-neosnippet.vim'
+depends  = ['asyncomplete.vim', 'neosnippet.vim']
+on_ft    = ['c', 'cpp', 'vim']
+hook_source = '''
+  call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
+    \ 'name': 'neosnippet',
+    \ 'whitelist': ['*'],
+    \ 'priority': 100,
+    \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
+    \ }))
+
+  imap <C-k> <Plug>(neosnippet_expand_or_jump)
+  smap <C-k> <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k> <Plug>(neosnippet_expand_target)
 '''
 
 [[plugins]]
-repo     = 'yami-beta/asyncomplete-omni.vim'
-depends  = ['asyncomplete.vim']
-hook_add = '''
-  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
-      \ 'name': 'omni',
-      \ 'priority': 30,
-      \ 'whitelist': ['*'],
-      \ 'blacklist': ['c', 'cpp', 'html', 'ruby'],
-      \ 'completor': function('asyncomplete#sources#omni#completor')
-      \  }))
-'''
+repo     = 'Shougo/neosnippet.vim'
 
 [[plugins]]
-repo             = 'prabirshrestha/asyncomplete-buffer.vim'
-depends          = ['asyncomplete.vim']
-hook_add = '''
-  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-        \ 'name': 'buffer',
-        \ 'priority': 50,
-        \ 'whitelist': ['*'],
-        \ 'completor': function('asyncomplete#sources#buffer#completor'),
-        \ }))
-'''
-
-[[plugins]]
-repo     = 'prabirshrestha/asyncomplete-necosyntax.vim'
-depends  = ['asyncomplete.vim', 'neco-syntax']
-hook_add = '''
-  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necosyntax#get_source_options({
-      \ 'name': 'syntax',
-      \ 'priority': 100,
-      \ 'whitelist': ['*'],
-      \ 'completor': function('asyncomplete#sources#necosyntax#completor'),
-      \ }))
-'''
-
-[[plugins]]
-repo     = 'prabirshrestha/asyncomplete-emoji.vim'
-depends  = ['asyncomplete.vim']
-hook_add = '''
-  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#emoji#get_source_options({
-      \ 'name': 'emoji',
-      \ 'whitelist': ['txt', 'markdown', 'asciidoc', 'gitcommit'],
-      \ 'completor': function('asyncomplete#sources#emoji#completor')
-      \}))
-'''
-
-[[plugins]]
-repo     = 'prabirshrestha/asyncomplete-necovim.vim'
-depends  = ['asyncomplete.vim', 'necovim']
-hook_add = '''
-  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
-      \ 'name': 'vim',
-      \ 'whitelist': ['vim'],
-      \ 'completor': function('asyncomplete#sources#necovim#completor'),
-      \ }))
-'''
-
-[[plugins]]
-repo     = 'kyouryuukunn/asyncomplete-neoinclude.vim'
-depends  = ['asyncomplete.vim']
-hook_add = '''
-  if executable('rtags')
-    let g:neoinclude#ctags_commands = get(g:, 'neoinclude#ctags_commands', {})
-    let g:neoinclude#ctags_commands['c'] = 'rtags'
-    let g:neoinclude#ctags_commands['cpp'] = 'rtags'
-  endif
-
-  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#neoinclude#get_source_options({
-      \ 'name': 'include',
-      \ 'whitelist': ['c', 'cpp'],
-      \ 'reflesh_pattern': '\(<|"\|/\)$',
-      \ 'completor': function('asyncomplete#sources#neoinclude#completor')
-      \}))
-'''
-
-[[plugins]]
-repo     = 'keremc/asyncomplete-clang.vim'
-if       = '!executable("cquery") && !executable("clangd")'
-hook_add = '''
-  au User asyncomplet_setup call asyncomplete#register_source(asyncomplete#sources#clang#get_source_options({
-      \ 'name': 'clang',
-      \ 'whilelist': ['c', 'cpp'],
-      \ 'completor': function('asyncomplete#sources#clang#completor')
-      \}))
-'''
+repo     = 'Shougo/neosnippet-snippets'
 
 # LSP
 #------------------------------------------------
