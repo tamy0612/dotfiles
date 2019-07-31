@@ -126,62 +126,27 @@ hook_add = '''
 # completion
 #------------------------------------------------
 [[plugins]]
-repo        = 'prabirshrestha/asyncomplete.vim'
-hook_add = '''
-  let g:asyncomplete_auto_popup = 0
-  let g:asyncomplete_remove_duplicate = 1
-  let g:asyncomplete_smart_completion = vimrc#is_nvim() || has("lua")
-  let g:asyncomplete_log_file = expand("$VIM_CACHE_DIR/asyncomplete.log")
+repo        = 'zxqfl/tabnine-vim'
+lazy        = 1
+on_event    = ['InsertEnter']
+hook_add    = '''
+  let s:config_dir = expand('$VIMDIR/rc/tabnine')
 
-  inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-  inoremap <expr> <Down>  pumvisible() ? "\<C-n>" : "\<Down>"
-  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-  inoremap <expr> <Up>    pumvisible() ? "\<C-p>" : "\<Up>"
-  imap <C-x><C-l> <Plug>(asyncomplete_force_refresh)
+  if vimrc#is_osx()
+    let s:tabnine_config_dir = expand('$HOME/Library/Preferences/TabNine')
+  endif
+
+  if get(s:, 'tabnine_config_dir', '') ==# ''
+    echomsg 'Destination for TabNineConfig is not defined'
+  elseif !isdirectory(s:tabnine_config_dir)
+    call vimrc#mklink(s:config_dir, s:tabnine_config_dir)
+    echomsg 'Create link ' . s:tabnine_config_dir . ' -> ' . s:config_dir
+  endif
 '''
-hook_post_source = '''
-  set completeopt=menu,preview,noinsert,noselect
-  autocmd MyCmdGroup CompleteDone * if pumvisible() == 0 | pclose |endif
-'''
-
-[[plugins]]
-repo     = 'prabirshrestha/asyncomplete-lsp.vim'
-depends  = ['asyncomplete.vim', 'vim-lsp']
-
-[[plugins]]
-repo     = 'prabirshrestha/asyncomplete-neosnippet.vim'
-depends  = ['asyncomplete.vim', 'neosnippet.vim']
-on_ft    = ['c', 'cpp', 'vim']
 hook_source = '''
-  call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
-    \ 'name': 'neosnippet',
-    \ 'whitelist': ['*'],
-    \ 'priority': 100,
-    \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
-    \ }))
-
-  imap <C-k> <Plug>(neosnippet_expand_or_jump)
-  smap <C-k> <Plug>(neosnippet_expand_or_jump)
-  xmap <C-k> <Plug>(neosnippet_expand_target)
+  inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 '''
-
-[[plugins]]
-repo     = 'Shougo/neosnippet.vim'
-
-[[plugins]]
-repo     = 'Shougo/neosnippet-snippets'
-
-# LSP
-#------------------------------------------------
-[[plugins]]
-repo    = 'prabirshrestha/async.vim'
-lazy    = 1
-on_func = 'async#'
-
-[[plugins]]
-repo     = 'prabirshrestha/vim-lsp'
-depends  = ['async.vim']
-hook_add = 'source $VIMDIR/rc/lsp.vim'
 
 # lint
 #------------------------------------------------

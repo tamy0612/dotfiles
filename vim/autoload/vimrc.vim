@@ -2,7 +2,7 @@
 " vim/autoload/vimrc.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 06 Mar. 2019.
+" Last Change: 31 Jul. 2019.
 "==========================================================
 " Flags
 function! vimrc#is_windows() abort
@@ -73,6 +73,10 @@ function! vimrc#mkdir_unless_exist(dirname) abort
     call vimrc#log('Create directory: ' . a:dirname)
     call mkdir(a:dirname, 'p')
   endif
+endfunction
+
+function! vimrc#mklink(src, dst) abort
+  call system(join(['ln', '-s', a:src, a:dst], ' '))
 endfunction
 
 function! vimrc#auto_mkdir_on_write(dir, cmdbang) abort
