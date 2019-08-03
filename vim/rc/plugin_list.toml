@@ -260,6 +260,11 @@ repo     = 'machakann/vim-sandwich'
 [[plugins]]
 repo = 'andymass/vim-matchup'
 
+[[plugins]]
+repo  = 'editorconfig/editorconfig-vim'
+lazy  = 1
+on_if = 'filereadable(".editorconfig")'
+
 # syntax
 #------------------------------------------------
 ## C/C++
