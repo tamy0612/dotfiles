@@ -3,6 +3,7 @@
   "hide_promotional_message": false,
   "beta_enabled": "No",
   "ignore_all_lsp": false,
+  "creation_time": "2019-09-09T05:05:04.425187Z",
   "semantic_status": {
     "cpp": "Enabled"
   },
@@ -13,5 +14,12 @@
   "tabnine_cloud_port": null,
   "cloud_whitelist": [],
   "api_key": "mxxnrmiixbsfvtggqseurgamwcwhnr",
-  "api_key_service_level": "Cloud"
+  "api_key_service_level": "Cloud",
+  "api_base_url": null,
+  "local_enabled": "Unset",
+  "disable_local_when_using_battery": false,
+  "hide_deep_information_message": false,
+  "enable_power_saving_mode": false,
+  "rate_limit_interval_seconds": null,
+  "rate_limit_amount": null
 }
