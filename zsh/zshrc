@@ -146,9 +146,5 @@ if [ ! -f $HOME/.zshrc.zwc -o $HOME/.zshrc -nt $HOME/.zshrc.zwc ]; then
 fi
 
 
-# Start on tmux
-if ! is_tmux_running; then
-    open_tmux
-else
-    on_login_tmux_session
-fi
+# on start tmux
+on_login_tmux_session
