@@ -64,3 +64,8 @@ if [ -e $FZF_HOME ] ; then
         --preview "(head -n 50 {} || tree {}) 2> /dev/null"
     '
 fi
+
+# ESP IDF
+if [ -d $HOME/.esp/esp-idf ]; then
+    export IDF_PATH=$HOME/.esp/esp-idf
+fi

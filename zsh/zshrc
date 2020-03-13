@@ -135,6 +135,13 @@ setopt list_types
 ## plugins
 source $ZDIR/rc/plugin.zsh
 
+if [ -d $IDF_PATH ]; then
+    function enable_idf() {
+        pyenv local esp-idf
+        . $IDF_PATH/export.sh
+    }
+fi
+
 
 ## load local settings
 [[ -s "$HOME~/.zshrc.mine" ]] && source "$HOME/.zshrc.mine"
