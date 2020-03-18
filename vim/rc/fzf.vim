@@ -2,7 +2,7 @@
 " vim/rc/fzf.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 06 Mar. 2019.
+" Last Change: 18 Mar. 2020.
 "==========================================================
 let g:fzf_layout = {'down': '~40%'}
 let g:fzf_action = {
@@ -40,7 +40,7 @@ endfunction
 function! s:registers(bang) abort
   call fzf#run(<sid>wrap({
         \ 'source': <sid>reglist(),
-        \ 'sink': function('<sid>handle_register', [a:bang])
+        \ 'sink': function('s:handle_register', [a:bang])
         \}))
 endfunction
 
@@ -84,11 +84,37 @@ function! s:handle_register(bang, e) abort
   endtry
 endfunction
 
+function! s:tabs() abort
+  return fzf#run(<sid>wrap({
+        \ 'source': <sid>tablist(),
+        \ 'sink': function('s:handle_tab')
+        \}))
+endfunction
+
+function! s:tablist() abort
+  let l:tablist = []
+  for l:tab in split(execute('tabs'), '\n')
+    let l:page = matchstr(l:tab, '^Tab page')
+    if !empty(l:page)
+      let l:page_num = matchstr(l:tab, '[0-9]*$')
+    else
+      let l:tablist = add(l:tablist, printf('%d %s', l:page_num, l:tab))
+    endif
+  endfor
+  return l:tablist
+endfunction
+
+function! s:handle_tab(tab) abort
+  let l:tab_num = split(a:tab, '\s')[0]
+  execute 'normal! ' . l:tab_num . 'gt'
+endfunction
+
 command! -bang -nargs=? -complete=dir Files     call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 command!                              MFiles    call <sid>file_mru()
 command! -bang                        Registers call <sid>registers(<bang>0)
 command! -bang -nargs=*               Grep      call <sid>grep(<q-args>, <bang>0)
 command!                              Buffers   call fzf#vim#buffers(fzf#vim#with_preview())
+command!       -nargs=0               Tabs      call <sid>tabs()
 
 nmap <silent> <Leader>f :Files<CR>
 nmap <silent> <Leader>l :BLines<CR>
