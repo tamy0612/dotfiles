@@ -1,0 +1,4 @@
+# {{_expr_:expand('%:r:t')}}
+cmake_minimum_required(VERSION {{_input_:version}})
+
+{{_cursor_}}

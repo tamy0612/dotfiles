@@ -1,0 +1,14 @@
+:silent!%s/<+FILE+>/\=vimrc#template#cpp#filename()/g
+:silent!%s/<+GUARD+>/\=vimrc#template#cpp#guard_macro()/g
+:silent!%s/<+LICENSE+>/\=get(g:, 'template_license', 'MIT License')/g
+/**
+ * \file <+FILE+>
+ *
+ * License: <+LICENSE+>
+ */
+#ifndef <+GUARD+>
+#define <+GUARD+>
+
+<+CURSOR+>
+
+#endif /* <+GUARD+> */

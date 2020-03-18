@@ -2,7 +2,7 @@
 " vim/autoload/vimrc.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 31 Jul. 2019.
+" Last Change: 18 Mar. 2020.
 "==========================================================
 " Flags
 function! vimrc#is_windows() abort
@@ -102,6 +102,10 @@ function! vimrc#open_qf_or_loclist() abort
     execute "lopen"
     return
   endif
+endfunction
+
+function! vimrc#relative_filepath() abort
+  return expand('%:s:p:.')
 endfunction
 
 function! vimrc#find_nearest_parent_dir(from, target) abort

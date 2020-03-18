@@ -148,6 +148,27 @@ hook_source = '''
   inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 '''
 
+[[plugins]]
+repo     = 'thinca/vim-template'
+lazy     = 1
+on_cmd   = 'TemplateLoad'
+hook_add = '''
+  source $VIMDIR/rc/template.vim
+'''
+
+[[plugins]]
+repo     = 'mattn/vim-sonictemplate'
+lazy     = 1
+on_map   = ['<plug>(sonictemplate)', '<plug>(sonictemplate-']
+on_ft    = ['stpl']
+on_func  = ['sonictemplate#']
+on_cmd   = ['Template']
+hook_add = '''
+  autocmd MyCmdGroup BufNewFile,BufRead *.stpl set filetype=stpl
+  let g:sonictemplate_vim_template_dir = [expand('$VIMDIR/template')]
+'''
+
+
 # lint
 #------------------------------------------------
 [[plugins]]
@@ -194,12 +215,6 @@ hook_add = '''
 repo   = 'h1mesuke/vim-alignta'
 lazy   = 1
 on_cmd = 'Align'
-
-[[plugins]]
-repo     = 'thinca/vim-template'
-lazy     = 1
-on_cmd   = 'TemplateLoad'
-hook_add = 'source $VIMDIR/rc/template.vim'
 
 [[plugins]]
 repo     = 'ntpeters/vim-better-whitespace'
@@ -364,7 +379,7 @@ repo     = 'junegunn/fzf.vim'
 if       = 'executable("fzf")'
 lazy     = 1
 on_func  = 'fzf#'
-on_cmd   = ['BLines', 'Buffers', 'History:']
+on_event = ['VimEnter']
 hook_add = 'source $VIMDIR/rc/fzf.vim'
 
 ## silicon

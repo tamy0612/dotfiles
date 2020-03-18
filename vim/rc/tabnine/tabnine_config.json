@@ -11,6 +11,7 @@
   "user_understands_that_enabling_tabnine_cloud_sends_code_to_tabnine_servers": true,
   "hosted_deep_completions_enabled": "Enabled",
   "tabnine_cloud_host": null,
+  "tabnine_cloud_certificate_domain": null,
   "tabnine_cloud_port": null,
   "cloud_whitelist": [],
   "api_key": "mxxnrmiixbsfvtggqseurgamwcwhnr",

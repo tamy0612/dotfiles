@@ -2,7 +2,7 @@
 " vim/init.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 17 May. 2019.
+" Last Change: 18 Mar. 2020.
 "==========================================================
 if !1 | finish | endif
 
@@ -110,7 +110,7 @@ else
     call dein#save_state()
   endif
 
-  if has('vim_starting') && dein#check_install()
+  if dein#check_install()
     call dein#install()
   endif
 
