@@ -2,7 +2,7 @@
 " vim/rc/ale.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 03 Mar. 2019.
+" Last Change: 28 Apr. 2020.
 "==========================================================
 function! s:find_exe(...)
   for l:path in a:000
@@ -21,12 +21,12 @@ let s:pip_bin = $PYENV_ROOT . '/versions/neovim3/bin/'
 " C
 let g:ale_c_clang_options = get(g:, 'ale_c_options', '-std=c11 -Wall -I. -I./src -I./include')
 let g:ale_c_gcc_options = g:ale_c_clang_options
-let g:ale_linters.c = ['clang', 'gcc', 'cquery']
+let g:ale_linters.c = ['clang', 'gcc', 'cquery', 'ccls']
 
 " C++
 let g:ale_cpp_clagn_options = get(g:, 'ale_cpp_options', '-std=c++17 -Wall -I. -I./src -I./include')
 let g:ale_cpp_gcc_options = g:ale_cpp_clagn_options
-let g:ale_linters.cpp = ['clang++', 'g++', 'cquery']
+let g:ale_linters.cpp = ['clang++', 'g++', 'cquery', 'ccls']
 
 " Dlang
 let g:ale_linters.d = ['dmd']
@@ -45,6 +45,12 @@ endif
 if executable('rustc')
   let g:ale_rust_rustc_options = '-W warnings -W bad-style'
   let g:ale_linters.rust = extend(g:ale_linters.rust, ['rustc'])
+endif
+
+" Golang
+let g:ale_linters.go = []
+if executable('golint')
+  let g:ale_linters.go = ['golint']
 endif
 
 " typescript

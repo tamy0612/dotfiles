@@ -2,7 +2,7 @@
 " vim/rc/neoformat.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 04 Mar. 2019.
+" Last Change: 28 Apr. 2020.
 "==========================================================
 let g:neoformat_basic_format_trim = 1
 let g:neoformat_only_msg_on_error = 1
@@ -37,6 +37,20 @@ if executable('rustfmt')
   let g:neoformat_rules.rust = {
         \ 'filetype': 'rust',
         \ 'pattern': '*.rs',
+        \}
+endif
+
+" Golang
+if executable('go')
+  let g:neoformat_go_gofmt = {
+        \ 'exe': 'go',
+        \ 'args': ['fmt'],
+        \ 'replace': 1
+        \}
+  let g:neoformat_enabled_go = ['gofmt']
+  let g:neoformat_rules.go = {
+        \ 'filetype': 'go',
+        \ 'pattern': '*.go',
         \}
 endif
 
