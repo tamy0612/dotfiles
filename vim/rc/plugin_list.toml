@@ -16,6 +16,9 @@ repo = 'joshdick/onedark.vim'
 repo = 'cocopon/iceberg.vim'
 
 [[plugins]]
+repo = 'mhartington/oceanic-next'
+
+[[plugins]]
 repo        = 'ryanoasis/vim-devicons'
 lazy        = 1
 on_source   = ['lightline.vim', 'nerdtree']
