@@ -112,16 +112,8 @@ setopt auto_cd
 setopt auto_pushd
 setopt pushd_ignore_dups
 
-# init anyenv
-if type anyenv > /dev/null 2>&1 ; then
-    eval "$(anyenv init - --no-rehash)"
-fi
-
-# init thefuck
-if type thefuck > /dev/null 2>&1 ; then
-    eval $(thefuck --alias)
-    alias fuck='eval $(thefuck $(fc -ln -1))'
-fi
+# command alias
+source $ZDIR/rc/command.zsh
 
 # Options
 setopt print_eight_bit
