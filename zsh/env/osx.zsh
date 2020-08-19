@@ -60,6 +60,7 @@ fi
 # FZF
 if [ -e $BREW_HOME/opt/fzf ]; then
     export FZF_HOME=$BREW_HOME/opt/fzf
+    export FZF_PLUGIN_DIR=$FZF_HOME/shell
 fi
 
 # MySQL client

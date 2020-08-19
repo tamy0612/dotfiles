@@ -137,6 +137,8 @@ hook_add    = '''
 
   if vimrc#is_osx()
     let s:tabnine_config_dir = expand('$HOME/Library/Preferences/TabNine')
+  elseif vimrc#is_linux()
+    let s:tabnine_config_dir = expand('$XDG_CONFIG_HOME/TabNine')
   endif
 
   if get(s:, 'tabnine_config_dir', '') ==# ''
