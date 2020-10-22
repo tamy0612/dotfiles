@@ -1,0 +1,139 @@
+{
+    "editor.fontFamily": "Ricty Diminished Discord",
+    "editor.fontSize": 14,
+    "editor.lineNumbers": "relative",
+    "editor.renderWhitespace": "all",
+    "editor.detectIndentation": true,
+    "editor.wordWrap": "on",
+    "editor.cursorBlinking": "smooth",
+
+    "files.trimTrailingWhitespace": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true
+    },
+    "files.associations": {},
+
+    // minimap
+    "editor.minimap.enabled": false,
+
+    // Vim emulator
+    "vim.useSystemClipboard": true,
+    "vim.useCtrlKeys": true,
+    "vim.hlsearch": true,
+    "vim.incsearch": true,
+    "vim.whichwrap": "b,s,h,l,<,>,[,]",
+    "vim.textwidth": 120,
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["j"],
+            "after": ["g", "j"]
+        },
+        {
+            "before": ["k"],
+            "after": ["g", "k"]
+        },
+        {
+            "before": ["<Down>"],
+            "after": ["g", "j"]
+        },
+        {
+            "before": ["<Up>"],
+            "after": ["g", "k"]
+        },
+        {
+            "before": [">"],
+            "after": [">", ">"]
+        },
+        {
+            "before": ["<"],
+            "after": ["<", "<"]
+        },
+        {
+            "before": ["p"],
+            "after": ["p", "`", "]"]
+        },
+        {
+            "before": ["Y"],
+            "after": ["y", "$"]
+        },
+        {
+            "before": ["x"],
+            "after": ["\"", "_", "x"]
+        },
+        {
+            "before": ["s"],
+            "after": ["\"", "_", "s"]
+        },
+        {
+            "before": ["<Esc>", "<Esc>"],
+            "commands": [":nohlsearch!"]
+        },
+    ],
+    "vim.leader": "\\",
+    "vim.easymotion": true,
+    "vim.surround": true,
+    "vim.sneak": true,
+
+    // Language specific
+    "[latex]": {
+        "editor.suggest.snippetsPreventQuickSuggestions": false,
+        "editor.tabSize": 2,
+    },
+
+    "[bibtex]": {
+        "editor.tabSize": 2
+    },
+
+    // LaTeX workshop
+    "latex-workshop.intellisense.package.enabled": true,
+    "latex-workshop.latex.outDir": ".",
+    "latex-workshop.latex.clean.fileTypes": [
+        "*.aux",
+        "*.bbl",
+        "*.blg",
+        "*.idx",
+        "*.ind",
+        "*.lof",
+        "*.lot",
+        "*.out",
+        "*.toc",
+        "*.acn",
+        "*.acr",
+        "*.alg",
+        "*.glg",
+        "*.glo",
+        "*.gls",
+        "*.fls",
+        "*.log",
+        "*.fdb_latexmk",
+        "*.snm",
+        "*.synctex(busy)",
+        "*.synctex.gz(busy)",
+        "*.nav"
+    ],
+    "latex-workshop.view.pdf.viewer": "tab",
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "latexmk",
+            "tools": [
+                "latexmk"
+            ]
+        },
+    ],
+    "latex-workshop.latex.tools": [
+        {
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": [
+                "-silent",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ],
+        },
+    ],
+
+}
