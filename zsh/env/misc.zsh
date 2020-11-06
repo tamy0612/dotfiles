@@ -66,6 +66,8 @@ if [ -e $FZF_HOME ] ; then
 fi
 
 # ESP IDF
-if [ -d $HOME/.esp/esp-idf ]; then
-    export IDF_PATH=$HOME/.esp/esp-idf
+export ESP_HOME=$HOME/.esp
+if [ -d $ESP_HOME ]; then
+    export IDF_PATH=$ESP_HOME/esp-idf
+    export IDF_TOOLS_PATH=$ESP_HOME/espressif
 fi
