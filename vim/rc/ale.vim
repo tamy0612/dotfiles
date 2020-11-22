@@ -2,7 +2,7 @@
 " vim/rc/ale.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 28 Apr. 2020.
+" Last Change: 23 Nov. 2020.
 "==========================================================
 function! s:find_exe(...)
   for l:path in a:000
@@ -21,12 +21,28 @@ let s:pip_bin = $PYENV_ROOT . '/versions/neovim3/bin/'
 " C
 let g:ale_c_clang_options = get(g:, 'ale_c_options', '-std=c11 -Wall -I. -I./src -I./include')
 let g:ale_c_gcc_options = g:ale_c_clang_options
-let g:ale_linters.c = ['clang', 'gcc', 'cquery', 'ccls']
+if executable('ccls')
+  let g:ale_linters.cpp = ['ccls']
+elseif executable('cquery')
+  let g:ale_linters.cpp = ['cquery']
+elseif executable('clang')
+  let g:ale_linters.cpp = ['clang']
+elseif executable('gcc')
+  let g:ale_linters.cpp = ['gcc']
+endif
 
 " C++
-let g:ale_cpp_clagn_options = get(g:, 'ale_cpp_options', '-std=c++17 -Wall -I. -I./src -I./include')
+let g:ale_cpp_clagn_options = get(g:, 'ale_cpp_options', '-std=c++2a -Wall -I. -I./src -I./include')
 let g:ale_cpp_gcc_options = g:ale_cpp_clagn_options
-let g:ale_linters.cpp = ['clang++', 'g++', 'cquery', 'ccls']
+if executable('ccls')
+  let g:ale_linters.cpp = ['ccls']
+elseif executable('cquery')
+  let g:ale_linters.cpp = ['cquery']
+elseif executable('clang++')
+  let g:ale_linters.cpp = ['clang++']
+elseif executable('g++')
+  let g:ale_linters.cpp = ['g++']
+endif
 
 " Dlang
 let g:ale_linters.d = ['dmd']
