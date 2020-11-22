@@ -1,5 +1,5 @@
 {
-    "editor.fontFamily": "Ricty Diminished Discord",
+    "editor.fontFamily": "Cica",
     "editor.fontSize": 14,
     "editor.lineNumbers": "relative",
     "editor.renderWhitespace": "all",
@@ -135,5 +135,6 @@
             ],
         },
     ],
+    "tabnine.experimentalAutoImports": true,
 
 }
