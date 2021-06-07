@@ -1,10 +1,10 @@
-[language.cpp]
-command = "cquery"
-args = ["--init={\"cacheDirectory\": \"${project_root}/.cquery_cache\"}"]
+# [language.cpp]  # obsolete
+# command = "cquery"
+# args = ["--init={\"cacheDirectory\": \"${project_root}/.cquery_cache\"}"]
 
-# [language.cpp]
-# command = "ccls"
-# args = ["--init={\"cacheDirectory\": \"${project_root}/.ccls_cache\"}"]
+[language.cpp]
+command = "ccls"
+args = ["--init={\"cacheDirectory\": \"${project_root}/.ccls_cache\"}"]
 
 # [language.rust]
 # command = "rls"
