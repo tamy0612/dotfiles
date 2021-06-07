@@ -173,15 +173,44 @@ hook_add = '''
   let g:sonictemplate_vim_template_dir = [expand('$VIMDIR/template')]
 '''
 
-
-# lint
+# linter
 #------------------------------------------------
 [[plugins]]
-repo     = 'w0rp/ale'
-lazy     = 1
-on_map   = '<Plug>'
-on_cmd   = ['ALEEnable', 'ALEToggle']
-on_ft    = ['c', 'cpp', 'd', 'rust', 'typescript', 'python', 'php']
+repo = 'prabirshrestha/async.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+hook_add = '''
+  let g:lsp_signs_enabled = 1
+  let g:lsp_diagnostics_echo_cursor = 1
+
+  let g:lsp_signs_error = {'text': '✗'}
+  let g:lsp_signs_warning = {'text': '!'}
+'''
+
+# [[plugins]]
+# repo = 'prabirshrestha/asyncomplete.vim'
+
+# [[plugins]]
+# repo = 'prabirshrestha/asyncomplete-lsp.vim'
+
+# [[plugins]]
+# repo = 'kitagry/asyncomplete-tabnine.vim'
+# build = './install.sh'
+# hook_add = '''
+#   autocmd User lsp-setup call asyncomplete#register_source(asyncomplete#sources#tabnine#get_source_options({
+#         \   'name': 'tabnine',
+#         \   'allowlist': ['*'],
+#         \   'completor': function('asyncomplete#sources#tabnine#completor'),
+#         \   'config': {
+#         \     'line_limit': 1000,
+#         \     'max_num_result': 20,
+#         \   },
+#         \ }))
+# '''
+
+[[plugins]]
+repo     = 'dense-analysis/ale'
 hook_add = '''
   let g:ale_lint_on_save          = 1
   let g:ale_lint_on_text_changed  = 'normal'
@@ -193,8 +222,18 @@ hook_add = '''
   let g:ale_echo_msg_error_str    = g:ale_sign_error
   let g:ale_echo_msg_warning_str  = g:ale_sign_warning
   let g:ale_echo_msg_format       = '[%linter%] %s [%severity%]'
+
+  set omnifunc+=ale#completion#OmniFUnc
+
+  nmap <silent> <C-p> <Plug>(ale_previous_wrap)
+  nmap <silent> <C-n> <Plug>(ale_next_wrap)
 '''
-hook_source = 'source $VIMDIR/rc/ale.vim'
+
+[[plugins]]
+repo = 'rhysd/vim-lsp-ale'
+hook_add = '''
+  source $VIMDIR/rc/linter_config.vim
+'''
 
 ## Vim
 [[plugins]]
