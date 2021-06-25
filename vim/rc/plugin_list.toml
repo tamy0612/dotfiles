@@ -324,6 +324,22 @@ repo  = 'editorconfig/editorconfig-vim'
 lazy  = 1
 on_if = 'filereadable(".editorconfig")'
 
+[[plugins]]
+repo = 'voldikss/vim-floaterm'
+lazy = 1
+on_cmd = ['FloatermNew']
+on_func = ['floaterm#']
+hook_add = '''
+  augroup Floaterm
+    autocmd!
+  augroup END
+  let g:floaterm_autoclose = 1
+  nnoremap <expr> <silent> <Leader>t floaterm#buflist#first() == -1 ? '<Cmd>FloatermNew<CR>' : '<Cmd>FloatermToggle<CR>'
+'''
+hook_source = '''
+autocmd MyCmdGroup User FloatermOpen tnoremap <buffer> <silent> <C-t> <C-\><C-n>:FloatermToggle<CR>
+'''
+
 # syntax
 #------------------------------------------------
 ## C/C++
@@ -368,6 +384,10 @@ hook_add  = '''
 ## YAML
 [[plugins]]
 repo  = 'stephpy/vim-yaml'
+
+## Elixir
+[[plugins]]
+repo = 'elixir-editors/vim-elixir'
 
 # external commands
 #------------------------------------------------

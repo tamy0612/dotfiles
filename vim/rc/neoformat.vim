@@ -2,7 +2,7 @@
 " vim/rc/neoformat.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 28 Apr. 2020.
+" Last Change: 22 Jun. 2021.
 "==========================================================
 let g:neoformat_basic_format_trim = 1
 let g:neoformat_only_msg_on_error = 1
@@ -88,6 +88,20 @@ if s:tsfmt_dir !=# ''
         \ 'filetype': 'typescript',
         \ 'pattern': '*.ts,*.tsx'
         \}
+endif
+
+" Elixir
+if executable('mix')
+  let g:neoformat_elixir_mixformat = {
+        \   'exe': 'mix',
+        \   'args': ['format'],
+        \   'replace': 1
+        \ }
+  let g:neoformat_enabled_elixir = ['mixformat']
+  let g:neoformat_rules.elixir = {
+        \   'filetype': 'elixir',
+        \   'pattern': '*.ex,*,exs'
+        \ }
 endif
 
 for config in keys(g:neoformat_rules)
