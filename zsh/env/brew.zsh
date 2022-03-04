@@ -6,27 +6,35 @@ case ${OSTYPE} in
             ${path}
         )
         ;;
+    darwin*)
+        path=(
+            /opt/homebrew/bin(N-/)
+            ${path}
+        )
+        ;;
 esac
 
 if type brew > /dev/null 2>&1 ; then
-    export BREW_HOME=$(brew --prefix)
+    export HOMEBREW_PREFIX=$(brew --prefix)
+    export HOMEBREW_CELLAR=${HOMEBREW_PREFIX}/Cellar
+    export HOMEBREW_REPOSITORY=${HOMEBREW_PREFIX}
     path=(
-        $BREW_HOME/bin
+        ${HOMEBREW_PREFIX}/bin
         ${path}
     )
     sudo_path=(
-        $BREW_HOME/sbin
+        ${HOMEBREW_PREFIX}/sbin
         ${sudo_path}
     )
     ld_library_path=(
-        $BREW_HOME/lib
+        ${HOMEBREW_PREFIX}/lib
         ${ld_library_path}
     )
     manpath=(
-        $BREW_HOME/share/man
+        ${HOMEBREW_PREFIX}/share/man
         ${manpath}
     )
     infopath=(
-        $BREW_HOME/share/info
+        ${HOMEBREW_PREFIX}/share/info
     )
 fi

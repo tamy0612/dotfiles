@@ -11,15 +11,15 @@ path=(
 
 # Clang
 path=(
-    ${BREW_HOME}/opt/llvm/bin(N-/)
+    ${HOMEBREW_PREFIX}/opt/llvm/bin(N-/)
     ${path}
 )
 ld_library_path=(
-    ${BREW_HOME}/opt/llvm/lib(N-/)
+    ${HOMEBREW_PREFIX}/opt/llvm/lib(N-/)
     ${ld_library_path}
 )
 manpath=(
-    ${BREW_HOME}/opt/llvm/share/man(N-/)
+    ${HOMEBREW_PREFIX}/opt/llvm/share/man(N-/)
     ${manpath}
 )
 
@@ -58,13 +58,13 @@ if [ -f $HOME/.curl/ca-bundle.crt ]; then
 fi
 
 # FZF
-if [ -e $BREW_HOME/opt/fzf ]; then
-    export FZF_HOME=$BREW_HOME/opt/fzf
+if [ -e ${HOMEBREW_PREFIX}/opt/fzf ]; then
+    export FZF_HOME=${HOMEBREW_PREFIX}/opt/fzf
     export FZF_PLUGIN_DIR=$FZF_HOME/shell
 fi
 
 # MySQL client
 path=(
-    ${BREW_HOME}/opt/mysql-client/bin(N-/)
+    ${HOMEBREW_PREFIX}/opt/mysql-client/bin(N-/)
     ${path}
 )
