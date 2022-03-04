@@ -7,6 +7,10 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
+## Enables deno API
+[[plugins]]
+repo = 'vim-denops/denops.vim'
+
 # view
 #------------------------------------------------
 [[plugins]]
@@ -128,29 +132,46 @@ hook_add = '''
 
 # completion
 #------------------------------------------------
+# [[plugins]]
+# repo        = 'zxqfl/tabnine-vim'
+# lazy        = 1
+# on_event    = ['InsertEnter']
+# hook_add    = '''
+#   let s:config_dir = expand('$VIMDIR/rc/tabnine')
+
+#   if vimrc#is_osx()
+#     let s:tabnine_config_dir = expand('$HOME/Library/Preferences/TabNine')
+#   elseif vimrc#is_linux()
+#     let s:tabnine_config_dir = expand('$XDG_CONFIG_HOME/TabNine')
+#   endif
+
+#   if get(s:, 'tabnine_config_dir', '') ==# ''
+#     echomsg 'Destination for TabNineConfig is not defined'
+#   elseif !isdirectory(s:tabnine_config_dir)
+#     call vimrc#mklink(s:config_dir, s:tabnine_config_dir)
+#     echomsg 'Create link ' . s:tabnine_config_dir . ' -> ' . s:config_dir
+#   endif
+# '''
+# hook_source = '''
+#   inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+#   inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+# '''
+
 [[plugins]]
-repo        = 'zxqfl/tabnine-vim'
-lazy        = 1
-on_event    = ['InsertEnter']
-hook_add    = '''
-  let s:config_dir = expand('$VIMDIR/rc/tabnine')
+repo = 'Shougo/ddc-around'
+[[plugins]]
+repo = 'Shougo/ddc-nextword'
+[[plugins]]
+repo = 'LumaKernel/ddc-file'
+[[plugins]]
+repo = 'Shougo/ddc-matcher_head'
+[[plugins]]
+repo = 'Shougo/ddc-sorter_rank'
 
-  if vimrc#is_osx()
-    let s:tabnine_config_dir = expand('$HOME/Library/Preferences/TabNine')
-  elseif vimrc#is_linux()
-    let s:tabnine_config_dir = expand('$XDG_CONFIG_HOME/TabNine')
-  endif
-
-  if get(s:, 'tabnine_config_dir', '') ==# ''
-    echomsg 'Destination for TabNineConfig is not defined'
-  elseif !isdirectory(s:tabnine_config_dir)
-    call vimrc#mklink(s:config_dir, s:tabnine_config_dir)
-    echomsg 'Create link ' . s:tabnine_config_dir . ' -> ' . s:config_dir
-  endif
-'''
-hook_source = '''
-  inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+[[plugins]]
+repo = 'Shougo/ddc.vim'
+hook_add = '''
+  source $VIMDIR/rc/ddc.vim
 '''
 
 [[plugins]]
@@ -339,6 +360,11 @@ hook_add = '''
 hook_source = '''
 autocmd MyCmdGroup User FloatermOpen tnoremap <buffer> <silent> <C-t> <C-\><C-n>:FloatermToggle<CR>
 '''
+
+[[plugins]]
+repo = 's417-lama/carbonpaper.vim'
+lazy = 1
+on_cmd = ['CarbonPaper']
 
 # syntax
 #------------------------------------------------
