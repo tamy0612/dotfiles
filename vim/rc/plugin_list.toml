@@ -156,15 +156,30 @@ hook_add = '''
 #   inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 #   inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 # '''
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+hook_add = '''
+  let g:lsp_signs_enabled = 1
+  let g:lsp_diagnostics_echo_cursor = 1
+
+  let g:lsp_signs_error = {'text': '✗'}
+  let g:lsp_signs_warning = {'text': '!'}
+
+  let g:lsp_signature_help_enabled = 0
+'''
 
 [[plugins]]
-repo = 'Shougo/ddc-around'
-[[plugins]]
-repo = 'Shougo/ddc-nextword'
+repo = 'matsui54/ddc-buffer'
 [[plugins]]
 repo = 'LumaKernel/ddc-file'
 [[plugins]]
+repo = 'shun/ddc-vim-lsp'
+[[plugins]]
+repo = 'matsui54/ddc-dictionary'
+[[plugins]]
 repo = 'Shougo/ddc-matcher_head'
+[[plugins]]
+repo = 'matsui54/ddc-matcher_fuzzy'
 [[plugins]]
 repo = 'Shougo/ddc-sorter_rank'
 
@@ -172,6 +187,18 @@ repo = 'Shougo/ddc-sorter_rank'
 repo = 'Shougo/ddc.vim'
 hook_add = '''
   source $VIMDIR/rc/ddc.vim
+'''
+
+[[plugins]]
+repo = 'matsui54/denops-popup-preview.vim'
+hook_add = '''
+  call popup_preview#enable()
+'''
+
+[[plugins]]
+repo = 'matsui54/denops-signature_help'
+hook_add = '''
+  call signature_help#enable()
 '''
 
 [[plugins]]
@@ -196,18 +223,8 @@ hook_add = '''
 
 # linter
 #------------------------------------------------
-[[plugins]]
-repo = 'prabirshrestha/async.vim'
-
-[[plugins]]
-repo = 'prabirshrestha/vim-lsp'
-hook_add = '''
-  let g:lsp_signs_enabled = 1
-  let g:lsp_diagnostics_echo_cursor = 1
-
-  let g:lsp_signs_error = {'text': '✗'}
-  let g:lsp_signs_warning = {'text': '!'}
-'''
+# [[plugins]]
+# repo = 'prabirshrestha/async.vim'
 
 # [[plugins]]
 # repo = 'prabirshrestha/asyncomplete.vim'
