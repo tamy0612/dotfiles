@@ -7,7 +7,9 @@
 
 setlocal dictionary+=/usr/share/dict/words
 
-call ddc#custom#patch_global('sources', ['buffer', 'file', 'dictionary'])
+call ddc#custom#patch_global('completionMenu', 'pum.vim')
+
+call ddc#custom#patch_global('sources', ['buffer', 'file', 'dictionary', 'cmdline-history'])
 
 call ddc#custom#patch_global('sourceOptions', {
       \   '_' : {
@@ -17,6 +19,7 @@ call ddc#custom#patch_global('sourceOptions', {
       \  'buffer': {'mark': 'B'},
       \  'file': {'mark': 'F'},
       \  'dictionary': {'mark': 'D'},
+      \  'cmdline-history': {'mark': 'H'},
       \ })
 
 call ddc#custom#patch_global('sourceParams', {
@@ -31,9 +34,6 @@ call ddc#custom#patch_global('filterParams', {
 
 call ddc#custom#patch_filetype(['c', 'cpp'], 'sources', ['vim-lsp', 'buffer', 'file'])
 call ddc#custom#patch_filetype(['c', 'cpp'], 'sourceOptions', {'vim-lsp': {'mark': 'lsp', 'matcher': 'matcher_head'}})
-
-inoremap <silent><expr> <TAB> ddc#map#pum_visible() ? '<C-n>' : (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ? '<TAB>' : ddc#manual_complete()
-inoremap <expr> <S-TAB> ddc#map#pum_visible() ? '<C-p>' : '<C-h>'
 
 call ddc#enable()
 

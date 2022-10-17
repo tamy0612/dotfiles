@@ -182,6 +182,14 @@ repo = 'Shougo/ddc-matcher_head'
 repo = 'matsui54/ddc-matcher_fuzzy'
 [[plugins]]
 repo = 'Shougo/ddc-sorter_rank'
+[[plugins]]
+repo = 'Shougo/ddc-cmdline-history'
+
+[[plugins]]
+repo     = 'Shougo/pum.vim'
+hook_add = '''
+  source $VIMDIR/rc/pum.vim
+'''
 
 [[plugins]]
 repo = 'Shougo/ddc.vim'
@@ -189,11 +197,12 @@ hook_add = '''
   source $VIMDIR/rc/ddc.vim
 '''
 
-[[plugins]]
-repo = 'matsui54/denops-popup-preview.vim'
-hook_add = '''
-  call popup_preview#enable()
-'''
+
+# [[plugins]]
+# repo = 'matsui54/denops-popup-preview.vim'
+# hook_add = '''
+#   call popup_preview#enable()
+# '''
 
 [[plugins]]
 repo = 'matsui54/denops-signature_help'

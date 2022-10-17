@@ -2,7 +2,7 @@
 " vim/init.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 18 Mar. 2020.
+" Last Change: 17 Oct. 2022.
 "==========================================================
 if !1 | finish | endif
 
@@ -180,7 +180,7 @@ set breakindent showbreak=\|> nolinebreak
 
 " Completion
 setglobal complete& complete+=k
-setglobal completeopt=menu,preview,noinsert,noselect
+setglobal completeopt=menu,preview,noselect
 setglobal infercase
 setglobal wildmenu wildmode=longest,full
 setglobal wildignorecase wildignore=*.o,*.class,*.beam,*.dvi,*.pdf
