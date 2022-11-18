@@ -2,7 +2,7 @@
 " vim/init.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 17 Oct. 2022.
+" Last Change: 18 Nov. 2022.
 "==========================================================
 if !1 | finish | endif
 
@@ -105,6 +105,7 @@ else
 
     call dein#begin(s:dein_cache_dir, s:dein_dependencies)
     call dein#load_toml(s:dein_plugin_list)
+    call dein#load_toml(expand('$VIMDIR/rc/ddc.toml'))
     call dein#end()
 
     call dein#save_state()

@@ -169,48 +169,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'matsui54/ddc-buffer'
-[[plugins]]
-repo = 'LumaKernel/ddc-file'
-[[plugins]]
-repo = 'shun/ddc-vim-lsp'
-[[plugins]]
-repo = 'matsui54/ddc-dictionary'
-[[plugins]]
-repo = 'Shougo/ddc-matcher_head'
-[[plugins]]
-repo = 'matsui54/ddc-matcher_fuzzy'
-[[plugins]]
-repo = 'Shougo/ddc-sorter_rank'
-[[plugins]]
-repo = 'Shougo/ddc-cmdline-history'
-
-[[plugins]]
-repo     = 'Shougo/pum.vim'
-hook_add = '''
-  source $VIMDIR/rc/pum.vim
-'''
-
-[[plugins]]
-repo = 'Shougo/ddc.vim'
-hook_add = '''
-  source $VIMDIR/rc/ddc.vim
-'''
-
-
-# [[plugins]]
-# repo = 'matsui54/denops-popup-preview.vim'
-# hook_add = '''
-#   call popup_preview#enable()
-# '''
-
-[[plugins]]
-repo = 'matsui54/denops-signature_help'
-hook_add = '''
-  call signature_help#enable()
-'''
-
-[[plugins]]
 repo     = 'thinca/vim-template'
 lazy     = 1
 on_cmd   = 'TemplateLoad'

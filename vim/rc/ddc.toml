@@ -1,0 +1,109 @@
+[[plugins]]
+repo = 'matsui54/ddc-buffer'
+on_source = ['ddc.vim']
+
+[[plugins]]
+repo = 'LumaKernel/ddc-file'
+on_source = ['ddc.vim']
+
+[[plugins]]
+repo = 'shun/ddc-vim-lsp'
+on_source = ['ddc.vim']
+
+[[plugins]]
+repo = 'matsui54/ddc-dictionary'
+on_source = ['ddc.vim']
+
+[[plugins]]
+repo = 'Shougo/ddc-matcher_head'
+on_source = ['ddc.vim']
+
+[[plugins]]
+repo = 'matsui54/ddc-matcher_fuzzy'
+on_source = ['ddc.vim']
+
+[[plugins]]
+repo = 'Shougo/ddc-sorter_rank'
+on_source = ['ddc.vim']
+
+[[plugins]]
+repo = 'Shougo/ddc-cmdline-history'
+on_source = ['ddc.vim']
+
+[[plugins]]
+repo = 'LumaKernel/ddc-tabnine'
+on_source = ['ddc.vim']
+
+[[plugins]]
+repo     = 'Shougo/pum.vim'
+on_source = ['ddc.vim']
+hook_source = '''
+  call pum#set_option('padding', v:true)
+  call pum#set_option('reverse', v:true)
+
+  inoremap <silent><expr> <Tab>
+        \ pum#visible()
+        \   ? '<Cmd>call pum#map#insert_relative(+1)<CR>'
+        \   : (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s'
+        \     ? '<Tab>'
+        \     : ddc#manual_complete())
+
+  inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+  inoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
+  inoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
+  inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
+  inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+'''
+
+[[plugins]]
+repo = 'Shougo/ddc.vim'
+on_event = 'InsertEnter'
+hook_source = '''
+  setlocal dictionary+=/usr/share/dict/words
+
+  call ddc#custom#patch_global('completionMenu', 'pum.vim')
+
+  " call ddc#custom#patch_global('sources', ['buffer', 'file', 'dictionary', 'cmdline-history'])
+  call ddc#custom#patch_global('sources', ['tabnine'])
+
+  call ddc#custom#patch_global('sourceOptions', {
+        \   '_' : {
+        \     'matchers': ['matcher_fuzzy'],
+        \     'sorters': ['sorter_rank'],
+        \   },
+        \  'buffer': {'mark': 'B'},
+        \  'cmdline-history': {'mark': 'CMD'},
+        \  'file': {'mark': 'F'},
+        \  'dictionary': {'mark': 'D'},
+        \  'tabnine': {'mark': 'TN'},
+        \ })
+
+  call ddc#custom#patch_global('sourceParams', {
+        \  'vim-lsp': {'ignoreCompleteProvider': v:true},
+        \  'buffer': {'requireSameFiletype': v:false, 'limitBytes': 500000, 'fromAltBuf': v:true, 'forceCollect': v:true},
+        \  'dictionary': {'dictPaths': [&dictionary]},
+        \ })
+
+  call ddc#custom#patch_global('filterParams', {
+        \  'matcher_fuzzy': {'camelcase': v:true},
+        \ })
+
+  call ddc#custom#patch_filetype(['c', 'cpp'], 'sources', ['vim-lsp', 'buffer', 'file'])
+  call ddc#custom#patch_filetype(['c', 'cpp'], 'sourceOptions', {'vim-lsp': {'mark': 'lsp', 'matcher': 'matcher_head'}})
+
+  call ddc#enable()
+'''
+
+[[plugins]]
+repo = 'matsui54/denops-popup-preview.vim'
+hook_add = '''
+  call popup_preview#enable()
+'''
+
+[[plugins]]
+repo = 'matsui54/denops-signature_help'
+hook_add = '''
+  call signature_help#enable()
+  let g:signature_help_config = get(g:, 'signature_help_config', {})
+  let g:signature_help_config.style = "virtual"
+'''
