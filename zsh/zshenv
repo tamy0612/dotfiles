@@ -17,6 +17,7 @@ esac
 
 # Misc.
 source $ZDIR/env/misc.zsh
+source $ZDIR/env/sumo.zsh
 
 # aliases
 source $ZDIR/env/alias.zsh
