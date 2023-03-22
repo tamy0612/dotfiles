@@ -2,7 +2,7 @@
 " vim/init.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 18 Mar. 2020.
+" Last Change: 22 Mar. 2023.
 "==========================================================
 if !1 | finish | endif
 
@@ -126,6 +126,8 @@ endif
 filetype plugin indent on
 syntax enable
 
+" timeout
+setglobal ttimeout timeoutlen=50
 
 " Swap file
 set noswapfile undofile
