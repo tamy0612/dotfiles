@@ -1,0 +1,115 @@
+## LSP
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+on_event = ['VimEnter']
+hook_add = '''
+  let g:lsp_signs_enabled = 1
+  let g:lsp_diagnostics_echo_cursor = 1
+  let g:lsp_diagnostic_virtual_text_enabled = 1
+
+  let g:lsp_signs_error = {'text': '✗'}
+  let g:lsp_signs_warning = {'text': '!'}
+'''
+
+## Linter
+[[plugins]]
+repo     = 'dense-analysis/ale'
+on_event = ['VimEnter']
+hook_add = '''
+  let g:ale_lint_on_save          = 1
+  let g:ale_lint_on_text_changed  = 'normal'
+  let g:ale_lint_on_enter         = 0
+  let g:ale_open_list             = 1
+  let g:ale_keep_list_window_open = 0
+  let g:ale_sign_error = '✗'
+  let g:ale_sign_warning = '!'
+  let g:ale_echo_msg_error_str    = g:ale_sign_error
+  let g:ale_echo_msg_warning_str  = g:ale_sign_warning
+  let g:ale_echo_msg_format       = '[%linter%] %s [%severity%]'
+
+  set omnifunc+=ale#completion#OmniFUnc
+
+  nmap <silent> <C-p> <Plug>(ale_previous_wrap)
+  nmap <silent> <C-n> <Plug>(ale_next_wrap)
+'''
+
+[[plugins]]
+repo = 'rhysd/vim-lsp-ale'
+on_event = ['VimEnter']
+hook_add = '''
+  source $VIMDIR/rc/linter_config.vim
+'''
+
+[[plugins]]
+repo    = 'syngan/vim-vimlint'
+depends = ['vim-vimlparser']
+on_func = 'vimlint#vimlint'
+
+[[plugins]]
+repo      = 'ynkdir/vim-vimlparser'
+on_source = ['vim-vimlint']
+
+## Formatter
+[[plugins]]
+repo        = 'sbdchd/neoformat'
+on_cmd      = 'Neoformat'
+hook_source = '''
+  source $VIMDIR/rc/neoformat.vim
+'''
+
+[[plugins]]
+repo  = 'editorconfig/editorconfig-vim'
+on_if = 'filereadable(expand(getcwd() . "/.editorconfig"))'
+
+## Git
+[[plugins]]
+repo        = 'lambdalisue/gina.vim'
+on_cmd      = ['Gina']
+on_func     = 'gina#'
+hook_source = '''
+  autocmd! FileType gina-commit execute "normal! G"
+
+  for kind in ['log', 'status', 'diff']
+    call gina#custom#command#option(kind, '--opener', 'split')
+    execute 'autocmd' 'MyCmdGroup Filetype gine-' . kind . ' nnoremap q :q<CR>'
+  endfor
+
+  cabbrev git Gina
+'''
+
+[[plugins]]
+repo     = 'airblade/vim-gitgutter'
+on_func  = ['GitGutterGetHunkSummary']
+on_cmd   = ['GitGutter*']
+hook_add = '''
+  let g:gitgutter_async   = 1
+  let g:gitgutter_highlight_lines = 0
+
+  let g:gitgutter_sign_added    = '+'
+  let g:gitgutter_sign_modified = '*'
+  let g:gitgutter_sign_removed  = '-'
+  let g:gitgutter_sign_modified_removed = '*'
+
+  noremap [git] <Nop>
+  map <C-g> [git]
+  nmap <silent> [git]h :GitGutterLineHighlightsToggle<CR>
+  nmap <silent> [git]n :GitGutterNextHunk<CR>
+  nmap <silent> [git]p :GitGutterPrevHunk<CR>
+'''
+
+## Utility
+[[plugins]]
+repo = 'voldikss/vim-floaterm'
+on_cmd = ['FloatermNew']
+on_func = ['floaterm#']
+hook_add = '''
+  augroup Floaterm
+    autocmd!
+  augroup END
+  let g:floaterm_autoclose = 1
+  nnoremap <expr> <silent> <Leader>t floaterm#buflist#first() == -1 ? '<Cmd>FloatermNew<CR>' : '<Cmd>FloatermToggle<CR>'
+'''
+hook_source = '''
+  autocmd MyCmdGroup User FloatermOpen tnoremap <buffer> <silent> <C-t> <C-\><C-n>:FloatermToggle<CR>
+'''
+# vim:ft=toml:ts=2:sw=2:fdm=marker:et

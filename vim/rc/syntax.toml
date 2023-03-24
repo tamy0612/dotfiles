@@ -1,0 +1,71 @@
+###############################################################################
+# Syntax files
+###############################################################################
+## C/C++
+[[plugins]]
+repo  = 'vim-jp/cpp-vim'
+on_ft = ['c', 'cpp']
+
+[[plugins]]
+repo  = 'octol/vim-cpp-enhanced-highlight'
+on_ft = ['c', 'cpp']
+
+## TypeScript
+[[plugins]]
+repo     = 'leafgarland/typescript-vim'
+on_ft    = ['typescript', 'typescriptreact']
+hook_add = '''
+  autocmd! FileType typescript,typescriptreact setlocal tabstop=2 shiftwidth=2
+'''
+
+## TOML
+[[plugins]]
+repo      = 'cespare/vim-toml'
+on_ft     = ['toml']
+
+## YAML
+[[plugins]]
+repo  = 'stephpy/vim-yaml'
+on_ft = ['yaml']
+
+## Elixir
+[[plugins]]
+repo  = 'elixir-editors/vim-elixir'
+on_ft = ['elixir']
+
+
+###############################################################################
+# Precious enables partial highlighting
+###############################################################################
+[[plugins]]
+repo     = 'osyo-manga/vim-precious'
+depends  = ['context_filetype.vim']
+on_cmd   = ['PreciousSwitch', 'PreciousReset']
+hook_add = '''
+  augroup Precious
+    autocmd!
+    autocmd FileType toml :PreciousSwitch
+  augroup END
+'''
+
+[[plugins]]
+repo      = 'Shougo/context_filetype.vim'
+on_source = ['vim-precious']
+hook_add  = '''
+  let g:context_filetype#filetypes = get(g:, 'context_filetype#filetypes', {})
+
+  " Toml
+  let g:context_filetype#filetypes.toml = [
+      \   {
+      \     'filetype': 'vim',
+      \     'start': '^\s*hook_\(add\|source\|post_source\)\s*=\s*'."'"."''",
+      \     'end': "'"."''"
+      \   },
+      \   {
+      \     'filetype': 'vim',
+      \     'start': '^\s*hook_\(add\|source\|post_source\)\s*=\s*'.'"""',
+      \     'end': '"""'
+      \   }
+      \ ]
+'''
+# vim:ft=toml:ts=2:sw=2:fdm=marker:et

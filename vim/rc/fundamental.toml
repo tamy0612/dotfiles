@@ -1,0 +1,52 @@
+[[plugins]]
+repo     = 'cocopon/iceberg.vim'
+hook_add = '''
+  setglobal background=dark
+  colorscheme iceberg
+'''
+
+[[plugins]]
+repo     = 'itchyny/lightline.vim'
+hook_add = '''
+  source $VIMDIR/rc/lightline.vim
+'''
+
+[[plugins]]
+repo     = 'itchyny/vim-cursorword'
+hook_add = '''
+  let g:cursorword = 1
+
+  function! s:toggle_cursorword() abort
+    let g:cursorword = !g:cursorword
+    call cursorword#matchadd()
+  endfunction
+
+  command! ToggleCorsorword call s:toggle_cursorword()
+'''
+
+[[plugins]]
+repo     = 'Yggdroot/indentLine'
+hook_add = '''
+  let g:indentLine_enabled = 1
+  let g:indentLine_leadingSpaceEnabled = 1
+
+  let g:indentLine_setConceal = 1
+  let g:indentLine_conceallevel = 1
+  let g:indentLine_concealcursor = ''
+
+  let g:indentLine_char = '¦'
+  let g:indentLine_leadingSpaceChar = ''
+
+  let g:indentLine_setColors = 1
+  let g:indentLine_color_term = 241
+'''
+
+[[plugins]]
+repo     = 'itchyny/vim-parenmatch'
+hook_add = '''
+  let g:loaded_matchparen = 1
+'''
+
+[[plugins]]
+repo = 'andymass/vim-matchup'
+# vim:ft=toml:ts=2:sw=2:fdm=marker:et

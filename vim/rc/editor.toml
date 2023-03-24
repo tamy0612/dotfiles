@@ -1,0 +1,74 @@
+###############################################################################
+# Search
+###############################################################################
+[[plugins]]
+repo = 't9md/vim-quickhl'
+on_map   = '<Plug>'
+hook_add = '''
+  nmap <Leader>m <Plug>(quickhl-manual-this)
+  xmap <Leader>m <Plug>(quickhl-manual-this)
+  nmap <Leader>w <Plug>(quickhl-manual-this-whole-word)
+  xmap <Leader>w <Plug>(quickhl-manual-this-whole-word)
+'''
+
+[[plugins]]
+repo        = 'easymotion/vim-easymotion'
+on_map      = '<Plug>'
+hook_add    = '''
+  let g:EasyMotion_do_mapping = 0
+  let g:EasyMotion_smartcase = 0
+  let g:EasyMotion_use_upper = 0
+  let g:EasyMotion_use_smartsign_us = 1
+  let g:EasyMotion_startofline = 0
+  let g:EasyMotion_enter_jump_first = 1
+  let g:EasyMotion_space_jump_first = 1
+
+  nmap <C-f> <Plug>(easymotion-sn)
+  nmap / <Plug>(easymotion-fn)
+  nmap ? <Plug>(easymotion-Fn)
+  nmap ; <Plug>(easymotion-bd-n)
+'''
+
+[[plugins]]
+repo       = 'haya14busa/vim-asterisk'
+on_map     = '<Plug>'
+hook_add   = '''
+  map * <Plug>(asterisk-z*)
+  map g* <Plug>(asterisk-gz*)
+  map # <Plug>(asterisk-z#)
+  map g# <Plug>(asterisk-gz#)
+'''
+
+## Edit
+[[plugins]]
+repo     = 'cohama/lexima.vim'
+on_event = 'InsertEnter'
+
+[[plugins]]
+repo     = 'tpope/vim-commentary'
+on_cmd   = 'Commentary'
+hook_add = '''
+  map <silent> <Leader>c :Commentary<CR>
+'''
+
+[[plugins]]
+repo   = 'h1mesuke/vim-alignta'
+on_cmd = 'Align'
+
+[[plugins]]
+repo     = 'ntpeters/vim-better-whitespace'
+on_event = 'InsertEnter'
+hook_add = '''
+  let g:strip_whitespace_on_save = 1
+  let g:strip_whitelines_at_eof = 1
+'''
+
+[[plugins]]
+repo     = 'AndrewRadev/switch.vim'
+on_cmd   = 'Switch'
+on_func  = 'switch#Switch'
+hook_add = '''
+  let g:switch_mapping = ""
+  nmap <silent> <Leader>s :Switch<CR>
+'''
+# vim:ft=toml:ts=2:sw=2:fdm=marker:et

@@ -2,7 +2,7 @@
 " vim/init.vim
 "
 " Author: Yasumasa TAMURA (tamura.yasumasa@gmail.com)
-" Last Change: 22 Mar. 2023.
+" Last Change: 24 Mar. 2023.
 "==========================================================
 if !1 | finish | endif
 
@@ -87,6 +87,14 @@ if has('vim_starting') && &runtimepath !~ '/dein.vim'
     vimrc#error('dein.vim not found')
     vimrc#log('skip putting dein.vim into runtimepath')
   endif
+
+  if executable('deno')
+    call vimrc#deno#enable()
+  else
+    call vimrc#deno#disable()
+    vimrc#error('deno is not installed')
+    vimrc#log('deno dependent features are disabled')
+  endif
 endif
 
 if &runtimepath !~ '/dein.vim'
@@ -104,7 +112,15 @@ else
     let s:dein_dependencies += split(glob($VIMDIR . '/rc/*.vim'), '\n')
 
     call dein#begin(s:dein_cache_dir, s:dein_dependencies)
-    call dein#load_toml(s:dein_plugin_list)
+    " call dein#load_toml(s:dein_plugin_list)
+    call dein#add('Shougo/dein.vim')
+    call dein#add('vim-denops/denops.vim', {'if': vimrc#deno#is_available()})
+    call dein#load_toml($VIMDIR . '/rc/fundamental.toml')
+    call dein#load_toml($VIMDIR . '/rc/editor.toml', {'lazy': v:true})
+    call dein#load_toml($VIMDIR . '/rc/syntax.toml', {'lazy': v:true})
+    call dein#load_toml($VIMDIR . '/rc/filer.toml', {'lazy': v:true})
+    call dein#load_toml($VIMDIR . '/rc/development.toml', {'lazy': v:true})
+    call dein#load_toml($VIMDIR . '/rc/misc.toml', {'lazy': v:true})
     call dein#end()
 
     call dein#save_state()
@@ -113,21 +129,13 @@ else
   if dein#check_install()
     call dein#install()
   endif
-
-  " Enable colorscheme
-  setglobal background=dark
-  if dein#tap('iceberg.vim')
-    colorscheme iceberg
-  else
-    execute 'colorscheme' vimrc#default_colorscheme()
-  endif
 endif
 
 filetype plugin indent on
 syntax enable
 
 " timeout
-setglobal ttimeout timeoutlen=50
+setglobal ttimeout timeoutlen=1000 ttimeoutlen=50
 
 " Swap file
 set noswapfile undofile

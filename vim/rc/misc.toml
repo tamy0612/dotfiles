@@ -1,0 +1,14 @@
+[[plugins]]
+repo        = 'segeljakt/vim-silicon'
+if          = 'executable("silicon")'
+on_cmd      = ['Silicon']
+hook_source = '''
+  let g:silicon = {
+        \ 'theme': 'OneHalfDark',
+        \ 'background': '#000000',
+        \ 'pad-horiz': 0,
+        \ 'pad-vert': 0,
+        \ 'round-corner': v:false,
+        \ 'window-controls': v:false
+        \}
+'''

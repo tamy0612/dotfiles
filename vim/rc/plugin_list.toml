@@ -14,6 +14,10 @@ repo = 'joshdick/onedark.vim'
 
 [[plugins]]
 repo = 'cocopon/iceberg.vim'
+hook_add = '''
+  setglobal background=dark
+  colorscheme iceberg
+'''
 
 [[plugins]]
 repo = 'mhartington/oceanic-next'
