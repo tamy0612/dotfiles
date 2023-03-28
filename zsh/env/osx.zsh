@@ -36,10 +36,10 @@ if type go > /dev/null 2>&1 ; then
 fi
 
 # Editor
-if type nvim > /dev/null 2>&1 ; then
-    export EDITOR="nvim"
-elif [ -x "/usr/local/bin/vim" ] ; then
-    export EDITOR='/usr/local/bin/vim'
+if [ -x "${HOMEBREW_PREFIX}/bin/vim" ] ; then
+    export EDITOR="${HOMEBREW_PREFIX}/bin/vim"
+elif type vim > /dev/null 2>&1 ; then
+    export EDITOR="vim"
 elif [ -d "/Applications/MacVim.app" ] ; then
     export EDITOR='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim'
     alias vim=$EDITOR
