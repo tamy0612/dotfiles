@@ -1,6 +1,4 @@
-###############################################################################
 # Search
-###############################################################################
 [[plugins]]
 repo = 't9md/vim-quickhl'
 on_map   = '<Plug>'
@@ -39,7 +37,7 @@ hook_add   = '''
   map g# <Plug>(asterisk-gz#)
 '''
 
-## Edit
+# Edit
 [[plugins]]
 repo     = 'cohama/lexima.vim'
 on_event = 'InsertEnter'
@@ -70,5 +68,14 @@ on_func  = 'switch#Switch'
 hook_add = '''
   let g:switch_mapping = ""
   nmap <silent> <Leader>s :Switch<CR>
+'''
+
+[[plugins]]
+repo     = 'vim-skk/skkeleton'
+if       = 'vimrc#deno#is_available() && filereadable(expand("$XDG_CACHE_HOME/skk/SKK-JISYO.L"))'
+hook_add = '''
+  call skkeleton#config({'globalJisyo': expand('$XDG_CACHE_HOME/skk/SKK-JISYO.L')})
+  inoremap <C-j> <Plug>(skkeleton-toggle)
+  cnoremap <C-j> <Plug>(skkeleton-toggle)
 '''
 # vim:ft=toml:ts=2:sw=2:fdm=marker:et
