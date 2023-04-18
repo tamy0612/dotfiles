@@ -3,7 +3,8 @@ if type sumo > /dev/null 2>&1 ; then
 
     case ${OSTYPE} in
         darwin*)
-            export SUMO_HOME=$(brew --prefix)/Cellar/sumo/${SUMO_VERSION}
+            export SUMO_INSTALL_DIR=$(brew --prefix)/Cellar/sumo/${SUMO_VERSION}
+            export SUMO_HOME=${SUMO_INSTALL_DIR}/share/sumo
             ;;
     esac
 fi
