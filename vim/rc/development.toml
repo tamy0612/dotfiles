@@ -1,42 +1,50 @@
 ## LSP
 [[plugins]]
 repo = 'prabirshrestha/vim-lsp'
-on_event = ['VimEnter']
+on_source = ['vim-lsp-ale']
 hook_add = '''
-  let g:lsp_signs_enabled = 1
-  let g:lsp_diagnostics_echo_cursor = 1
-  let g:lsp_diagnostic_virtual_text_enabled = 1
-
-  let g:lsp_signs_error = {'text': '✗'}
-  let g:lsp_signs_warning = {'text': '!'}
+  let g:lsp_signature_help_enabled = 0
+'''
+hook_source = '''
+  call popup_preview#enable()
 '''
 
 ## Linter
 [[plugins]]
 repo     = 'dense-analysis/ale'
-on_event = ['VimEnter']
+on_source = ['vim-lsp-ale']
 hook_add = '''
-  let g:ale_lint_on_save          = 1
-  let g:ale_lint_on_text_changed  = 'normal'
-  let g:ale_lint_on_enter         = 0
+  let g:ale_lint_on_save = 1
+  let g:ale_fix_on_save = 1
+  let g:ale_floating_preview = 1
   let g:ale_open_list             = 1
   let g:ale_keep_list_window_open = 0
+  let g:ale_hover_cursor = 1
+  let g:ale_lint_on_text_changed  = 'normal'
+  let g:ale_lint_on_enter         = 0
   let g:ale_sign_error = '✗'
   let g:ale_sign_warning = '!'
   let g:ale_echo_msg_error_str    = g:ale_sign_error
   let g:ale_echo_msg_warning_str  = g:ale_sign_warning
   let g:ale_echo_msg_format       = '[%linter%] %s [%severity%]'
-
-  set omnifunc+=ale#completion#OmniFUnc
+'''
+hook_source = '''
+  set omnifunc=ale#completion#OmniFunc
+  set completeopt& completeopt+=menuone,popup,noinsert,noselect,preview
+  set completepopup=height:10,width:60,highlight:InfoPopup
 
   nmap <silent> <C-p> <Plug>(ale_previous_wrap)
   nmap <silent> <C-n> <Plug>(ale_next_wrap)
+  nmap <silent> <C-k> <Plug>(ale_detail)
 '''
 
 [[plugins]]
 repo = 'rhysd/vim-lsp-ale'
-on_event = ['VimEnter']
+on_source = ['ddc.vim']
+on_event = ['InsertEnter']
 hook_add = '''
+  autocmd MyCmdGroup CursorHold * ALEDetail
+
   source $VIMDIR/rc/linter_config.vim
 '''
 
@@ -49,17 +57,123 @@ on_func = 'vimlint#vimlint'
 repo      = 'ynkdir/vim-vimlparser'
 on_source = ['vim-vimlint']
 
-## Formatter
 [[plugins]]
-repo        = 'sbdchd/neoformat'
-on_cmd      = 'Neoformat'
-hook_source = '''
-  source $VIMDIR/rc/neoformat.vim
-'''
+repo = 'matsui54/denops-popup-preview.vim'
+on_source = ['vim-lsp']
+depends = ['denops.vim']
 
 [[plugins]]
-repo  = 'editorconfig/editorconfig-vim'
-on_if = 'filereadable(expand(getcwd() . "/.editorconfig"))'
+repo = 'matsui54/denops-signature_help'
+on_source = ['vim-lsp']
+depends = ['denops.vim']
+hook_add = '''
+  " let g:signature_help_config = #{
+  "       \ contentsStyle: "full",
+  "       \ viewStyle: "floating"
+  "       \ }
+  let g:signature_help_config = #{
+        \ contentsStyle: "remainingLabels",
+        \ viewStyle: "virtual"
+        \ }
+'''
+
+## Completion
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+on_event = ['InsertEnter']
+hook_add = '''
+  let g:asyncomplete_auto_popup = 1
+  let g:asyncomplete_auto_completeopt = 0
+'''
+hook_source = '''
+  set completeopt& completeopt+=menuone,popup,noinsert,noselect,preview
+  set completepopup=height:10,width:60,highlight:InfoPopup
+
+  function! s:check_back_space() abort
+      let col = col('.') - 1
+      return col <= 0 || getline('.')[col - 1]  =~# '\s'
+  endfunction
+
+  inoremap <expr> <TAB>
+      \ pumvisible() ?
+      \   '<C-n>' :
+      \   (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+      \       '<TAB>' : '<C-n>'
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+
+  autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+  autocmd User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#ale#get_source_options({
+  \ 'priority': 10
+  \ }))
+'''
+
+# [[plugins]]
+# repo = 'prabirshrestha/asyncomplete-lsp.vim'
+# on_source = ['asyncomplete.vim', 'vim-lsp']
+
+# [[plugins]]
+# repo = 'Shougo/ddc.vim'
+# on_event = ['InsertEnter']
+# hook_add = '''
+#     " autocmd MyCmdGroup VimEnter * call dein#call_hook('post_source')
+# '''
+# hook_source = '''
+#     source $VIMDIR/rc/ddc.vim
+# '''
+
+# [[plugins]]
+# repo = 'Shougo/ddc-ui-native'
+# on_source = ['ddc.vim']
+
+# [[plugins]]
+# repo = 'Shougo/pum.vim'
+# on_source = ['ddc.vim']
+
+# [[plugins]]
+# repo = 'Shougo/ddc-ui-pum'
+# on_source = ['ddc.vim', 'pum.vim']
+
+# [[plugins]]
+# repo = 'tani/ddc-fuzzy'
+# on_source = ['ddc.vim']
+
+# [[plugins]]
+# repo = 'Shougo/ddc-source-around'
+# on_source = ['ddc.vim']
+
+# [[plugins]]
+# repo = 'tani/ddc-path'
+# on_source = ['ddc.vim']
+
+# [[plugins]]
+# repo = 'statiolake/ddc-ale'
+# on_source = ['ddc.vim']
+
+# [[plugins]]
+# repo = 'shun/ddc-source-vim-lsp'
+# on_source = ['ddc.vim']
+
+# [[plugins]]
+# repo = 'Shougo/ddc-source-cmdline'
+# on_source = ['ddc.vim']
+
+# [[plugins]]
+# repo = 'Shougo/ddc-source-cmdline-history'
+# on_source = ['ddc.vim']
+
+## Formatter
+# [[plugins]]
+# repo        = 'sbdchd/neoformat'
+# on_cmd      = 'Neoformat'
+# hook_source = '''
+#   source $VIMDIR/rc/neoformat.vim
+# '''
+
+# [[plugins]]
+# repo  = 'editorconfig/editorconfig-vim'
+# on_if = 'filereadable(expand(getcwd() . "/.editorconfig"))'
 
 ## Git
 [[plugins]]
