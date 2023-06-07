@@ -13,6 +13,14 @@ if executable('ccls')
         \ })
 endif
 
+if executable('texlab')
+  autocmd User lsp_setup call lsp#register_server({
+        \   'name': 'texlab',
+        \   'cmd': ['texlab'],
+        \   'allowlist': ['tex', 'latex']
+        \ })
+endif
+
 let g:ale_fixers = {
       \   '*': ['remove_trailing_lines', 'trim_whitespace'],
       \   'c': ['clang-format'],
