@@ -40,8 +40,7 @@ hook_source = '''
 
 [[plugins]]
 repo = 'rhysd/vim-lsp-ale'
-on_source = ['ddc.vim']
-on_event = ['InsertEnter']
+on_source = ['asyncomplete.vim']
 hook_add = '''
   autocmd MyCmdGroup CursorHold * ALEDetail
 
@@ -61,6 +60,9 @@ on_source = ['vim-vimlint']
 repo = 'matsui54/denops-popup-preview.vim'
 on_source = ['vim-lsp']
 depends = ['denops.vim']
+hook_source = '''
+  call popup_preview#enable()
+'''
 
 [[plugins]]
 repo = 'matsui54/denops-signature_help'
@@ -107,6 +109,16 @@ hook_source = '''
   autocmd User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#ale#get_source_options({
   \ 'priority': 10
   \ }))
+'''
+
+[[plugins]]
+repo = 'andreypopp/asyncomplete-ale.vim'
+on_source = ['asyncomplete.vim']
+hook_source = '''
+autocmd User asyncomplete_setup call asyncomplete#ale#register_source({
+      \   'name': 'ale',
+      \   'linter': 'flow'
+      \ })
 '''
 
 # [[plugins]]
