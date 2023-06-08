@@ -117,9 +117,9 @@ else
     call dein#add('vim-denops/denops.vim', {'if': vimrc#deno#is_available()})
     call dein#load_toml($VIMDIR . '/rc/fundamental.toml')
     call dein#load_toml($VIMDIR . '/rc/editor.toml', {'lazy': v:true})
+    call dein#load_toml($VIMDIR . '/rc/development.toml', {'lazy': v:true})
     call dein#load_toml($VIMDIR . '/rc/syntax.toml', {'lazy': v:true})
     call dein#load_toml($VIMDIR . '/rc/filer.toml', {'lazy': v:true})
-    call dein#load_toml($VIMDIR . '/rc/development.toml', {'lazy': v:true})
     call dein#load_toml($VIMDIR . '/rc/misc.toml', {'lazy': v:true})
     call dein#end()
 
