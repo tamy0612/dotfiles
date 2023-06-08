@@ -18,10 +18,9 @@ call ddc#custom#patch_global('sourceOptions', {
         \   'around': {'mark': 'A'}
         \ })
 
-inoremap <silent><expr> <Tab> pum#visible() ?
-        \ '<Cmd>call pum#map#insert_relative(+1)<CR>' :
-        \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
-        \   '<Tab>' : ddc#map#manual_complete()
+inoremap <silent><expr> <Tab>
+        \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>'
+        \               : (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ? '<Tab>' : ddc#map#manual_complete()
 inoremap <expr> <S-Tab> pum#isible() ? '<Cmd>call pum#map#insert_relative(-1)<CR>' : '<C-h>'
 
 inoremap <C-n> <Cmd>call pum#map#insert_relative(+1)<CR>
