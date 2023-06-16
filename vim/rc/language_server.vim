@@ -26,3 +26,11 @@ if executable('texlab')
         \   'allowlist': ['tex', 'latex']
         \ })
 endif
+
+if executable('rust-analyzer')
+    autocmd User lsp_setup call lsp#register_server({
+        \   'name': 'rust-analyzer',
+        \   'cmd': {serverInfo->['rust-analyzer']},
+        \   'allowlist': ['rust'],
+        \ })
+endif

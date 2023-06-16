@@ -62,12 +62,12 @@ hook_add = '''
   nmap <silent> <Leader>s :Switch<CR>
 '''
 
-[[plugins]]
-repo     = 'vim-skk/skkeleton'
-if       = 'vimrc#deno#is_available() && filereadable(expand("$XDG_CACHE_HOME/skk/SKK-JISYO.L"))'
-hook_add = '''
-  call skkeleton#config({'globalJisyo': expand('$XDG_CACHE_HOME/skk/SKK-JISYO.L')})
-  inoremap <C-j> <Plug>(skkeleton-toggle)
-  cnoremap <C-j> <Plug>(skkeleton-toggle)
-'''
+# [[plugins]]
+# repo     = 'vim-skk/skkeleton'
+# if       = 'vimrc#deno#is_available() && filereadable(expand("$XDG_CACHE_HOME/skk/SKK-JISYO.L"))'
+# hook_add = '''
+#   call skkeleton#config({'globalJisyo': expand('$XDG_CACHE_HOME/skk/SKK-JISYO.L')})
+#   inoremap <C-j> <Plug>(skkeleton-toggle)
+#   cnoremap <C-j> <Plug>(skkeleton-toggle)
+# '''
 # vim:ft=toml:ts=2:sw=2:fdm=marker:et

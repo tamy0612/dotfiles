@@ -1,0 +1,50 @@
+[[plugins]]
+repo = 'vim-denops/denops.vim'
+if   = 'executable("deno")'
+hook_add = '''
+    call vimrc#denops#enable()
+'''
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+hook_add = '''
+  let g:lsp_signature_help_enabled = 0
+  source $VIMDIR/rc/language_server.vim
+'''
+
+[[plugins]]
+repo        = 'lambdalisue/gina.vim'
+lazy        = 1
+on_cmd      = ['Gina']
+on_func     = 'gina#'
+hook_source = '''
+  autocmd! FileType gina-commit execute "normal! G"
+
+  for kind in ['log', 'status', 'diff']
+    call gina#custom#command#option(kind, '--opener', 'split')
+    execute 'autocmd' 'MyCmdGroup Filetype gine-' . kind . ' nnoremap q :q<CR>'
+  endfor
+
+  cabbrev git Gina
+'''
+
+[[plugins]]
+repo     = 'airblade/vim-gitgutter'
+lazy     = 1
+on_func  = ['GitGutterGetHunkSummary']
+on_cmd   = ['GitGutter*']
+hook_add = '''
+  let g:gitgutter_async   = 1
+  let g:gitgutter_highlight_lines = 0
+
+  let g:gitgutter_sign_added    = '+'
+  let g:gitgutter_sign_modified = '*'
+  let g:gitgutter_sign_removed  = '-'
+  let g:gitgutter_sign_modified_removed = '*'
+
+  noremap [git] <Nop>
+  map <C-g> [git]
+  nmap <silent> [git]h :GitGutterLineHighlightsToggle<CR>
+  nmap <silent> [git]n :GitGutterNextHunk<CR>
+  nmap <silent> [git]p :GitGutterPrevHunk<CR>
+'''
