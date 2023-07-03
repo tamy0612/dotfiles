@@ -84,16 +84,8 @@ if has('vim_starting') && &runtimepath !~ '/dein.vim'
   if filereadable(s:dein_dir . '/autoload/dein.vim')
     execute 'set runtimepath^=' . substitute(fnamemodify(s:dein_dir, ':p'), '/$', '', '')
   else
-    vimrc#error('dein.vim not found')
-    vimrc#log('skip putting dein.vim into runtimepath')
-  endif
-
-  if executable('deno')
-    call vimrc#deno#enable()
-  else
-    call vimrc#deno#disable()
-    vimrc#error('deno is not installed')
-    vimrc#log('deno dependent features are disabled')
+    call vimrc#error('dein.vim not found')
+    call vimrc#log('skip putting dein.vim into runtimepath')
   endif
 endif
 
@@ -114,12 +106,12 @@ else
     call dein#begin(s:dein_cache_dir, s:dein_dependencies)
     " call dein#load_toml(s:dein_plugin_list)
     call dein#add('Shougo/dein.vim')
-    call dein#add('vim-denops/denops.vim', {'if': vimrc#deno#is_available()})
+    call dein#load_toml($VIMDIR . '/rc/extension.toml')
     call dein#load_toml($VIMDIR . '/rc/fundamental.toml')
     call dein#load_toml($VIMDIR . '/rc/editor.toml', {'lazy': v:true})
+    " call dein#load_toml($VIMDIR . '/rc/development.toml', {'lazy': v:true})
     call dein#load_toml($VIMDIR . '/rc/syntax.toml', {'lazy': v:true})
     call dein#load_toml($VIMDIR . '/rc/filer.toml', {'lazy': v:true})
-    call dein#load_toml($VIMDIR . '/rc/development.toml', {'lazy': v:true})
     call dein#load_toml($VIMDIR . '/rc/misc.toml', {'lazy': v:true})
     call dein#end()
 

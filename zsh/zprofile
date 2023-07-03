@@ -1,0 +1,27 @@
+# dirs
+export DOTFILES_DIR=$HOME/dotfiles
+export ZDIR=${DOTFILES_DIR}/zsh
+source $ZDIR/env/xdg.zsh
+
+# base config
+source $ZDIR/env/brew.zsh
+case ${OSTYPE} in
+  darwin*)
+    source $ZDIR/env/osx.zsh
+    ;;
+  linux*)
+    source $ZDIR/env/linux.zsh
+    ;;
+esac
+
+# Misc.
+source $ZDIR/env/misc.zsh
+source $ZDIR/env/sumo.zsh
+
+# aliases
+source $ZDIR/env/alias.zsh
+
+# auto compile
+if [ ! -f $HOME/.zshenv.zwc -o $HOME/.zshenv -nt $HOME/.zshenv.zwc ]; then
+  zcompile $HOME/.zshenv
+fi

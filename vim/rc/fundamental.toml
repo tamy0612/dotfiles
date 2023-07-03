@@ -42,11 +42,8 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo     = 'itchyny/vim-parenmatch'
-hook_add = '''
-  let g:loaded_matchparen = 1
-'''
-
-[[plugins]]
 repo = 'andymass/vim-matchup'
+hook_add = '''
+  let g:matchup_matchparen_offscreen = {'method': 'popup'}
+'''
 # vim:ft=toml:ts=2:sw=2:fdm=marker:et
