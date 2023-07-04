@@ -35,21 +35,6 @@ let g:signature_help_config = #{
       \ }
 call signature_help#enable()
 
-let g:ale_fixers = {
-      \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \   'c': ['clang-format'],
-      \   'cpp': ['clang-format'],
-      \   'rust': ['rustfmt']
-      \}
-
-if vimrc#executable('rust-analyzer')
-  autocmd User lsp_setup call lsp#register_server({
-        \   'name': 'rust-analyzer',
-        \   'cmd': {serverInfo->['rust-analyzer']},
-        \   'allowlist': ['rust'],
-        \ })
-endif
-
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
   setlocal signcolumn=yes
@@ -63,4 +48,28 @@ augroup enable_lsp
   au!
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
+
+if vimrc#executable('clangd')
+  autocmd User lsp_setup call lsp#register_server({
+        \   'name': 'clangd',
+        \   'cmd': {serverInfo->['clangd', '--background-index', '--clang-tidy']},
+        \   'allowlist': ['c', 'cc', 'cpp', 'cu'],
+        \ })
+endif
+
+if vimrc#executable('rust-analyzer')
+  autocmd User lsp_setup call lsp#register_server({
+        \   'name': 'rust-analyzer',
+        \   'cmd': {serverInfo->['rust-analyzer']},
+        \   'allowlist': ['rust'],
+        \ })
+endif
+
+if vimrc#executable('gopls')
+  autocmd User lsp_setup call lsp#register_server({
+        \   'name': 'gopls',
+        \   'cmd': {serverInfo->['gopls']},
+        \   'allowlist': ['go'],
+        \ })
+endif
 " vim:ft=vim:ts=2:sw=2:fdm=marker

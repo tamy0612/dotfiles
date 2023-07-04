@@ -27,6 +27,13 @@ if [ -d $HOME/.cargo ] ; then
   )
 fi
 
+# Go
+export GOPATH=${XDG_DATA_HOME}/go
+path=(
+    ${GOPATH}/bin(N-/)
+    ${path}
+)
+
 # R
 if type R > /dev/null 2>&1 ; then
   typeset -Tx R_HOME r_home
