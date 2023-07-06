@@ -14,8 +14,7 @@ Plug 'matsui54/denops-popup-preview.vim'
 Plug 'matsui54/denops-signature_help'
 
 Plug 'prabirshrestha/vim-lsp'
-
-Plug 'sbdchd/neoformat'
+Plug 'dense-analysis/ale' " activated only for fixers
 
 Plug 'Shougo/ddc.vim'
 Plug 'Shougo/pum.vim'
@@ -76,7 +75,12 @@ endtry
 
 let s:cwd = fnamemodify(expand('<sfile>'), ':h:p')
 function! s:source(config) abort
-  execute 'source' join([s:cwd, 'rc', a:config], '/')
+  let l:path = join([s:cwd, 'rc', a:config], '/')
+  if filereadable(l:path)
+    execute 'source' l:path
+  else
+    call vimrc#log#error('File `' . l:path . '` is not fouud.')
+  endif
 endfunction
 
 call s:source('lsp.vim')
