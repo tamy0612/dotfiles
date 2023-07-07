@@ -33,6 +33,7 @@ path=(
     ${GOPATH}/bin(N-/)
     ${path}
 )
+export GOENV_GOPATH_PREFIX=${GOPATH}
 
 # R
 if type R > /dev/null 2>&1 ; then
