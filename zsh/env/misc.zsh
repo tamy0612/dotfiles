@@ -31,7 +31,7 @@ fi
 # Go
 export GOENV_GOPATH_PREFIX=${XDG_DATA_HOME}/go
 path=(
-    ${GOPATH}/bin
+    $(go env GOPATH)/bin(N-/)
     ${path}
 )
 
