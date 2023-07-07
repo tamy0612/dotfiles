@@ -14,6 +14,7 @@ if [ -d $HOME/.anyenv ] ; then
     ${anyenv_root}/bin(N-/)
     ${path}
   )
+  eval "$(anyenv init - --no-rehash)"
 fi
 
 # Rust
@@ -28,12 +29,11 @@ if [ -d $HOME/.cargo ] ; then
 fi
 
 # Go
-export GOPATH=${XDG_DATA_HOME}/go
+export GOENV_GOPATH_PREFIX=${XDG_DATA_HOME}/go
 path=(
-    ${GOPATH}/bin(N-/)
+    ${GOPATH}/bin
     ${path}
 )
-export GOENV_GOPATH_PREFIX=${GOPATH}
 
 # R
 if type R > /dev/null 2>&1 ; then
