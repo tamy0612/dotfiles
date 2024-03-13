@@ -7,8 +7,8 @@ fi
 
 
 # ls
-if type exa > /dev/null 2>&1 ; then
-    alias ls='exa --group-directories-first'
+if type eza > /dev/null 2>&1 ; then
+    alias ls='eza --group-directories-first'
     alias la='ls -am'
     alias ll='ls -lThFg -L 2'
     alias lla='ll -muU'
