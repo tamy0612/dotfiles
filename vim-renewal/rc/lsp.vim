@@ -72,4 +72,12 @@ if vimrc#executable('gopls')
         \   'allowlist': ['go'],
         \ })
 endif
+
+if vimrc#executable('typescript-language-server')
+  autocmd User lsp_setup call lsp#register_server({
+        \   'name': 'typescript-language-server',
+        \   'cmd': {serverInfo->['typescript-language-server', '--stdio']},
+        \   'allowlist': ['typescript', 'typescriptreact'],
+        \ })
+endif
 " vim:ft=vim:ts=2:sw=2:fdm=marker
