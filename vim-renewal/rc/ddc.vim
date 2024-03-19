@@ -40,7 +40,7 @@ setglobal completeopt=menu,menuone,preview,noselect
 let s:skk_dir = expand(exists('$XDG_DATA_HOME') ? '$XDG_DATA_HOME/skk' : '~/.local/share/skk')
 let s:skk_jisyo = expand(join([s:skk_dir, "SKK-JISYO.L"], '/'))
 if filereadable(s:skk_jisyo)
-  call skkeleton#config({'globalJisyo': s:skk_jisyo})
+  call skkeleton#config({'globalDictionaries': [s:skk_jisyo]})
   call skkeleton#config({'completionRankFile': expand(join([s:skk_dir, 'rank.json'], '/'))})
   inoremap <C-j> <Plug>(skkeleton-toggle)
   cnoremap <C-j> <Plug>(skkeleton-toggle)
