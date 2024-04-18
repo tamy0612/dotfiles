@@ -52,7 +52,7 @@ augroup END
 if vimrc#executable('clangd')
   autocmd User lsp_setup call lsp#register_server({
         \   'name': 'clangd',
-        \   'cmd': {serverInfo->['clangd', '--background-index', '--clang-tidy']},
+        \   'cmd': {serverInfo->['clangd', '--background-index', '--clang-tidy', '--enable-config']},
         \   'allowlist': ['c', 'cc', 'cpp', 'cu'],
         \ })
 endif
@@ -78,6 +78,14 @@ if vimrc#executable('typescript-language-server')
         \   'name': 'typescript-language-server',
         \   'cmd': {serverInfo->['typescript-language-server', '--stdio']},
         \   'allowlist': ['typescript', 'typescriptreact'],
+        \ })
+endif
+
+if vimrc#executable('flake8')
+  autocmd User lsp_setup call lsp#register_server({
+        \   'name': 'flake8',
+        \   'cmd': {serverInfo->['flake8']},
+        \   'allowlist': ['python'],
         \ })
 endif
 " vim:ft=vim:ts=2:sw=2:fdm=marker

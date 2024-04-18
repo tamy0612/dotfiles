@@ -14,6 +14,7 @@ let g:ale_fixers = {
       \   'javascript': ['prettier'],
       \   'javascriptreact': ['prettier'],
       \   'css': ['prettier'],
+      \   'python': ['black', 'isort'],
       \}
 
 let g:ale_javascript_prettier_use_local_config = 1
