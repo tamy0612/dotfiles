@@ -42,7 +42,7 @@ return {
   opts = {},
   build = ':TSUpdate',
   cond = function()
-    return vim.fn.executable('tree-sitter')
+    return vim.fn.executable('tree-sitter') == 1
   end,
   config = _config,
 }
