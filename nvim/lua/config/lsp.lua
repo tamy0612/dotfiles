@@ -24,7 +24,10 @@ local M = {
     --     }
     --   },
     -- },
-  }
+  },
+  message_formatter = function(diagnostic)
+    return string.format("%s (%s: %s)", diagnostic.message, diagnostic.source, diagnostic.code)
+  end,
 }
 
 function M:servers()
