@@ -1,8 +1,17 @@
-## base
-# set binding
-bindkey -e
+#==========================================================
+# Fundamentals
+#==========================================================
+# Load global settings
+if [ -r /etc/zshenv ]; then
+  source /etc/zshenv
+fi
 
-# cache dir
+# set binding
+bindkey -v
+
+# directories
+export ZDIR=$HOME/dotfiles/zsh
+export ZPLUGINDIR=$ZDIR/plugins
 export ZSH_CACHE_DIR=$XDG_CACHE_HOME/zsh
 [[ ! -d $ZSH_CACHE_DIR ]] && mkdir -p $ZSH_CACHE_DIR
 
@@ -13,7 +22,9 @@ preexec(){}
 precmd(){}
 
 
-## visual settings
+#==========================================================
+# Visual settings
+#==========================================================
 # title
 case "${TERM}" in
   kterm*|xterm*)
@@ -37,8 +48,10 @@ export ZLS_COLORS=$LS_COLORS
 # prompt
 source $ZDIR/rc/prompt.zsh
 
-## options
-# completion
+
+#==========================================================
+# Completion
+#==========================================================
 fpath=(
   $ZPLUGINDIR/zsh-completions/src(N-/)
   $ZDIR/completions(N-/)
@@ -84,6 +97,9 @@ setopt nolistbeep
 bindkey "[Z" reverse-menu-complete
 
 
+#==========================================================
+# Options
+#==========================================================
 # Histry
 HISTFILE=$ZSH_CACHE_DIR/zsh_history
 HISTSIZE=10000
@@ -106,16 +122,12 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end
 
-
 # move
 setopt auto_cd
 setopt auto_pushd
 setopt pushd_ignore_dups
 
-# command alias
-source $ZDIR/rc/command.zsh
-
-# Options
+# misc.
 setopt print_eight_bit
 unsetopt print_exit_value
 setopt correct
@@ -134,16 +146,45 @@ if [ -d $IDF_PATH ]; then
     }
 fi
 
-
 ## load local settings
 [[ -s "$HOME~/.zshrc.mine" ]] && source "$HOME/.zshrc.mine"
-
 
 ## auto compile
 if [ ! -f $HOME/.zshrc.zwc -o $HOME/.zshrc -nt $HOME/.zshrc.zwc ]; then
   zcompile $HOME/.zshrc
 fi
 
+# Activate mise
+eval "$(mise activate --shell zsh)"
 
 # on start tmux
 on_login_tmux_session
+
+#==========================================================
+# Aliases
+#==========================================================
+# editor
+EDITOR='nvim'
+
+# commands
+if type eza > /dev/null 2>&1; then
+  alias ls='eza -F auto --color=auto --group-directories-first'
+  alias ll='eza -lh -F auto --color=auto'
+  alias la='eza -la --color=auto'
+  alias lt='eza -T -L 2 --color=auto'
+  alias lla='eza -lha --color=auto'
+  alias lg='eza -lh -F auto --git --git-ignore --git-repos --color=auto'
+else
+  alias ls='ls --color=auto'
+  alias ll='ls -l'
+  alias la='ls -a'
+  alias lla='ls -la'
+fi
+if type lazygit > /dev/null 2>&1; then
+  alias lg='lazygit'
+fi
+
+# auto ls after cd
+cd() {
+    builtin cd "$@" && ls
+}

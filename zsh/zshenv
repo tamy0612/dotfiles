@@ -1,3 +1,21 @@
+#==========================================================
+# Fundamental
+#==========================================================
+case ${OSTYPE} in
+    darwin*)
+        export LC_ALL=en_US.UTF-8
+        export KCODE=u
+        ;;
+    *)
+        ;;
+esac
+
+# Pre-fetch global path settings
+setopt no_global_rcs
+if [ -x /usr/libexec/path_helper ]; then
+    eval "$(/usr/libexec/path_helper -s)"
+fi
+
 # sudo path
 typeset -xT SUDO_PATH sudo_path
 typeset -U sudo_path
@@ -31,3 +49,108 @@ typeset -U infopath
 infopath=(
     {/usr/local,/usr}/share/info(N-/)
 )
+
+# XDG base directories
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
+export XDG_DATA_HOME=$HOME/.local/share
+
+
+#==========================================================
+# Brew and mise
+#==========================================================
+case ${OSTYPE} in
+    linux*)
+        path=(
+            {$HOME/.linuxbrew,/home/linuxbrew/.linuxbrew}/bin(N-/)
+            ${path}
+        )
+        ;;
+    darwin*)
+        path=(
+            /opt/homebrew/bin(N-/)
+            ${path}
+        )
+        ;;
+esac
+
+# Path settings
+if type brew > /dev/null 2>&1 ; then
+    export HOMEBREW_PREFIX=$(brew --prefix)
+    export HOMEBREW_CELLAR=${HOMEBREW_PREFIX}/Cellar
+    export HOMEBREW_REPOSITORY=${HOMEBREW_PREFIX}
+    path=(
+        ${HOMEBREW_REPOSITORY}/bin
+        ${path}
+    )
+    sudo_path=(
+        ${HOMEBREW_REPOSITORY}/sbin
+        ${sudo_path}
+    )
+    ld_library_path=(
+        ${HOMEBREW_REPOSITORY}/lib
+        ${ld_library_path}
+    )
+    manpath=(
+        ${HOMEBREW_REPOSITORY}/share/man
+        ${manpath}
+    )
+    infopath=(
+        ${HOMEBREW_REPOSITORY}/share/info
+    )
+fi
+
+# Mise shims for non-interactive use
+path=(
+    ${XDG_DATA_HOME}/mise/shims(N-/)
+    ${path}
+)
+
+
+#==========================================================
+# Development
+#==========================================================
+# Rust
+if [ -d $HOME/.cargo ] ; then
+    export CARGO_HOME=$HOME/.cargo
+    export RUSTUP_HOME=$HOME/.rustup
+    path=(
+        $CARGO_HOME/bin(N-/)
+        ${path}
+    )
+fi
+
+# Java
+if [ -x "/usr/libexec/java_home" ] ; then
+    export JAVA_HOME=$(/usr/libexec/java_home)
+fi
+
+
+#==========================================================
+# Utilities
+#==========================================================
+if [ -e $FZF_HOME ] ; then
+    export FZF_HOME=$FZF_HOME
+    export FZF_PLUGIN_DIR=$FZF_PLUGIN_DIR
+    if type rg > /dev/null 2>&1 ; then
+        export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
+        export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+        export FZF_ALT_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    elif type ag > /dev/null 2>&1 ; then
+        export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
+        export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+        export FZF_ALT_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    fi
+    export FZF_DEFAULT_OPTS='
+        --reverse
+        --color info:108,prompt:109,spinner:108,pointer:168,marker:168
+    '
+    export FZF_COMPLETION_OPTS='
+        --preview "(head -n 50 {} || tree {}) 2> /dev/null"
+    '
+fi
+
+
+#==========================================================
+# Experimental
+#==========================================================
