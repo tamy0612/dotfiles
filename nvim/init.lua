@@ -117,7 +117,6 @@ require("lazy").setup({
 				},
 			},
 		},
-		{ "vim-jp/vimdoc-ja" },
 	},
 	install = { colorscheme = { "kanagawa" } },
 	checker = { enabled = false },

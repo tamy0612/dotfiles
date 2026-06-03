@@ -52,8 +52,6 @@ local M = {
 					},
 				},
 			},
-			opts = {},
-			enabled = false,
 		},
 	},
 	build = function()
@@ -66,7 +64,8 @@ local M = {
 			default = {
 				"lsp",
 				"path",
-				"buffer", --[[ "copilot" ]]
+				"buffer",
+				"copilot",
 			},
 			providers = {
 				copilot = {
