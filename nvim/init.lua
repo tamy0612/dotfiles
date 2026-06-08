@@ -19,6 +19,14 @@ vim.opt.rtp:prepend(lazypath)
 
 local global = require("config.global")
 
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+-- disable netrw in favor of nvim-tree
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+--
+vim.g.rehash256 = 1
+
 -- ========================================================
 -- Options
 -- ========================================================
@@ -38,9 +46,11 @@ opt.cursorline = true
 opt.showmode = true
 opt.splitright = true
 opt.splitbelow = true
-
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+opt.whichwrap = "b,s,h,l,<,>,[,],~"
+opt.termguicolors = true
+opt.hidden = true
+opt.incsearch = true
+opt.backspace = "indent,eol,start"
 
 -- ========================================================
 -- Setup plugins
@@ -57,7 +67,96 @@ require("lazy").setup({
 		{ import = "plugins.completion" },
 		-- Formatter
 		{ import = "plugins.fmt" },
+		-- Filer
+		{
+			"nvim-tree/nvim-tree.lua",
+			opts = {
+				sort = {
+					sorter = "case_sensitive",
+				},
+				view = {
+					width = 30,
+				},
+				renderer = {
+					group_empty = true,
+					icons = { show = { git = true } },
+				},
+				filters = {
+					dotfiles = true,
+				},
+			},
+			config = function(_, opts)
+				require("nvim-tree").setup(opts)
+				local map = vim.keymap.set
+				map("n", "<C-f>", "<cmd>NvimTreeFocus<CR>", { desc = "Focus nvim-tree", silent = true })
+				-- Open nvim-tree automatically
+				vim.api.nvim_create_autocmd("VimEnter", {
+					callback = function()
+						require("nvim-tree.api").tree.toggle({ focus = false })
+					end,
+				})
+				-- Close nvim-tree when it's the last buffer
+				vim.api.nvim_create_autocmd("BufEnter", {
+					nested = true,
+					callback = function()
+						local wins = vim.api.nvim_tabpage_list_wins(0)
+						local non_tree = vim.tbl_filter(function(win)
+							return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= "NvimTree"
+						end, wins)
+						if #non_tree == 0 then
+							vim.cmd("quit")
+						end
+					end,
+				})
+				-- Let `"q` be `qall` in nvim-tree
+				vim.api.nvim_create_autocmd("QuitPre", {
+					callback = function()
+						if vim.bo.filetype ~= "NvimTree" then
+							return
+						end
+						local real_bufs = vim.tbl_filter(function(buf)
+							return vim.api.nvim_buf_is_valid(buf)
+								and vim.bo[buf].buflisted
+								and vim.api.nvim_buf_get_name(buf) ~= ""
+								and vim.bo[buf].filetype ~= "NvimTree"
+						end, vim.api.nvim_list_bufs())
+						if #real_bufs == 0 then
+							vim.schedule(function()
+								vim.cmd("qall")
+							end)
+						end
+					end,
+				})
+			end,
+		},
+		-- File explorer
+		{
+			"nvim-telescope/telescope.nvim",
+			dependencies = {
+				"nvim-lua/plenary.nvim",
+				{
+					"nvim-telescope/telescope-fzf-native.nvim",
+					enable = vim.fn.executable("fzf") == 1,
+					build = "make",
+				},
+			},
+			cond = vim.fn.executable("rg") == 1 and vim.fn.executable("fd") == 1,
+			opts = {},
+			config = function(_, opts)
+				require("telescope").setup(opts)
+				local builtin = require("telescope.builtin")
+				local map = vim.keymap.set
+				map("n", "<Leader>ff", builtin.find_files, { desc = "Telescope find files" })
+				map("n", "<Leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
+				map("n", "<Leader>fb", builtin.buffers, { desc = "Telescope buffers" })
+				map("n", "<Leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
+			end,
+		},
 		-- Utilities
+		{
+			"FotiadisM/tabset.nvim",
+			opts = require("config.tabs"),
+		},
 		{
 			"windwp/nvim-autopairs",
 			lazy = true,
@@ -127,6 +226,7 @@ require("lazy").setup({
 -- ========================================================
 local map = vim.keymap.set
 
+map("n", "<Esc><Esc>", ":nohlsearch<CR>", { desc = "Clear search highlight", silent = true })
 for _, d in ipairs({ "h", "j", "k", "l" }) do
 	-- visually consistent move
 	map("n", string.format("%s", d), string.format("g%s", d))
