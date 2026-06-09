@@ -156,6 +156,7 @@ fi
 
 # Activate mise
 eval "$(mise activate --shell zsh)"
+eval "$(mise completion zsh)"
 
 # on start tmux
 on_login_tmux_session

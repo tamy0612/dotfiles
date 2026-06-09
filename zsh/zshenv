@@ -57,7 +57,7 @@ export XDG_DATA_HOME=$HOME/.local/share
 
 
 #==========================================================
-# Brew and mise
+# Third-party
 #==========================================================
 case ${OSTYPE} in
     linux*)
@@ -100,9 +100,8 @@ if type brew > /dev/null 2>&1 ; then
     )
 fi
 
-# Mise shims for non-interactive use
 path=(
-    ${XDG_DATA_HOME}/mise/shims(N-/)
+    ${HOME}/.local/bin(N-/)  # register local executables
     ${path}
 )
 
